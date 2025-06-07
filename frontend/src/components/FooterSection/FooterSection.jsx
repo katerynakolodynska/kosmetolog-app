@@ -10,10 +10,10 @@ import {
   FaInstagram,
 } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import s from './Footer.module.css';
+import s from './FooterSection.module.css';
 import { Link } from 'react-router-dom';
 
-const Footer = () => {
+const FooterSection = () => {
   const { t } = useTranslation();
   const destination = encodeURIComponent('Al. Jerozolimskie 54, 00-024 Warsaw');
   const mapsLink = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;

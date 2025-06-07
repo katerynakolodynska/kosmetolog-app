@@ -8,7 +8,7 @@ import Services from './pages/Services/Services.jsx';
 import Booking from './pages/Booking/Booking.jsx';
 import Gallery from './pages/Gallery/Gallery.jsx';
 import Contact from './pages/Contact/Contact.jsx';
-import Footer from './components/footer/Footer.jsx';
+import FooterSection from './components/FooterSection/FooterSection.jsx';
 import Opinion from './pages/Opinion/Opinion.jsx';
 // import ScrollToTop from './components/ScrollToTop';
 
@@ -27,7 +27,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      {location.pathname !== '/contact' && <Footer />}
+      {location.pathname !== '/contact' && <FooterSection />}
     </>
   );
 }
