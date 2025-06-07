@@ -1,9 +1,9 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-import pl from "./locales/pl/transaction.json";
-import uk from "./locales/uk/transaction.json";
-import en from "./locales/en/transaction.json";
+import pl from './locales/pl/transaction.json';
+import uk from './locales/uk/transaction.json';
+import en from './locales/en/transaction.json';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -11,7 +11,7 @@ i18n.use(initReactI18next).init({
     uk: { translation: uk },
     en: { translation: en },
   },
-  lng: "pl",
+  lng: 'pl',
   interpolation: {
     escapeValue: false,
   },

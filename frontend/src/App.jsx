@@ -10,7 +10,6 @@ import Gallery from './pages/Gallery/Gallery.jsx';
 import Contact from './pages/Contact/Contact.jsx';
 import FooterSection from './components/FooterSection/FooterSection.jsx';
 import Opinion from './pages/Opinion/Opinion.jsx';
-// import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const location = useLocation();
