@@ -1,0 +1,142 @@
+{
+  "welcome": "Welcome to the beautician",
+  "book": "Book an appointment",
+  "services": "Services",
+  "gallery": "Gallery",
+  "booking": "Booking",
+  "home": "Home",
+  "contact": "Contact",
+  "address": "Address",
+  "phone": "Phone",
+  "hours": "Working hours",
+  "introText": "Step into a space where beauty meets professionalism. Our salon combines elegance, advanced skin care techniques, and a personalized approach tailored to your unique needs. Let yourself unwind in a calm, luxurious atmosphere where every detail is crafted to make you feel confident, cared for, and truly radiant.",
+  "aboutTitle": "Our cosmetologists",
+  "aboutText": "My name is Natalia, I am a practicing cosmetologist with over 7 years of experience. During this time, I have completed over 15 advanced training courses, received diplomas in the field of aesthetic medicine and work with the most modern skin care techniques. My goal is to give my clients self-confidence and natural beauty without exaggeration.",
+  "boss": "About the owner",
+  "specialistIntro": "Our salon is home to a team of experienced specialists united by one goal — to provide you with the highest level of care in beauty and skincare. Each of us has our own expertise and style, but together we create a unique atmosphere of professionalism, aesthetics, and compassion.",
+  "specialist1": "Nataliia — lead cosmetologist with 7 years of experience, specializing in anti-age care and personalized treatments.",
+  "specialist2": "Olena — certified massage therapist with a medical background, expert in relaxation and therapeutic techniques.",
+  "specialist3": "Iryna — lash and brow master working exclusively with premium materials.",
+  "specialist4": "Maria — manicure and hand SPA specialist with an eye for artistic detail.",
+  "readMore": "Read more",
+  "collapse": "Collapse",
+  "servicesTitle": "Our Services",
+  "filters": {
+    "all": "All",
+    "massage": "Massage",
+    "cleaning": "Cleaning",
+    "injection": "Injection"
+  },
+  "search": "Search",
+  "servicesList": {
+    "cleaning": {
+      "title": "Skin cleansing",
+      "description": "Facial cleansing"
+    },
+    "massage": {
+      "title": "Facial massage",
+      "description": "Relaxing facial massage"
+    },
+    "biorevitalization": {
+      "title": "Biorevitalization",
+      "description": "Skin rejuvenation with hyaluronic acid"
+    },
+    "browsLashes": {
+      "title": "Brows & Lashes",
+      "description": "Eyebrow and eyelash shaping"
+    },
+    "mandelicPeeling": {
+      "title": "Mandelic peeling",
+      "description": "Gentle mandelic acid peeling"
+    },
+    "ultrasound": {
+      "title": "Ultrasound cleansing",
+      "description": "Ultrasound facial cleansing"
+    },
+    "mesotherapy": {
+      "title": "Mesotherapy",
+      "description": "Mesotherapy for deep skin nourishment"
+    },
+    "problemSkin": {
+      "title": "Problem skin care",
+      "description": "Care for problematic skin"
+    },
+    "acneTherapy": {
+      "title": "Acne therapy",
+      "description": "Acne treatment program"
+    },
+    "spaFace": {
+      "title": "Face SPA",
+      "description": "Luxury SPA face ritual"
+    },
+    "lipFilling": {
+      "title": "Lip filling",
+      "description": "Lip volume enhancement"
+    },
+    "botox": {
+      "title": "Botox",
+      "description": "Botox injections"
+    },
+    "faceMask": {
+      "title": "Face mask",
+      "description": "Nourishing face mask"
+    },
+    "bodyMassage": {
+      "title": "Body massage",
+      "description": "Full body relaxing massage"
+    },
+    "neckMassage": {
+      "title": "Neck massage",
+      "description": "Neck and shoulder massage"
+    },
+    "chemicalPeeling": {
+      "title": "Chemical peeling",
+      "description": "Deep chemical peeling"
+    },
+    "microneedling": {
+      "title": "Microneedling",
+      "description": "Microneedling for skin regeneration"
+    },
+    "vitaminC": {
+      "title": "Vitamin C infusion therapy",
+      "description": "Vitamin c treatment."
+    },
+    "oxygenTherapy": {
+      "title": "Oxygen therapy",
+      "description": "Oxygen therapy for glow"
+    },
+    "hyaluronicMask": {
+      "title": "Hyaluronic mask",
+      "description": "Hyaluronic moisturizing mask"
+    }
+  },
+  "selectService": "Select a procedure",
+  "selectDate": "Select a date",
+  "selectTime": "Select time",
+  "yourName": "Your name",
+  "yourPhone": "Phone number",
+  "confirm": "Confirm reservation",
+  "availableSlots": "Available time slots for 30 days",
+  "weekOf": "Week of",
+  "weekdays": {
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat"
+  },
+  "pleaseFillAllRequiredFields": "Please fill in all required fields.",
+  "pleaseEnterValidPhoneNumber": "Please enter a complete and valid phone number.",
+  "bookingConfirmedSuccess": "Your booking has been successfully confirmed!",
+  "selectServicePlaceholder": "Choose a service",
+  "yourNamePlaceholder": "Enter your name here",
+  "before": "Before",
+  "after": "After",
+  "opinie": "Customer Reviews",
+  "youName": "Your Name",
+  "yourOpinion": "Your Review",
+  "send": "Send",
+  "showMoreOpinions": "Show more opinions"
+}

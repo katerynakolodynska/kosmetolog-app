@@ -1,0 +1,60 @@
+.contactSection {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(to bottom right, #fff0f5, #ffffff);
+  text-align: center;
+}
+
+.title {
+  font-size: 2.4rem;
+  color: #b12f74;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.infoBlock {
+  font-size: 1.1rem;
+  text-align: left;
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.infoBlock svg {
+  margin-right: 0.5rem;
+  color: #b12f74;
+}
+
+.infoBlock a {
+  color: #b12f74;
+  text-decoration: none;
+}
+
+.infoBlock a:hover {
+  text-decoration: underline;
+}
+
+.ctaWrapper {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoBlock {
+    text-align: left;
+  }
+}

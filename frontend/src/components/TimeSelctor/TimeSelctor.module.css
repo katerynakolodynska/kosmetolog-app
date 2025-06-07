@@ -1,0 +1,30 @@
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.timeBtn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #b12f74;
+  border-radius: 0.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.timeBtn:hover:not(:disabled) {
+  background-color: #fce4ec;
+}
+
+.timeBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.selectedTime {
+  background-color: #b12f74;
+  color: white;
+}

@@ -1,0 +1,35 @@
+import { Route, Routes } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+import './App.css';
+import Header from './components/Header/Header.jsx';
+import Home from './pages/Home/Home.jsx';
+import Services from './pages/Services/Services.jsx';
+import Booking from './pages/Booking/Booking.jsx';
+import Gallery from './pages/Gallery/Gallery.jsx';
+import Contact from './pages/Contact/Contact.jsx';
+import Footer from './components/footer/Footer.jsx';
+import Opinion from './pages/Opinion/Opinion.jsx';
+// import ScrollToTop from './components/ScrollToTop';
+
+function App() {
+  const location = useLocation();
+  return (
+    <>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/opinion" element={<Opinion />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      {location.pathname !== '/contact' && <Footer />}
+    </>
+  );
+}
+
+export default App;

@@ -1,0 +1,24 @@
+.weekHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #b12f74;
+}
+
+.weekNav {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #b12f74;
+  padding: 0.5rem;
+}
+
+.weekNav:focus,
+.weekNav:focus-visible,
+.weekNav:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}

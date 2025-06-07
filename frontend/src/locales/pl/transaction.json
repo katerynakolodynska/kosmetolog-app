@@ -1,0 +1,142 @@
+{
+  "welcome": "Witamy u kosmetologa",
+  "book": "Zarezerwuj wizytę",
+  "services": "Usługi",
+  "gallery": "Galeria",
+  "booking": "Rezerwacja",
+  "home": "Strona główna",
+  "contact": "Kontact",
+  "address": "Adres",
+  "phone": "Telefon",
+  "hours": "Godziny pracy",
+  "introText": "Wejdź do miejsca, gdzie piękno spotyka się z profesjonalizmem. Nasz salon łączy elegancję, nowoczesne techniki pielęgnacji skóry oraz indywidualne podejście dostosowane do Twoich potrzeb. Odpocznij w spokojnej, luksusowej atmosferze, w której każdy szczegół został stworzony, byś poczuła się pewnie, zadbana i naprawdę promienna.",
+  "aboutTitle": "Nasi kosmetolodzy",
+  "aboutText": "Nazywam się Natalia, jestem praktykującą kosmetolożką z ponad 7-letnim doświadczeniem. W tym czasie ukończyłam ponad 15 zaawansowanych kursów szkoleniowych, otrzymałam dyplomy z zakresu medycyny estetycznej i pracuję z najnowocześniejszymi technikami pielęgnacji skóry. Moim celem jest zapewnienie moim klientom pewności siebie i naturalnego piękna bez przesady.",
+  "boss": "O właścicielki",
+  "specialistIntro": "W naszym salonie pracuje zespół doświadczonych specjalistów, których łączy wspólny cel — zapewnić Ci najwyższy poziom usług w dziedzinie urody i pielęgnacji. Każdy z nas ma swoją ekspertyzę i styl, ale razem tworzymy wyjątkową atmosferę troski, estetyki i profesjonalizmu.",
+  "specialist1": "Natalia — główna kosmetolożka z 7-letnim doświadczeniem, specjalistka od pielęgnacji anti-age i indywidualnych terapii.",
+  "specialist2": "Olena — masażystka z wykształceniem medycznym, mistrzyni technik relaksacyjnych i terapeutycznych.",
+  "specialist3": "Iryna — specjalistka od brwi i rzęs, pracuje wyłącznie na materiałach premium.",
+  "specialist4": "Maria — ekspertka manicure i SPA dłoni, z artystycznym podejściem do detali.",
+  "readMore": "Czytaj więcej",
+  "collapse": "Zwiń",
+  "servicesTitle": "Nasze Usługi",
+  "filters": {
+    "all": "Wszystko",
+    "massage": "Masaż",
+    "cleaning": "Peeling",
+    "injection": "Zastrzyk"
+  },
+  "search": "Szukaj",
+  "servicesList": {
+    "cleaning": {
+      "title": "Peeling skóry",
+      "description": "Oczyszczanie twarzy"
+    },
+    "massage": {
+      "title": "Masaż twarzy",
+      "description": "Relaksujący masaż twarzy"
+    },
+    "biorevitalization": {
+      "title": "Biorewitalizacja",
+      "description": "Odmładzanie skóry kwasem hialuronowym"
+    },
+    "browsLashes": {
+      "title": "Brwi i rzęsy",
+      "description": "Kształtowanie brwi i rzęs"
+    },
+    "mandelicPeeling": {
+      "title": "Peeling migdałowy",
+      "description": "Delikatny peeling kwasem migdałowym"
+    },
+    "ultrasound": {
+      "title": "Czyszczenie ultradźwiękami",
+      "description": "Oczyszczanie twarzy ultradźwiękami"
+    },
+    "mesotherapy": {
+      "title": "Mezoterapia",
+      "description": "Mezoterapia do głębokiego odżywienia skóry"
+    },
+    "problemSkin": {
+      "title": "Pielęgnacja skóry problematycznej",
+      "description": "Pielęgnacja skóry problematycznej"
+    },
+    "acneTherapy": {
+      "title": "Terapia przeciwtrądzikowa",
+      "description": "Program leczenia trądziku"
+    },
+    "spaFace": {
+      "title": "SPA dla twarzy",
+      "description": "Luksusowy rytuał SPA na twarz"
+    },
+    "lipFilling": {
+      "title": "Powiększanie ust",
+      "description": "Powiększanie objętości ust"
+    },
+    "botox": {
+      "title": "Botoks",
+      "description": "Wstrzyknięcia botoksu"
+    },
+    "faceMask": {
+      "title": "Maska do twarzy",
+      "description": "Odżywcza maska ​​na twarz"
+    },
+    "bodyMassage": {
+      "title": "Masaż ciała",
+      "description": "Relaksujący masaż całego ciała"
+    },
+    "neckMassage": {
+      "title": "Masaż szyi",
+      "description": "Masaż szyi i ramion"
+    },
+    "chemicalPeeling": {
+      "title": "Peeling chemiczny",
+      "description": "Głęboki peeling chemiczny"
+    },
+    "microneedling": {
+      "title": "Mikronakłuwanie",
+      "description": "Mikronakłuwanie w celu regeneracji skóry"
+    },
+    "vitaminC": {
+      "title": "Witamina C",
+      "description": "Zabieg witamina c."
+    },
+    "oxygenTherapy": {
+      "title": "Terapia tlenowa",
+      "description": "Tlenoterapia dla blasku"
+    },
+    "hyaluronicMask": {
+      "title": "Maska hialuronowa",
+      "description": "Hyaluronowa maska ​​nawilżająca"
+    }
+  },
+  "selectService": "Wybierz procedurę",
+  "selectDate": "Wybierz datę",
+  "selectTime": "Wybierz godzinę",
+  "yourName": "Twoje imię",
+  "yourPhone": "Numer telefonu",
+  "confirm": "Potwierdź rezerwację",
+  "availableSlots": "Dostępne przedziały czasowe na 30 dni",
+  "weekOf": "Tydzień",
+  "weekdays": {
+    "sun": "Nd",
+    "mon": "Pn",
+    "tue": "Wt",
+    "wed": "Śr",
+    "thu": "Cz",
+    "fri": "Pt",
+    "sat": "Sb"
+  },
+  "pleaseFillAllRequiredFields": "Wypełnij wszystkie wymagane pola.",
+  "pleaseEnterValidPhoneNumber": "Wprowadź pełny i prawidłowy numer telefonu.",
+  "bookingConfirmedSuccess": "Twoja rezerwacja została pomyślnie potwierdzona!",
+  "selectServicePlaceholder": "Wybierz usługę",
+  "yourNamePlaceholder": "Wprowadź tutaj swoje imię",
+  "before": "Przed",
+  "after": "Po",
+  "opinie": "Opinie klientów",
+  "youName": "Twoje imię",
+  "yourOpinion": "Twoja opinia",
+  "send": "Wyślij",
+  "showMoreOpinions": "Pokaż więcej opinii"
+}
