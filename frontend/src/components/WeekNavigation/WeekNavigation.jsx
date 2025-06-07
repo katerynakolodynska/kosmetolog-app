@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './WeekNavigation.module.css';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const WeekNavigation = ({ currentWeekStart, onPrevWeek, onNextWeek }) => {
   const { t } = useTranslation();
@@ -8,13 +9,13 @@ const WeekNavigation = ({ currentWeekStart, onPrevWeek, onNextWeek }) => {
   return (
     <div className={styles.weekHeader}>
       <button onClick={onPrevWeek} className={styles.weekNav} type="button">
-        &larr;
+        <FaArrowLeft />
       </button>
       <span>
         {t('weekOf')} {currentWeekStart.toLocaleDateString()}
       </span>
       <button onClick={onNextWeek} className={styles.weekNav} type="button">
-        &rarr;
+        <FaArrowRight />
       </button>
     </div>
   );

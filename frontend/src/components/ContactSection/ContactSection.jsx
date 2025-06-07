@@ -40,7 +40,10 @@ const ContactSection = () => {
             </a>
           </p>
           <p>
-            <FaClock /> {t('hours')}: Пн–Пт 10:00–18:00
+            <FaClock /> {t('hours')}:{' '}
+            <span style={{ color: '#b12f74' }}>
+              {t('weekdays.mon')}-{t('weekdays.fri')} 9:00–19:00
+            </span>
           </p>
 
           <div className={s.ctaWrapper}>

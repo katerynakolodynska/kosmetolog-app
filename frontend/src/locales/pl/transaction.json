@@ -138,5 +138,8 @@
   "youName": "Twoje imię",
   "yourOpinion": "Twoja opinia",
   "send": "Wyślij",
-  "showMoreOpinions": "Pokaż więcej opinii"
+  "showMoreOpinions": "Pokaż więcej opinii",
+  "averageRating": "Średnia ocena",
+  "reviewsCount": "recenzje",
+  "uploadPhoto": "Prześlij zdjęcie"
 }

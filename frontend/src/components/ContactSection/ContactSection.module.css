@@ -1,5 +1,5 @@
 .contactSection {
-  padding: 4rem 1.5rem;
+  padding: 1rem 1.5rem;
   background: linear-gradient(to bottom right, #fff0f5, #ffffff);
   text-align: center;
 }
@@ -8,7 +8,7 @@
   font-size: 2.4rem;
   color: #b12f74;
   font-weight: 800;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   font-family: 'Playfair Display', serif;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .ctaWrapper {
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   display: flex;
   justify-content: center;
 }

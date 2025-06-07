@@ -1,16 +1,14 @@
 import React from 'react';
 import s from './TimeSelctor.module.css';
 import { useTranslation } from 'react-i18next';
+import { parse, isAfter, isSameDay } from 'date-fns';
 
 const TimeSelector = ({ selectedDate, availableTimes, selectedTime, setSelectedTime, setFormError }) => {
   const { t } = useTranslation();
+  if (!selectedDate) return null;
+
   const now = new Date();
-
-  const selectedDateObject = new Date(selectedDate + 'T00:00:00');
-  const todayOnlyDate = new Date();
-  todayOnlyDate.setHours(0, 0, 0, 0);
-
-  const isSelectedDateToday = selectedDateObject.getTime() === todayOnlyDate.getTime();
+  const selectedDateObj = new Date(selectedDate); // Без парсингу часу
 
   return (
     <div className={s.timeSelect}>
@@ -18,15 +16,11 @@ const TimeSelector = ({ selectedDate, availableTimes, selectedTime, setSelectedT
       <div className={s.timeGrid}>
         {availableTimes.map((time) => {
           const [hour, minute] = time.split(':').map(Number);
+          const bookingTime = new Date(selectedDateObj);
+          bookingTime.setHours(hour, minute, 0, 0);
 
-          const bookingTimeCandidate = new Date(selectedDateObject);
-          bookingTimeCandidate.setHours(hour, minute, 0, 0);
-
-          let isDisabled = false;
-
-          if (isSelectedDateToday) {
-            isDisabled = bookingTimeCandidate.getTime() <= now.getTime();
-          }
+          const isTodaySelected = isSameDay(selectedDateObj, now);
+          const isDisabled = isTodaySelected ? bookingTime.getTime() <= now.getTime() : false;
 
           return (
             <button

@@ -26,31 +26,34 @@ const FooterSection = () => {
             <Link to="/">{t('home')}</Link>
             <Link to="/services">{t('services')}</Link>
             <Link to="/gallery">{t('gallery')}</Link>
-            <Link to="/booking">{t('booking')}</Link>
             <Link to="/opinion">{t('opinie')}</Link>
+            <Link to="/booking">{t('booking')}</Link>
             <Link to="/contact">{t('contact')}</Link>
           </nav>
         </div>
 
         <div className={s.center}>
           <div className={s.contacts}>
-            <p>
+            <p className={s.par}>
               <FaMapMarkerAlt /> {t('address')}:{' '}
               <a href={mapsLink} target="_blank" rel="noopener noreferrer">
                 Al. Jerozolimskie 54, 00-024 Warszawa
               </a>
             </p>
-            <p>
+            <p className={s.par}>
               <FaPhone /> {t('phone')}: <a href="tel:+48123456789">+48 123 456 789</a>
             </p>
-            <p>
+            <p className={s.par}>
               <FaEnvelope /> Email: <a href="mailto:beauty@example.com">beauty@example.com</a>
             </p>
           </div>
         </div>
 
         <div className={s.right}>
-          <div className={s.logo}>Kosmetolog Nataliia</div>
+          <div className={s.logo}>
+            <img src="/app.svg" alt="Logo" className={s.logoIcon} />
+            <span>Kosmetolog Nataliia</span>
+          </div>
 
           <div className={s.socials}>
             <a href="https://t.me/fakecosmetolog" target="_blank" rel="noreferrer">

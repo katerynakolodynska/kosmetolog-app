@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './WeekDays.module.css';
 import { useTranslation } from 'react-i18next';
+import { isSameDay, isBefore, format, startOfDay, parse, isAfter } from 'date-fns';
 
 const weekdaysKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -14,31 +15,30 @@ const WeekDays = ({
   setFormError,
 }) => {
   const { t } = useTranslation();
+  const now = new Date();
 
   return (
     <div className={s.week}>
       {weekDays.map((date, idx) => {
-        const dateStr = date.toISOString().split('T')[0];
-        const label = t(`weekdays.${weekdaysKeys[date.getDay()]}`);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const formattedDate = `${day}.${month}`;
+        const dayIndex = date.getDay();
+        const dateStr = format(date, 'yyyy-MM-dd');
+        const label = t(`weekdays.${weekdaysKeys[dayIndex]}`);
+        const formattedDate = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}`;
 
-        const now = new Date();
-        const isToday = date.toDateString() === now.toDateString();
-        const isPastDate = date < todayOnlyDate;
+        const isSunday = dayIndex === 0;
 
-        let isDisabled = isPastDate;
+        const isPast = isBefore(startOfDay(date), startOfDay(now));
 
-        if (isToday) {
+        let isDisabled = isSunday || isPast;
+
+        if (!isDisabled && isSameDay(date, now)) {
           const hasFutureTime = availableTimes.some((time) => {
-            const [h, m] = time.split(':').map(Number);
-            const future = new Date(date);
-            future.setHours(h, m, 0, 0);
-            return future > now;
+            const [hour, minute] = time.split(':').map(Number);
+            const futureTime = new Date(date);
+            futureTime.setHours(hour, minute, 0, 0);
+            return futureTime.getTime() > now.getTime();
           });
 
-          // якщо немає жодного часу в майбутньому, то блокуємо
           isDisabled = !hasFutureTime;
         }
 

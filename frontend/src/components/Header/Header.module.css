@@ -12,11 +12,18 @@
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: 800;
-  color: #b12f74;
-  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   font-family: 'Playfair Display', serif;
+  color: #8b2e5c;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
 }
 
 .nav {

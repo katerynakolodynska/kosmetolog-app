@@ -1,5 +1,5 @@
 .opinieSection {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   background: linear-gradient(to bottom, #fdf0f4, #ffffff);
   font-family: 'Segoe UI', sans-serif;
   color: #444;
@@ -14,9 +14,39 @@
   font-family: 'Playfair Display', serif;
 }
 
+.summary {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #8b2e5c;
+}
+
+.summaryStar {
+  color: #ffc107;
+  margin: 0 0.4rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.starsDisplay {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.filledStar {
+  color: #ffc107;
+}
+
+.emptyStar {
+  color: #ccc;
+}
+
 .form {
   max-width: 600px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -62,6 +92,7 @@
 .textarea {
   resize: vertical;
   min-height: 100px;
+  margin-bottom: 1rem;
 }
 
 .fileInput {
@@ -105,7 +136,7 @@
 
 .photo {
   margin-top: 0.7rem;
-  max-width: 100px;
+  max-width: 140px;
   height: auto;
   border-radius: 0.5rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
@@ -142,7 +173,44 @@
 
 .loadMore {
   text-align: center;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+}
+
+.imagePreviewContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.imagePreview {
+  position: relative;
+}
+
+.imagePreview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.removeImage {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #b12f74;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.7rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -155,4 +223,76 @@
   .reviews {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.uploadWrapper {
+  text-align: center;
+  margin-top: -0.3rem;
+}
+
+.customUploadButton {
+  background-color: #fff;
+  border: 2px dashed #b12f74;
+  padding: 0.7rem 1.5rem;
+  color: #b12f74;
+  border-radius: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', sans-serif;
+  margin-top: 2rem;
+}
+
+.customUploadButton:hover {
+  background-color: #fdf0f4;
+}
+
+.fileInput {
+  display: none;
+}
+
+.preview {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  /* margin-top: 1rem; */
+  flex-wrap: wrap;
+}
+
+.previewItem {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.previewItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.removeBtn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #b12f74;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+  margin-top: 0;
 }

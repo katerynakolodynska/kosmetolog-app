@@ -138,5 +138,8 @@
   "youName": "Ваше ім’я",
   "yourOpinion": "Ваш відгук",
   "send": "Надіслати",
-  "showMoreOpinions": "Показати більше відгуків"
+  "averageRating": "Середній рейтинг",
+  "reviewsCount": "відгуків",
+  "showMoreOpinions": "Показати більше відгуків",
+  "uploadPhoto": "Завантажити фото"
 }

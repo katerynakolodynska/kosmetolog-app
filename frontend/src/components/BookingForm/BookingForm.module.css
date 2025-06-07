@@ -36,7 +36,7 @@ button[type='submit'] {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 button[type='submit']:hover {

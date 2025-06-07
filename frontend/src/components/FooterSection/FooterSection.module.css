@@ -12,11 +12,10 @@
 .footerGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* gap: 2rem; */
   justify-content: space-between;
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
 }
 
 .left,
@@ -24,7 +23,6 @@
 .right {
   display: flex;
   flex-direction: column;
-  /* gap: 0.5rem; */
 }
 
 .center {
@@ -34,21 +32,26 @@
 
 .right {
   align-items: flex-end;
-  gap: 3rem;
+  gap: 4rem;
 }
 
 .logo {
+  display: flex;
+  justify-content: flex-end;
   font-size: 1.6rem;
   font-weight: bold;
   color: #8b2e5c;
   font-family: 'Playfair Display', serif;
-  margin-bottom: 0.5rem;
+}
+
+.logoIcon {
+  width: 28px;
+  height: 28px;
 }
 
 .navLinks {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
 }
 
 .navLinks a {
@@ -62,9 +65,11 @@
   color: #b12f74;
   text-decoration: underline;
 }
-.contacts {
-  gap: 2rem;
+
+.par {
+  margin-bottom: 0.5rem;
 }
+
 .contacts p,
 .contacts a {
   font-size: 0.95rem;
@@ -75,6 +80,14 @@
 .contacts svg {
   margin-right: 0.4rem;
   color: #8b2e5c;
+}
+
+.contacts a:hover {
+  text-decoration: underline;
+}
+.contacts a {
+  color: #b12f74;
+  text-decoration: none;
 }
 
 .socials {
@@ -111,27 +124,81 @@
   text-align: center;
 }
 
+@media (min-width: 767px) {
+  .par {
+    margin-bottom: 0;
+  }
+  .right {
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 767px) {
   .footerGrid {
-    grid-template-columns: 1fr;
-    text-align: center;
-    /* gap: 2rem; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
   }
 
-  .left,
-  .center,
+  .left {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: flex-start;
+  }
+
   .right {
-    align-items: center;
-    gap: 0.5rem;
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    text-align: right;
+
+    gap: 1.8rem;
+  }
+
+  .logo {
+    margin-bottom: 0.2rem;
+    justify-content: center;
+  }
+
+  .logoIcon {
+    width: 22px;
+    height: 22px;
   }
 
   .center {
-    margin-top: 0.5rem;
+    width: 100%;
+    order: 3;
+    margin-top: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   .socials {
     justify-content: center;
-    margin: auto;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .contacts {
+    gap: 0.4rem;
+  }
+
+  .bottom {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #999;
+    text-align: center;
+  }
+
+  .socials a {
+    width: 22px;
+    height: 22px;
   }
 }
 

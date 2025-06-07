@@ -138,5 +138,8 @@
   "youName": "Your Name",
   "yourOpinion": "Your Review",
   "send": "Send",
-  "showMoreOpinions": "Show more opinions"
+  "showMoreOpinions": "Show more opinions",
+  "averageRating": "Average rating",
+  "reviewsCount": "reviews",
+  "uploadPhoto": "Download photo"
 }

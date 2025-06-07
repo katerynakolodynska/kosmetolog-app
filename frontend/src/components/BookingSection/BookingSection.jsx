@@ -1,20 +1,48 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { format, addDays, startOfWeek, isBefore, parse } from 'date-fns';
+
 import s from './BookingSection.module.css';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import { allServices } from '../servicesData';
 import BookingForm from '../BookingForm/BookingForm';
 import WeekNavigation from '../WeekNavigation/WeekNavigation';
 import TimeSelector from '../TimeSelctor/TimeSelctor';
 import WeekDays from '../WeekDays/WeekDays';
 
+const generateTimes = () => {
+  const times = [];
+  for (let h = 9; h <= 18; h++) {
+    const hour = String(h).padStart(2, '0');
+    times.push(`${hour}:00`);
+  }
+  return times;
+};
+
+const getInitialWeekStart = () => {
+  const now = new Date();
+  const todayDay = now.getDay(); // 6 = Saturday
+
+  const futureTimes = generateTimes().filter((time) => {
+    const [h, m] = time.split(':').map(Number);
+    const t = new Date();
+    t.setHours(h, m, 0, 0);
+    return t > now;
+  });
+
+  const isSaturdayEvening = todayDay === 6 && futureTimes.length === 0;
+
+  return isSaturdayEvening ? startOfWeek(addDays(now, 7), { weekStartsOn: 1 }) : startOfWeek(now, { weekStartsOn: 1 });
+};
+
 const BookingSection = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const preselectedService = queryParams.get('service');
-  const [selectedService, setSelectedService] = useState(preselectedService || '');
 
+  const [selectedService, setSelectedService] = useState(preselectedService || '');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [name, setName] = useState('');
@@ -22,123 +50,28 @@ const BookingSection = () => {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
-  const todayOnlyDate = new Date();
-  todayOnlyDate.setHours(0, 0, 0, 0);
-
-  const generateTimes = useCallback(() => {
-    const times = [];
-    for (let h = 9; h <= 17; h++) {
-      const hour = String(h).padStart(2, '0');
-      times.push(`${hour}:00`);
-    }
-    return times;
-  }, []);
-
-  const weekdaysKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-
-  const [currentWeekStart, setCurrentWeekStart] = useState(() => {
-    const startOfWeek = new Date();
-    const day = startOfWeek.getDay();
-    const diff = day === 0 ? -6 : 1 - day;
-    startOfWeek.setDate(startOfWeek.getDate() + diff);
-    startOfWeek.setHours(0, 0, 0, 0);
-    return startOfWeek;
-  });
+  const [currentWeekStart, setCurrentWeekStart] = useState(getInitialWeekStart);
 
   const getWeekDays = useCallback((startDate) => {
-    const weekDays = [];
-    for (let i = 0; i < 7; i++) {
-      const day = new Date(startDate);
-      day.setDate(startDate.getDate() + i);
-      weekDays.push(day);
-    }
-    return weekDays;
+    return Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
   }, []);
 
   const weekDays = getWeekDays(currentWeekStart);
 
   const nextWeek = useCallback(() => {
-    setCurrentWeekStart((prev) => {
-      const next = new Date(prev);
-      next.setDate(prev.getDate() + 7);
-      return next;
-    });
+    setCurrentWeekStart((prev) => addDays(prev, 7));
   }, []);
 
   const prevWeek = useCallback(() => {
-    setCurrentWeekStart((prev) => {
-      const tempToday = new Date();
-      tempToday.setHours(0, 0, 0, 0);
-
-      const todayMonday = new Date(tempToday);
-      const todayDay = tempToday.getDay();
-      todayMonday.setDate(tempToday.getDate() - (todayDay === 0 ? 6 : todayDay - 1));
-      todayMonday.setHours(0, 0, 0, 0);
-
-      const prevWeekDate = new Date(prev);
-      prevWeekDate.setDate(prev.getDate() - 7);
-
-      if (prevWeekDate.getTime() < todayMonday.getTime()) {
-        return prev;
-      }
-      return prevWeekDate;
-    });
-  }, []);
-
-  const parseDateString = (dateStr) => {
-    const [year, month, day] = dateStr.split('-').map(Number);
-    return new Date(year, month - 1, day);
-  };
+    const today = new Date();
+    const prev = addDays(currentWeekStart, -7);
+    if (isBefore(prev, startOfWeek(today, { weekStartsOn: 1 }))) return;
+    setCurrentWeekStart(prev);
+  }, [currentWeekStart]);
 
   useEffect(() => {
     setAvailableTimes(generateTimes());
-  }, [generateTimes]);
-  console.log(selectedDate, availableTimes);
-
-  const formatPhoneNumber = (value) => {
-    let cleanedValue = value.replace(/\D/g, '');
-
-    if (!cleanedValue.startsWith('48') || cleanedValue.length < 2) {
-      cleanedValue = '48';
-    }
-
-    if (cleanedValue.length > 11) {
-      cleanedValue = cleanedValue.substring(0, 11);
-    }
-
-    if (cleanedValue.length > 2) {
-      const nationalNumber = cleanedValue.substring(2);
-      let parts = [];
-      for (let i = 0; i < nationalNumber.length; i += 3) {
-        parts.push(nationalNumber.substring(i, i + 3));
-      }
-      return `+48 ${parts.join('-')}`;
-    }
-
-    return `+${cleanedValue}`;
-  };
-
-  const handlePhoneChange = (e) => {
-    const inputValue = e.target.value;
-
-    if (!inputValue.startsWith('+48 ')) {
-      setPhoneNumber('+48 ');
-      return;
-    }
-
-    const newPhoneNumber = formatPhoneNumber(inputValue);
-    setPhoneNumber(newPhoneNumber);
-    setFormError('');
-  };
-
-  const handlePhoneKeyDown = (e) => {
-    if (e.key === 'Backspace' || e.key === 'Delete') {
-      if (e.target.selectionStart <= 4) {
-        e.preventDefault();
-      }
-    }
-  };
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -158,12 +91,7 @@ const BookingSection = () => {
       return;
     }
 
-    console.log(
-      `Booking:\n- ${t(`servicesList.${service.titleKey}.title`)}\n- Date: ${selectedDate}\n- Time: ${selectedTime}\n- Name: ${name}\n- Phone: ${phoneNumber}`
-    );
-
     setSuccessMessage(t('bookingConfirmedSuccess'));
-
     setSelectedService('');
     setSelectedDate(null);
     setSelectedTime('');
@@ -182,8 +110,6 @@ const BookingSection = () => {
         setName={setName}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
-        handlePhoneChange={handlePhoneChange}
-        handlePhoneKeyDown={handlePhoneKeyDown}
         handleSubmit={handleSubmit}
         formError={formError}
         successMessage={successMessage}
@@ -193,7 +119,6 @@ const BookingSection = () => {
 
       <WeekDays
         weekDays={weekDays}
-        todayOnlyDate={todayOnlyDate}
         availableTimes={availableTimes}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
@@ -203,7 +128,7 @@ const BookingSection = () => {
 
       {selectedDate && (
         <TimeSelector
-          selectedDateObj={selectedDate}
+          selectedDate={selectedDate}
           availableTimes={availableTimes}
           selectedTime={selectedTime}
           setSelectedTime={setSelectedTime}

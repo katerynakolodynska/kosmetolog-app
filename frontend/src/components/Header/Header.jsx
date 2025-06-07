@@ -45,7 +45,10 @@ const Header = () => {
 
   return (
     <header className={s.header}>
-      <div className={s.logo}>Kosmetolog Nataliia</div>
+      <div className={s.logo}>
+        <img src="/app.svg" alt="Logo" className={s.logoIcon} />
+        <span>Kosmetolog Nataliia</span>
+      </div>
       <nav ref={navRef} className={`${s.nav} ${menuOpen ? s.open : ''}`}>
         <NavLink to="/" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
           {t('home')}
@@ -53,14 +56,15 @@ const Header = () => {
         <NavLink to="/services" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
           {t('services')}
         </NavLink>
-        <NavLink to="/booking" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
-          {t('booking')}
-        </NavLink>
+
         <NavLink to="/gallery" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
           {t('gallery')}
         </NavLink>
         <NavLink to="/opinion" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
           {t('opinie')}
+        </NavLink>
+        <NavLink to="/booking" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
+          {t('booking')}
         </NavLink>
         <NavLink to="/contact" className={({ isActive }) => (isActive ? s.activeLink : s.link)}>
           {t('contact')}
