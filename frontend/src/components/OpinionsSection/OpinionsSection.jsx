@@ -22,8 +22,9 @@ const OpinionsSection = ({ limit = null }) => {
 
   const totalReviews = reviews.length;
   const averageRating =
-    reviews.length > 0 ? (reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length).toFixed(1) : 0;
-
+    Array.isArray(reviews) && reviews.length > 0
+      ? (reviews.reduce((acc, r) => acc + (r.rating || 0), 0) / reviews.length).toFixed(1)
+      : 0;
   return (
     <section className={s.opinieSection}>
       {isLoading && <div className={s.spinner}></div>}
