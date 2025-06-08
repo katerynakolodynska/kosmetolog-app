@@ -17,14 +17,12 @@
 .name {
   font-weight: bold;
   color: #8b2e5c;
-  /* margin-bottom: 0.5rem; */
   font-size: 1.1rem;
 }
 
 .starsDisplay {
   font-size: 1.2rem;
   color: #ffc107;
-  /* margin-bottom: 0.5rem; */
 }
 
 .filled {
@@ -54,14 +52,6 @@
 }
 
 .photo {
-  /* margin-top: 0.7rem;
-  max-width: 140px;
-  height: auto;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  display: block;
-  margin-left: auto;
-  margin-right: auto; */
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
