@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery/Gallery.jsx';
 import Contact from './pages/Contact/Contact.jsx';
 import FooterSection from './components/FooterSection/FooterSection.jsx';
 import Opinion from './pages/Opinion/Opinion.jsx';
+import Admin from './pages/Admin/Admin.jsx';
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
           <Route path="/opinion" element={<Opinion />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       {location.pathname !== '/contact' && <FooterSection />}

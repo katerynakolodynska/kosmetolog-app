@@ -25,3 +25,9 @@ export const createReview = async (req, res) => {
   });
   res.status(201).json(review);
 };
+
+export const deleteReview = async (req, res) => {
+  const { id } = req.params;
+  await Review.findByIdAndDelete(id);
+  res.status(204).send();
+};

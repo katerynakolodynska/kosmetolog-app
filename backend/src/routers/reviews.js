@@ -4,6 +4,7 @@ import ctrlWrapper from "../middlewares/ctrlWrapper.js";
 import { reviewSchema } from "../validation/reviewSchema.js";
 import * as reviewsCtrl from "../controllers/reviewsController.js";
 import { validateBody } from "../utils/validateBody.js";
+import { deleteReview } from "../controllers/reviewsController.js";
 
 const router = express.Router();
 
@@ -14,5 +15,7 @@ router.post(
   upload.array("photos", 2),
   ctrlWrapper(reviewsCtrl.createReview)
 );
+
+router.delete("/:id", ctrlWrapper(reviewsCtrl.deleteReview));
 
 export default router;

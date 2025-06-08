@@ -15,3 +15,7 @@ export const createReview = async (FormData) => {
   });
   return response.data;
 };
+
+export const deleteReview = async (id) => {
+  await axios.delete(`${BASE_URL}/api/reviews/${id}`);
+};

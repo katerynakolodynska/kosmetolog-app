@@ -14,15 +14,8 @@ export const setupServer = () => {
   const app = express();
 
   app.use(express.json());
-  app.use(
-    cors({
-      origin: [
-        "http://localhost:5173",
-        "https://kosmetolog-backend.onrender.com",
-      ],
-      credentials: true,
-    })
-  );
+  app.use(cors({ origin: "https://kosmetolog-backend.onrender.com" }));
+
   app.use(cookieParser());
 
   app.use("/api/reviews", reviewsRouter);

@@ -302,3 +302,12 @@
   font-weight: bold;
   margin-top: 10px;
 }
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
