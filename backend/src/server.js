@@ -5,16 +5,26 @@ import dotenv from "dotenv";
 
 import reviewsRouter from "./routers/reviews.js";
 dotenv.config();
-import { getEnvVar } from "./utils/getEnvVar.js";
+// import { getEnvVar } from "./utils/getEnvVar.js";
 const PORT = process.env.PORT || 5000;
 
 export const setupServer = () => {
   const app = express();
-
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://kosmetolog-app.vercel.app",
+    "https://kosmetolog-ov4khudou-katerynas-projects-6759cee1.vercel.app",
+  ];
   app.use(express.json());
   app.use(
     cors({
-      origin: ["http://localhost:5173", "https://kosmetolog-app.vercel.app"], // твій фронт локально + деплой
+      origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
       credentials: true,
     })
   );
