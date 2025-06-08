@@ -55,14 +55,14 @@ const OpinionsSection = ({ limit = null }) => {
     setPreviewPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteReview(id);
-      setReviews((prev) => prev.filter((rev) => rev._id !== id));
-    } catch (err) {
-      alert('Не вдалося видалити відгук');
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await deleteReview(id);
+  //     setReviews((prev) => prev.filter((rev) => rev._id !== id));
+  //   } catch (err) {
+  //     alert('Не вдалося видалити відгук');
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -183,12 +183,12 @@ const OpinionsSection = ({ limit = null }) => {
           <Button className={s.btn} type="submit" label={t('send')} />
         </form>
       )}
-      {successMessage && <p className={s.success}>{successMessage}</p>}
+      {/* {successMessage && <p className={s.success}>{successMessage}</p>}
       {!limit && (
         <button onClick={() => handleDelete(opinia._id)} className={s.deleteBtn}>
           🗑
         </button>
-      )}
+      )} */}
       <div className={s.reviews}>
         {displayedOpinions.map((opinia, idx) => (
           <div key={idx} className={s.reviewCard}>
