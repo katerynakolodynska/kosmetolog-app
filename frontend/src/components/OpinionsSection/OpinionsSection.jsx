@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './OpinionsSection.module.css';
-import { FaStar, FaTimes, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { FaStar, FaTimes, FaRegStar } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import { opinionData } from '../opinionData';
-import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { getAllReviews, createReview } from '../../api/reviews';
+import Button from '../Button/Button';
 
 const OpinionsSection = ({ limit = null }) => {
   const { t } = useTranslation();
@@ -15,19 +15,36 @@ const OpinionsSection = ({ limit = null }) => {
   const [reviews, setReviews] = useState([]);
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
+  const [emailOrPhone, setEmailOrPhone] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [previewPhotos, setPreviewPhotos] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const allReviews = [...reviews, ...opinionData];
-  const totalReviews = allReviews.length;
-  const averageRating = totalReviews ? (allReviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews).toFixed(1) : 0;
+  const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+  const isValidPhone = (value) => /^\+?[0-9\s\-()]{6,20}$/.test(value);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await getAllReviews();
+      setReviews(data);
+    };
+    load();
+  }, []);
+
+  const totalReviews = reviews.length;
+  const averageRating = totalReviews ? (reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews).toFixed(1) : 0;
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
     if (photos.length + files.length > 2) return;
+
+    setPhotos((prev) => [...prev, ...files]);
+
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPhotos((prev) => [...prev, reader.result]);
+        setPreviewPhotos((prev) => [...prev, reader.result]);
       };
       reader.readAsDataURL(file);
     });
@@ -35,23 +52,45 @@ const OpinionsSection = ({ limit = null }) => {
 
   const removePhoto = (index) => {
     setPhotos((prev) => prev.filter((_, i) => i !== index));
+    setPreviewPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !comment || rating === 0) return;
-    const newReview = { name, comment, rating, photos };
-    setReviews([newReview, ...reviews]);
+    if (!name || !comment || rating === 0 || !emailOrPhone) return;
+
+    if (!isValidEmail(emailOrPhone) && !isValidPhone(emailOrPhone)) {
+      alert(t('invalidPhoneOrEmail'));
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('comment', comment);
+    formData.append('rating', rating);
+    formData.append('emailOrPhone', emailOrPhone);
+
+    photos.forEach((photo) => {
+      formData.append('photos', photo);
+    });
+
+    await createReview(formData);
+
     setName('');
     setComment('');
     setRating(0);
+    setEmailOrPhone('');
     setPhotos([]);
+    setPreviewPhotos([]);
+    setSuccessMessage(t('reviewSuccess'));
+
+    setTimeout(() => setSuccessMessage(''), 4000);
+    const updatedReviews = await getAllReviews();
+    setReviews(updatedReviews);
   };
 
-  const displayedOpinions = limit ? allReviews.slice(0, limit) : allReviews;
-  console.log('All reviews:', allReviews);
-  console.log('Average rating:', averageRating);
-  console.log('Total reviews:', totalReviews);
+  const displayedOpinions = limit ? reviews.slice(0, limit) : reviews;
+
   return (
     <section className={s.opinieSection}>
       <h2 className={s.title}>{t('opinie')}</h2>
@@ -83,6 +122,7 @@ const OpinionsSection = ({ limit = null }) => {
               );
             })}
           </div>
+
           <input
             className={s.input}
             type="text"
@@ -90,6 +130,15 @@ const OpinionsSection = ({ limit = null }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+
+          <input
+            className={s.input}
+            type="text"
+            placeholder={t('phoneOrEmail')}
+            value={emailOrPhone}
+            onChange={(e) => setEmailOrPhone(e.target.value)}
+          />
+
           <textarea
             className={s.textarea}
             placeholder={t('yourOpinion')}
@@ -110,8 +159,9 @@ const OpinionsSection = ({ limit = null }) => {
               />
             </label>
           </div>
+
           <div className={s.preview}>
-            {photos.map((img, i) => (
+            {previewPhotos.map((img, i) => (
               <div key={i} className={s.previewItem}>
                 <img src={img} alt="preview" />
                 <button type="button" className={s.removeBtn} onClick={() => removePhoto(i)}>
@@ -124,6 +174,7 @@ const OpinionsSection = ({ limit = null }) => {
           <Button className={s.btn} type="submit" label={t('send')} />
         </form>
       )}
+      {successMessage && <p className={s.success}>{successMessage}</p>}
 
       <div className={s.reviews}>
         {displayedOpinions.map((opinia, idx) => (
@@ -145,7 +196,7 @@ const OpinionsSection = ({ limit = null }) => {
         ))}
       </div>
 
-      {limit && allReviews.length > limit && (
+      {limit && reviews.length > limit && (
         <div className={s.loadMore}>
           <Button onClick={() => navigate('/opinion')} label={t('showMoreOpinions')} />
         </div>

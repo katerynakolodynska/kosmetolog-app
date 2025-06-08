@@ -5,13 +5,24 @@ import cookieParser from "cookie-parser";
 import reviewsRouter from "./routers/reviews.js";
 
 import { getEnvVar } from "./utils/getEnvVar.js";
-const PORT = Number(getEnvVar("PORT", "5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 export const setupServer = () => {
   const app = express();
 
   app.use(express.json());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:5173",
+        "https://kosmetolog-backend.onrender.com",
+      ],
+      credentials: true,
+    })
+  );
   app.use(cookieParser());
 
   app.use("/api/reviews", reviewsRouter);

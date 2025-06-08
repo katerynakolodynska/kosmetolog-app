@@ -3,20 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Button.module.css';
 
-const Button = ({ type = 'button', serviceKey = '', label, onClick = null }) => {
+const Button = ({ type = 'button', serviceKey = '', label, onClick }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const handleClick = () => {
+
+  const handleClick = (e) => {
     if (onClick) {
-      onClick();
+      onClick(e); // даємо можливість передати кастомний onClick
     } else if (serviceKey) {
       navigate(`/booking?service=${serviceKey}`);
     } else {
       navigate('/booking');
     }
   };
+
   return (
-    <button className={s.cta} type={type} onClick={type === 'button' ? handleClick : undefined}>
+    <button className={s.cta} type={type} onClick={type === 'submit' ? undefined : handleClick}>
       {label || t('book')}
     </button>
   );

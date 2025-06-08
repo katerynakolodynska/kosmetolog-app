@@ -141,5 +141,8 @@
   "showMoreOpinions": "Show more opinions",
   "averageRating": "Average rating",
   "reviewsCount": "reviews",
-  "uploadPhoto": "Download photo"
+  "uploadPhoto": "Download photo",
+  "phoneOrEmail": "Phone or Email",
+  "invalidPhoneOrEmail": "Please enter a valid phone number or email",
+  "reviewSuccess": "Thank you for your review!"
 }

@@ -141,5 +141,8 @@
   "averageRating": "Середній рейтинг",
   "reviewsCount": "відгуків",
   "showMoreOpinions": "Показати більше відгуків",
-  "uploadPhoto": "Завантажити фото"
+  "uploadPhoto": "Завантажити фото",
+  "phoneOrEmail": "Телефон або Email",
+  "invalidPhoneOrEmail": "Введіть коректний номер телефону або email",
+  "reviewSuccess": "Дякуємо за ваш відгук!"
 }

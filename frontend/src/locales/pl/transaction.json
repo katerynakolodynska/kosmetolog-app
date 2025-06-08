@@ -141,5 +141,8 @@
   "showMoreOpinions": "Pokaż więcej opinii",
   "averageRating": "Średnia ocena",
   "reviewsCount": "recenzje",
-  "uploadPhoto": "Prześlij zdjęcie"
+  "uploadPhoto": "Prześlij zdjęcie",
+  "phoneOrEmail": "Telefon lub Email",
+  "invalidPhoneOrEmail": "Wprowadź prawidłowy numer telefonu lub adres e-mail",
+  "reviewSuccess": "Dziękujemy za Twoją opinię!"
 }

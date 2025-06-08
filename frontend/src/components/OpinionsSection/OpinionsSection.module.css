@@ -296,3 +296,9 @@
 .btn {
   margin-top: 0;
 }
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
