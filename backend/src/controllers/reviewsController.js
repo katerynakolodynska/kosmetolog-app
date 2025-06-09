@@ -7,7 +7,14 @@ export const getAll = async (req, res) => {
 };
 
 export const createReview = async (req, res) => {
-  const { name, comment, rating, emailOrPhone } = req.body;
+  const { name, comment = "", rating, phone } = req.body;
+
+  const exists = await Review.findOne({ phone });
+  if (exists) {
+    return res.status(409).json({
+      message: "Ten numer telefonu już został użyty do opinii.",
+    });
+  }
 
   const photos = [];
   if (req.files?.length) {
@@ -20,7 +27,7 @@ export const createReview = async (req, res) => {
     name,
     comment,
     rating,
-    emailOrPhone,
+    phone,
     photos,
   });
   res.status(201).json(review);

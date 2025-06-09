@@ -13,11 +13,11 @@ const ReviewForm = () => {
   const [hover, setHover] = useState(null);
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-  const [emailOrPhone, setEmailOrPhone] = useState('');
+  const [phone, setPhone] = useState('');
   const [photos, setPhotos] = useState([]);
   const [previewPhotos, setPreviewPhotos] = useState([]);
 
-  const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  // const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const isValidPhone = (value) => /^\+?[0-9\s\-()]{6,20}$/.test(value);
 
   const handlePhotoChange = (e) => {
@@ -42,9 +42,9 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !comment || rating === 0 || !emailOrPhone) return;
+    if (!name || !comment || rating === 0 || !phone) return;
 
-    if (!isValidEmail(emailOrPhone) && !isValidPhone(emailOrPhone)) {
+    if (!isValidEmail(phone) && !isValidPhone(phone)) {
       alert(t('invalidPhoneOrEmail'));
       return;
     }
@@ -53,7 +53,7 @@ const ReviewForm = () => {
     formData.append('name', name);
     formData.append('comment', comment);
     formData.append('rating', rating);
-    formData.append('emailOrPhone', emailOrPhone);
+    formData.append('phone', phone);
     photos.forEach((photo) => formData.append('photos', photo));
 
     await dispatch(createReview(formData));
@@ -62,7 +62,7 @@ const ReviewForm = () => {
     setName('');
     setComment('');
     setRating(0);
-    setEmailOrPhone('');
+    phone('');
     setPhotos([]);
     setPreviewPhotos([]);
   };
@@ -101,9 +101,9 @@ const ReviewForm = () => {
       <input
         type="text"
         className={s.input}
-        placeholder={t('phoneOrEmail')}
-        value={emailOrPhone}
-        onChange={(e) => setEmailOrPhone(e.target.value)}
+        placeholder={t('phone')}
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
       />
       <textarea
         className={s.textarea}

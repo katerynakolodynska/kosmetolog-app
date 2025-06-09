@@ -16,9 +16,10 @@ const reviewSchema = new mongoose.Schema(
       min: 1,
       max: 5,
     },
-    emailOrPhone: {
+    phone: {
       type: String,
-      required: false,
+      required: true,
+      unique: true,
     },
     photos: {
       type: [String],
