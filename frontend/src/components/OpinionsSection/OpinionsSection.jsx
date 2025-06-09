@@ -4,15 +4,18 @@ import { getAllReviews } from '../../redux/reviews/reviewsOperations.js';
 import { selectReviews, selectIsLoading, selectError } from '../../redux/reviews/reviewsSelektors.js';
 import ReviewForm from '../ReviewForm/ReviewForm.jsx';
 import ReviewList from '../ReviewList/ReviewList.jsx';
+import Button from '../Button/Button.jsx';
 import s from './OpinionsSection.module.css';
 import { useTranslation } from 'react-i18next';
 import { FaStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const OpinionsSection = ({ limit = null }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const reviews = useSelector(selectReviews);
 
+  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
