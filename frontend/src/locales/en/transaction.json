@@ -143,6 +143,7 @@
   "reviewsCount": "reviews",
   "uploadPhoto": "Download photo",
   "phoneOrEmail": "Phone or Email",
-  "invalidPhoneOrEmail": "Please enter a valid phone number or email",
-  "reviewSuccess": "Thank you for your review!"
+  "invalidPhoneOrEmail": "Please enter a valid phone number",
+  "reviewSuccess": "Thank you for your review!",
+  "allRightsReserved": "All rights reserved"
 }

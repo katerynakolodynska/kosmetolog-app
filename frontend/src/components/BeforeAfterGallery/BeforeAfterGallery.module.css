@@ -1,31 +1,27 @@
 .gallerySection {
-  padding: 1rem 1.5rem;
+  padding: 0 1rem 1rem;
   background: linear-gradient(to bottom right, #fff0f5, #ffffff);
   text-align: center;
-  padding-top: 1rem;
 }
 
 .title {
-  font-size: 2.4rem;
+  font-size: 1.4rem;
   color: #b12f74;
-  font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
   font-family: 'Playfair Display', serif;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 1rem;
+  gap: 1rem;
 }
 
 .card {
   background: #fff;
   border-radius: 1rem;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.2rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: transform 0.3s ease;
@@ -36,7 +32,7 @@
 }
 
 .card h3 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #b12f74;
   margin-bottom: 0.5rem;
 }
@@ -51,7 +47,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .image {
@@ -69,18 +64,6 @@
   font-weight: 600;
   color: #b12f74;
   margin-bottom: 0.3rem;
-}
-
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 }
 
 .loadMoreWrapper {
@@ -106,4 +89,39 @@
 .loadMore:hover {
   background: linear-gradient(90deg, #c2185b, #880e4f);
   transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+  }
+
+  .gallerySection {
+    padding: 1rem 1.5rem 1rem;
+    background: linear-gradient(to bottom right, #fff0f5, #ffffff);
+    text-align: center;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+  }
+
+  .card h3 {
+    font-size: 1.4rem;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

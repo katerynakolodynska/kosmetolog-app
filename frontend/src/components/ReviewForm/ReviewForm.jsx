@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createReview, getAllReviews } from '../../redux/reviews/reviewsOperations.js';
 import s from './ReviewForm.module.css';
@@ -13,11 +13,31 @@ const ReviewForm = () => {
   const [hover, setHover] = useState(null);
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState('+48');
   const [photos, setPhotos] = useState([]);
   const [previewPhotos, setPreviewPhotos] = useState([]);
 
-  // const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const phoneInputRef = useRef(null);
+  useEffect(() => {
+    if (phoneInputRef.current) {
+      phoneInputRef.current.setSelectionRange(phone.length, phone.length);
+    }
+  }, [phone]);
+
+  const handlePhoneChange = (e) => {
+    const input = e.target.value;
+
+    if (!input.startsWith('+48')) return;
+
+    const digits = input.replace(/\D/g, '').slice(2, 11);
+    const formatted =
+      '+48 ' +
+      digits.slice(0, 3) +
+      (digits.length > 3 ? '-' + digits.slice(3, 6) : '') +
+      (digits.length > 6 ? '-' + digits.slice(6) : '');
+    setPhone(formatted);
+  };
+
   const isValidPhone = (value) => /^\+?[0-9\s\-()]{6,20}$/.test(value);
 
   const handlePhotoChange = (e) => {
@@ -42,9 +62,7 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !comment || rating === 0 || !phone) return;
-
-    if (!isValidEmail(phone) && !isValidPhone(phone)) {
+    if (!name || rating === 0 || !isValidPhone(phone)) {
       alert(t('invalidPhoneOrEmail'));
       return;
     }
@@ -53,7 +71,7 @@ const ReviewForm = () => {
     formData.append('name', name);
     formData.append('comment', comment);
     formData.append('rating', rating);
-    formData.append('phone', phone);
+    formData.append('phone', phone.trim);
     photos.forEach((photo) => formData.append('photos', photo));
 
     await dispatch(createReview(formData));
@@ -62,7 +80,7 @@ const ReviewForm = () => {
     setName('');
     setComment('');
     setRating(0);
-    phone('');
+    setPhone('+48');
     setPhotos([]);
     setPreviewPhotos([]);
   };
@@ -100,10 +118,14 @@ const ReviewForm = () => {
       />
       <input
         type="text"
+        ref={phoneInputRef}
         className={s.input}
         placeholder={t('phone')}
         value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        // placeholder="+48 123-456-789"
+        required
+        pattern="\+48 \d{3}-\d{3}-\d{3}"
+        onChange={handlePhoneChange}
       />
       <textarea
         className={s.textarea}

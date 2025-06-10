@@ -14,10 +14,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0 1rem;
   background: linear-gradient(145deg, #fdf0f4, #fff);
   overflow: hidden;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .hero::before,
@@ -54,17 +54,17 @@
 }
 
 .content h2 {
-  font-size: 2rem;
+  font-size: 1.4rem;
   color: #b12f74;
-  margin-bottom: 1rem;
-  font-weight: 800;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
   font-family: 'Playfair Display', serif;
 }
 
 .content p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #444;
-  margin-bottom: 1.7rem;
+  margin-bottom: 1rem;
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -118,15 +118,27 @@
 
 @media (min-width: 768px) {
   .hero {
-    padding: 1rem 5rem;
+    padding: 2rem 3rem;
     padding-top: 0;
     align-items: center;
     text-align: center;
+    gap: 2rem;
   }
 
   .content {
     text-align: left;
     max-width: 700px;
+  }
+
+  .content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+  }
+
+  .content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.7rem;
   }
 
   .imageBlock {
@@ -154,7 +166,7 @@
   .hero {
     flex-direction: row;
     justify-content: space-between;
-    padding: 3rem 5rem;
+    padding: 2rem 4rem;
   }
 
   .content {

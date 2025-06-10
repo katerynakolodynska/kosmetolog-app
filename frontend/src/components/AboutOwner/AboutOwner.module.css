@@ -1,24 +1,23 @@
 .ownerSection {
-  padding: 4rem 1.5rem;
+  padding: 1rem 1.5rem;
   background: linear-gradient(to bottom right, #fff0f5, #ffffff);
   text-align: center;
 }
 
 .ownerSection h2 {
-  font-size: 2.4rem;
+  font-size: 1.4rem;
   color: #b12f74;
-  margin-bottom: 1.5rem;
-  font-weight: 800;
+  margin-bottom: 1rem;
+  font-weight: 600;
   font-family: 'Playfair Display', serif;
 }
 
 .ownerText {
   max-width: 1100px;
-  margin: 0 auto 2rem;
-  font-size: 1.2rem;
+  margin: 0 auto;
+  font-size: 1rem;
   color: #333;
-  line-height: 1.9;
-  padding: 0 1.2rem;
+  line-height: 1.6;
   text-align: center;
   font-family: 'Segoe UI', sans-serif;
   background: rgba(255, 255, 255, 0.6);
@@ -30,19 +29,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-@media (min-width: 600px) {
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .gallery {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  margin-top: 1.5rem;
 }
 
 .specialistCard {
@@ -62,7 +49,7 @@
 }
 
 .cardContent {
-  height: 500px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +57,7 @@
 
 .cardContent img {
   width: 100%;
-  height: 500px;
+  height: 400px;
   object-fit: cover;
   border-radius: 1rem 1rem 0 0;
   transition: opacity 0.4s ease;
@@ -87,7 +74,7 @@
 }
 
 .cardActions {
-  padding: 1rem;
+  padding: 0.6rem;
   text-align: center;
 }
 
@@ -108,4 +95,48 @@
 .toggleBtn:focus {
   outline: none;
   box-shadow: none;
+}
+
+@media (min-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .ownerSection h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+
+  .ownerSection {
+    padding: 2rem 1.5rem;
+  }
+
+  .ownerText {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    font-size: 1.2rem;
+    line-height: 1.9;
+    padding: 0 1.2rem;
+  }
+
+  .cardContent {
+    height: 500px;
+  }
+
+  .cardContent img {
+    height: 500px;
+  }
+
+  .cardActions {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

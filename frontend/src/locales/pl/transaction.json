@@ -143,6 +143,7 @@
   "reviewsCount": "recenzje",
   "uploadPhoto": "Prześlij zdjęcie",
   "phoneOrEmail": "Telefon lub Email",
-  "invalidPhoneOrEmail": "Wprowadź prawidłowy numer telefonu lub adres e-mail",
-  "reviewSuccess": "Dziękujemy za Twoją opinię!"
+  "invalidPhoneOrEmail": "Wprowadź prawidłowy numer telefonu",
+  "reviewSuccess": "Dziękujemy za Twoją opinię!",
+  "allRightsReserved": "Wszelkie prawa zastrzeżone"
 }

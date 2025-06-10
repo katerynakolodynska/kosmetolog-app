@@ -1,7 +1,7 @@
 .footer {
   background: linear-gradient(to bottom, #fff0f5, #ffffff);
   border-top: 2px solid #f7d8e4;
-  padding: 0.2rem 2rem 1rem;
+  padding: 0.2rem 2rem 0;
   font-family: 'Segoe UI', sans-serif;
   color: #444;
   position: relative;
@@ -131,6 +131,10 @@
   .right {
     gap: 2rem;
   }
+
+  .center {
+    margin-top: 2rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -173,7 +177,7 @@
   .center {
     width: 100%;
     order: 3;
-    margin-top: 2rem;
+    margin-top: 1rem;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -190,7 +194,7 @@
   }
 
   .bottom {
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 0.85rem;
     color: #999;
     text-align: center;

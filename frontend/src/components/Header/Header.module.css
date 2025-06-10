@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 2rem;
+  /* padding: 1.25rem 2rem; */
   background: linear-gradient(to right, #fdf0f4, #fff);
   position: sticky;
   top: 0;
@@ -39,7 +39,7 @@
   width: calc(100% - 2rem);
   background: white;
   flex-direction: column;
-  padding: 1.5rem 2rem;
+  padding: 0.6rem 2rem;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   z-index: 10;
@@ -98,7 +98,6 @@
 .controls {
   display: flex;
   align-items: center;
-  /* gap: 1rem; */
 }
 
 .langSwitcher {
@@ -124,7 +123,6 @@
 
 .burger {
   display: none;
-  /* font-size: 1.5rem; */
   background: none;
   border: none;
   cursor: pointer;
@@ -153,7 +151,6 @@
 .langToggle {
   background: transparent;
   border: none;
-  /* font-size: 1.25rem; */
   cursor: pointer;
 }
 
@@ -205,14 +202,6 @@
 @media (max-width: 768px) {
   .nav {
     display: none;
-    position: absolute;
-    top: 68px;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    flex-direction: column;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .nav.open {
@@ -221,5 +210,11 @@
 
   .burger {
     display: block;
+  }
+}
+
+@media (min-width: 768) {
+  .header {
+    padding: 1.25rem 2rem;
   }
 }

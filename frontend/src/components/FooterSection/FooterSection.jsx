@@ -77,7 +77,7 @@ const FooterSection = () => {
 
       <div className={s.bottom}>
         <p>
-          &copy; {new Date().getFullYear()} Kosmetolog Nataliia. {t('allRightsReserved') || 'All rights reserved'}.
+          &copy; {new Date().getFullYear()} Kosmetolog Nataliia. {t('allRightsReserved')}.
         </p>
       </div>
     </footer>

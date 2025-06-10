@@ -143,6 +143,7 @@
   "showMoreOpinions": "Показати більше відгуків",
   "uploadPhoto": "Завантажити фото",
   "phoneOrEmail": "Телефон або Email",
-  "invalidPhoneOrEmail": "Введіть коректний номер телефону або email",
-  "reviewSuccess": "Дякуємо за ваш відгук!"
+  "invalidPhoneOrEmail": "Введіть коректний номер телефону",
+  "reviewSuccess": "Дякуємо за ваш відгук!",
+  "allRightsReserved": "Усі права захищено"
 }
