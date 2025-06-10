@@ -10,6 +10,7 @@ import BookingForm from '../BookingForm/BookingForm';
 import WeekNavigation from '../WeekNavigation/WeekNavigation';
 import TimeSelector from '../TimeSelctor/TimeSelctor';
 import WeekDays from '../WeekDays/WeekDays';
+import { usePhoneInput } from '../../hooks/usePhoneInput';
 
 const generateTimes = () => {
   const times = [];
@@ -46,11 +47,13 @@ const BookingSection = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('+48 ');
+  // const [phoneNumber, setPhoneNumber] = useState('+48 ');
   const [availableTimes, setAvailableTimes] = useState([]);
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [currentWeekStart, setCurrentWeekStart] = useState(getInitialWeekStart);
+  const [comment, setComment] = useState('');
+  const [phone, handlePhoneChange, setPhone] = usePhoneInput('+48');
 
   const getWeekDays = useCallback((startDate) => {
     return Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
@@ -78,15 +81,15 @@ const BookingSection = () => {
     setFormError('');
     setSuccessMessage('');
 
-    const service = allServices.find((s) => s.titleKey === selectedService);
+    // const service = allServices.find((s) => s.titleKey === selectedService);
 
     if (!selectedService || !selectedDate || !selectedTime || !name) {
       setFormError(t('pleaseFillAllRequiredFields'));
       return;
     }
 
-    const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
-    if (cleanedPhoneNumber.length !== 11) {
+    // const cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
+    if (!/^\+48 \d{3}-\d{3}-\d{3}$/.test(phoneNumber)) {
       setFormError(t('pleaseEnterValidPhoneNumber'));
       return;
     }
@@ -97,6 +100,7 @@ const BookingSection = () => {
     setSelectedTime('');
     setName('');
     setPhoneNumber('+48 ');
+    setComment('');
   };
 
   return (
@@ -108,8 +112,11 @@ const BookingSection = () => {
         setSelectedService={setSelectedService}
         name={name}
         setName={setName}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
+        phone={phone}
+        setPhone={setPhone}
+        comment={comment}
+        setComment={setComment}
+        handlePhoneChange={handlePhoneChange}
         handleSubmit={handleSubmit}
         formError={formError}
         successMessage={successMessage}

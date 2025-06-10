@@ -9,22 +9,24 @@ const BookingForm = ({
   setSelectedService,
   name,
   setName,
-  phoneNumber,
-  setPhoneNumber,
+  phone,
+  setPhone,
+  comment,
+  setComment,
   handlePhoneChange,
-  handlePhoneKeyDown,
   handleSubmit,
   formError,
   successMessage,
 }) => {
   const { t } = useTranslation();
+
   const phoneInputRef = useRef(null);
 
   useEffect(() => {
     if (phoneInputRef.current) {
-      phoneInputRef.current.setSelectionRange(phoneNumber.length, phoneNumber.length);
+      phoneInputRef.current.setSelectionRange(phone.length, phone.length);
     }
-  }, [phoneNumber]);
+  }, [phone]);
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -58,15 +60,24 @@ const BookingForm = ({
         required
       />
 
+      <label htmlFor="comment">{t('Comment')}</label>
+      <textarea
+        id="comment"
+        type="text"
+        placeholder={t('Comment')}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+
       <label htmlFor="phoneInput">{t('yourPhone')}</label>
       <input
         ref={phoneInputRef}
         type="tel"
         id="phoneInput"
         name="phone"
-        value={phoneNumber}
+        value={phone}
         onChange={handlePhoneChange}
-        onKeyDown={handlePhoneKeyDown}
+        // onKeyDown={handlePhoneKeyDown}
         placeholder="+48 123-456-789"
         required
         pattern="\+48 \d{3}-\d{3}-\d{3}"

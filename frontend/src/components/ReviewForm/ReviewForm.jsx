@@ -4,6 +4,7 @@ import { createReview, getAllReviews } from '../../redux/reviews/reviewsOperatio
 import s from './ReviewForm.module.css';
 import { FaStar, FaTimes } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import { usePhoneInput } from '../../hooks/usePhoneInput.js';
 
 const ReviewForm = () => {
   const { t } = useTranslation();
@@ -13,9 +14,10 @@ const ReviewForm = () => {
   const [hover, setHover] = useState(null);
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
-  const [phone, setPhone] = useState('+48');
   const [photos, setPhotos] = useState([]);
   const [previewPhotos, setPreviewPhotos] = useState([]);
+
+  const [phone, handlePhoneChange, setPhone] = usePhoneInput('+48');
 
   const phoneInputRef = useRef(null);
   useEffect(() => {
@@ -24,21 +26,7 @@ const ReviewForm = () => {
     }
   }, [phone]);
 
-  const handlePhoneChange = (e) => {
-    const input = e.target.value;
-
-    if (!input.startsWith('+48')) return;
-
-    const digits = input.replace(/\D/g, '').slice(2, 11);
-    const formatted =
-      '+48 ' +
-      digits.slice(0, 3) +
-      (digits.length > 3 ? '-' + digits.slice(3, 6) : '') +
-      (digits.length > 6 ? '-' + digits.slice(6) : '');
-    setPhone(formatted);
-  };
-
-  const isValidPhone = (value) => /^\+?[0-9\s\-()]{6,20}$/.test(value);
+  const isValidPhone = (value) => /^\+48 \d{3}-\d{3}-\d{3}$/.test(value);
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
@@ -122,7 +110,6 @@ const ReviewForm = () => {
         className={s.input}
         placeholder={t('phone')}
         value={phone}
-        // placeholder="+48 123-456-789"
         required
         pattern="\+48 \d{3}-\d{3}-\d{3}"
         onChange={handlePhoneChange}

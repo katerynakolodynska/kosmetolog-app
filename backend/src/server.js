@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-
+import bookingsRouter from "./routers/bookings.js";
 import reviewsRouter from "./routers/reviews.js";
+
 dotenv.config();
-// import { getEnvVar } from "./utils/getEnvVar.js";
 const PORT = process.env.PORT || 5000;
 
 export const setupServer = () => {
@@ -32,6 +32,8 @@ export const setupServer = () => {
   app.use(cookieParser());
 
   app.use("/api/reviews", reviewsRouter);
+
+  app.use("/api/bookings", bookingsRouter);
 
   app.get("/", (req, res) => {
     res.send("API is working");

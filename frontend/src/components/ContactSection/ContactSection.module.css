@@ -1,5 +1,5 @@
 .contactSection {
-  padding: 0rem 1.5rem 8rem;
+  padding: 1rem 1.5rem 10rem;
   background: linear-gradient(to bottom right, #fff0f5, #ffffff);
   text-align: center;
   animation: fadeInUp 1.2s ease-out both;
@@ -54,10 +54,6 @@
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .contactSection {
-    padding-top: 1rem;
   }
 
   .infoBlock {

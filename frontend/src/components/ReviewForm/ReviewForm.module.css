@@ -75,55 +75,54 @@
   display: none;
 }
 
-/* .fileInput {
-  display: block;
-  font-size: 0.9rem;
-  margin-top: -0.5rem;
-  color: #666;
-} */
-
 .preview {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  /* margin-top: 1rem; */
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .previewItem {
   position: relative;
+  display: inline-block;
   width: 110px;
   height: 110px;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .previewItem img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
   display: block;
 }
 
 .removeBtn {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  background: #b12f74;
-  color: #fff;
+  top: 3px;
+  right: 3px;
+  background: rgba(255, 255, 255, 0.7);
   border: none;
   border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  font-size: 0.75rem;
+  padding: 3px 4px;
   cursor: pointer;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: background 0.18s;
 }
-
+.removeBtn:hover,
+.removeBtn:focus {
+  background: #f8d7da;
+}
+.removeBtn svg {
+  color: #b91c1c;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
 .btn {
   margin-top: 0;
 }
