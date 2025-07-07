@@ -1,0 +1,29 @@
+.booking {
+  background: linear-gradient(to bottom right, #fff0f5, #ffffff);
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1.2s ease-out both;
+  z-index: 1;
+  padding: 0 1.5rem 1rem;
+}
+
+.booking h2 {
+  font-size: 1.4rem;
+  color: #b12f74;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  font-family: 'Playfair Display', serif;
+}
+
+@media (min-width: 768px) {
+  .booking {
+    padding: 1rem 1.5rem;
+  }
+
+  .booking h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+  }
+}

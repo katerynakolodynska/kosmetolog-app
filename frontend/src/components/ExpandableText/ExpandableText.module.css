@@ -1,0 +1,24 @@
+.toggle {
+  display: block;
+  all: unset;
+  text-align: left;
+  color: #8b2e5c;
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 175px;
+}
+
+.toggle:hover,
+.toggle:focus {
+  outline: none;
+}
+
+.wrapper {
+  overflow: hidden;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}

@@ -1,0 +1,221 @@
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.reviewsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reviewsTable th,
+.reviewsTable td {
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
+}
+
+.reviewsTable th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.reviewsTable tr:nth-child(even) {
+  background-color: #f3f4f6;
+}
+
+.deleteButton {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #dc2626;
+}
+
+.error {
+  color: #dc2626;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.noReviews {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.photoGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.photosCell {
+  min-width: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.phoneLink {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}
+
+.phoneLink:visited {
+  color: #1d4ed8;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .reviewsContainer {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .reviewsTable th,
+  .reviewsTable td {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .photo {
+    width: 45px;
+    height: 45px;
+  }
+
+  .deleteButton {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .phoneLink {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviewsContainer {
+    padding-top: 4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .title {
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 10;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .reviewsTable,
+  .reviewsTable thead,
+  .reviewsTable tbody,
+  .reviewsTable th,
+  .reviewsTable td,
+  .reviewsTable tr {
+    display: block;
+    width: 100%;
+  }
+
+  .reviewsTable thead {
+    display: none;
+  }
+
+  .reviewsTable tr {
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .reviewsTable td {
+    padding: 0.5rem 0;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .reviewsTable td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #374151;
+    flex-shrink: 0;
+    margin-right: 1rem;
+  }
+
+  .photoGrid {
+    gap: 4px;
+  }
+
+  .photo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .deleteButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    width: auto;
+    margin-top: 0;
+    align-self: flex-end;
+  }
+
+  .reviewsTable td[data-label='Дія'] {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reviewsTable td[data-label='Відгук'] {
+    align-items: flex-start;
+    justify-content: flex-start;
+    justify-content: space-between;
+  }
+}

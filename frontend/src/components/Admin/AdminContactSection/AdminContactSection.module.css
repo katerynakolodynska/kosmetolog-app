@@ -1,0 +1,165 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom right, #fff0f5, #ffffff);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 12px rgba(177, 47, 116, 0.2);
+}
+
+h1 {
+  font-size: 2rem;
+  color: #b12f74;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #b12f74;
+  box-shadow: 0 0 5px rgba(177, 47, 116, 0.3);
+}
+
+s.editing {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  color: #b12f74;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.submitBtn {
+  margin-top: 2rem;
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: #b12f74;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submitBtn:hover {
+  background-color: #a02666;
+}
+
+.setDefaultBtn {
+  margin-bottom: 1rem;
+  padding: 0.6rem 1.5rem;
+  background-color: #f4e0ea;
+  color: #b12f74;
+  border: 1px solid #b12f74;
+  border-radius: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.setDefaultBtn:hover {
+  background-color: #f7d3e0;
+}
+
+
+
+.quickInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quickInputGroup input,
+.quickInputGroup select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.quickInputGroup button {
+  align-self: start;
+}
+
+.setDefaultBtn {
+  background-color: #b12f74;
+  color: white;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 600;
+}
+
+.setDefaultBtn:hover {
+  background-color: #931c5d;
+}
+
+.workHourRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.workHourRow strong {
+  color: #333;
+  font-size: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputGroup input {
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+ 
+@media (min-width: 600px) {
+  .quickInputGroup {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .quickInputGroup input,
+  .quickInputGroup select {
+    width: auto;
+    min-width: 120px;
+  }
+
+  .inputGroup {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .inputGroup input {
+    width: 120px;
+  }
+}

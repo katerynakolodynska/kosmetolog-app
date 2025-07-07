@@ -1,0 +1,151 @@
+.formContainer {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formContainer h2 {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding-bottom: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  /* gap: 0.5rem; */
+}
+
+.formGroup input[type='text'],
+.formGroup input[type='file'],
+.formGroup input[type='email'],
+.formGroup input[type='tel'],
+.formGroup input[type='number'] {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.formActions button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 0.5rem;
+}
+
+.deletePhotoBtn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.formActions button:hover {
+  background-color: #0056b3;
+}
+
+.checkboxGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.switchLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+.previewImage {
+  display: block;
+  width: 120px;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 1rem;
+  }
+
+  .checkboxGroup {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .formActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  /* .formContainer {
+    padding: 1rem;
+  } */
+
+  .formActions button {
+    width: 100%;
+  }
+  .previewImage {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.formError {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.formSuccess {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+.formLoading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.previewBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}

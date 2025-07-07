@@ -1,0 +1,93 @@
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #b12f74;
+}
+
+select,
+input[type='file'] {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: white;
+}
+
+input[type='file'] {
+  padding: 0.4rem 0.5rem;
+}
+
+.submitBtn {
+  background-color: #b12f74;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: flex-start;
+}
+
+.submitBtn:hover {
+  background-color: #921e5e;
+}
+
+/* Responsive */
+
+@media (min-width: 600px) {
+  .modalForm {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  select,
+  input[type='file'] {
+    font-size: 1.05rem;
+  }
+
+  .submitBtn {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .modalForm {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+.previewBlock {
+  position: relative;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.preview {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  display: block;
+}
+
+.deletePreview {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}

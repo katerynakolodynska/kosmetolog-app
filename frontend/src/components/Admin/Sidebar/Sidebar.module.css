@@ -1,0 +1,137 @@
+.sidebar {
+  position: fixed;
+  top: 2rem;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #f3f4f6;
+  padding: 2rem 1rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 999;
+}
+
+.sidebarTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* .sidebar ul li {
+  margin-bottom: 1rem;
+} */
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  display: block;
+  border-radius: 6px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.sidebar ul li a.active {
+  background-color: #d1d5db;
+  color: #111827;
+  font-weight: 600;
+}
+
+.logoutButton {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: #dc2626;
+}
+
+.burgerBtn {
+  display: none;
+  position: fixed;
+  top: 4.5rem;
+  /* left: 1rem; */
+  left: -0.5rem;
+  background: none;
+  border: none;
+  z-index: 999;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #374151;
+}
+
+.closeBtn {
+  position: absolute;
+  /* top: 5.5rem; */
+  left: 11rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #374151;
+  z-index: 1001;
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 3rem;
+    left: -100%;
+    /* height: 100vh; */
+    z-index: 998;
+    transition: left 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .burgerBtn {
+    display: block;
+  }
+  .closeBtn {
+    display: block;
+  }
+
+  .sidebarTitle {
+    font-size: 1.2rem;
+  }
+
+  .sidebar ul li a {
+    font-size: 0.95rem;
+  }
+
+  .logoutButton {
+    font-size: 0.9rem;
+  }
+}
+.phoneLink {
+  color: #2563eb;
+  text-decoration: none;
+}

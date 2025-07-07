@@ -1,0 +1,16 @@
+{
+  "name": "Kosmetolog Natalia",
+  "short_name": "Kosmetolog",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#b12f74",
+  "description": "Strona internetowa kosmetologa Natalia. Rejestracja online, ceny, usługi, galeria i opinie klientów.",
+  "icons": [
+    {
+      "src": "/app.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

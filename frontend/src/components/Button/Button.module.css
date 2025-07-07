@@ -1,0 +1,29 @@
+.cta {
+  background: linear-gradient(90deg, #e91e63, #b12f74);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 400;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.cta:hover {
+  background: linear-gradient(90deg, #c2185b, #880e4f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 768px) {
+  .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    padding: 0.9rem 2rem;
+  }
+}

@@ -1,0 +1,109 @@
+.opinieSection {
+  padding: 0 1.5rem 1rem;
+  background: linear-gradient(to bottom, #fdf0f4, #ffffff);
+  font-family: 'Segoe UI', sans-serif;
+  color: #444;
+  animation: fadeInUp 1.2s ease-out both;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.4rem;
+  color: #b12f74;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.summary {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #8b2e5c;
+}
+
+.summaryStar {
+  color: #ffc107;
+  margin: 0 0.4rem;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #6d28d9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.showMoreOpinions {
+  background: none;
+  border: 2px solid #b12f74;
+  color: #b12f74;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.showMoreOpinions:hover {
+  background: #b12f74;
+  color: #fff;
+}
+
+.loadMore {
+  text-align: center;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+@media (min-width: 600px) {
+  .opinieSection {
+    padding: 2rem 1.5rem;
+  }
+
+  .summary {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+  }
+}

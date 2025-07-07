@@ -1,0 +1,34 @@
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.timeBtn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #b12f74;
+  border-radius: 0.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.timeBtn:hover:not(:disabled) {
+  background-color: #fce4ec;
+}
+
+.timeBtn:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.selectedTime {
+  background-color: #b12f74;
+  color: white;
+  border-color: #b12f74;
+}

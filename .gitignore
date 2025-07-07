@@ -1,0 +1,6 @@
+node_modules
+.env
+dist/
+build/
+.DS_Store
+.vscode/node_modules/\n.env\nfrontend/.env\nbackend/.env

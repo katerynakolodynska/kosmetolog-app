@@ -1,0 +1,26 @@
+.adminLayout {
+  display: flex;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+/* ===== Контент для десктопа ===== */
+.adminContent {
+  flex-grow: 1;
+  padding: 2rem;
+  padding-left: 260px; /* враховує ширину Sidebar (240px) + трохи відступ */
+  transition: padding-left 0.3s ease;
+}
+
+/* ===== Планшети та мобілки (Sidebar зникає/згортається) ===== */
+@media (max-width: 1024px) {
+  .adminLayout {
+    flex-direction: column;
+  }
+
+  .adminContent {
+    padding: 1.5rem;
+    padding-left: 1rem;
+    /* padding-right: 1rem; */
+  }
+}

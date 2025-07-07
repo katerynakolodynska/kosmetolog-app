@@ -1,0 +1,134 @@
+.section {
+  padding: 1rem;
+  background: #f9f6f8;
+}
+
+.title {
+  text-align: center;
+  color: #b12f74;
+  margin-bottom: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  margin-right: 0;
+  justify-content: center;
+}
+
+.filterInput {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.clearBtn {
+  background: #b12f74;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.clearBtn:hover {
+  background: #901e5d;
+}
+
+.tableWrapper {
+  display: block;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.9rem;
+}
+
+.table thead {
+  background-color: #b12f74;
+  color: white;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #b12f74;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.iconBtn:hover {
+  color: #7e1f51;
+}
+
+.phoneLink {
+  color: #b12f74;
+  text-decoration: none;
+}
+
+.cardList {
+  display: none;
+}
+
+.bookingCard {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.cardActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* 🔁 Responsive Switch */
+
+@media (max-width: 991px) {
+  .tableWrapper {
+    display: none;
+  }
+
+  .cardList {
+    display: block;
+  }
+}
+
+.createBtn {
+  margin-bottom: 1rem;
+  background-color: #b12f74;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.createBtn:hover {
+  background-color: #981c5c;
+}
+
+.bookingForm {
+  padding-bottom: 2rem;
+}
