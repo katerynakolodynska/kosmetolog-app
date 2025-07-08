@@ -5,8 +5,8 @@ import { getEnvVar } from "../utils/getEnvVar.js";
 import mongoose from "mongoose";
 import { Service } from "../db/models/service.js";
 import { bookingSchema } from "../validation/bookingSchema.js";
-// import { format } from "date-fns";
-// import { sendTelegramMessage } from "../utils/telegramBot.js";
+import { TelegramUser } from "../db/models/telegramUser.js";
+import { bot } from "../utils/telegramBot.js";
 
 export const getAllBooking = async (req, res) => {
   try {
@@ -22,15 +22,20 @@ export const getAllBooking = async (req, res) => {
 
 export const createBooking = async (req, res) => {
   try {
+    console.log("📥 Новий запит на створення запису:", req.body);
+
     const { error, value } = bookingSchema.validate(req.body);
     if (error) {
+      console.log("❌ Валідація не пройдена:", error.details[0].message);
       return res.status(400).json({ message: error.details[0].message });
     }
 
     const { name, phone, service, date, time, comment, specialistId } = value;
+    const cleanPhone = phone.replace(/\D/g, ""); // очищений номер типу 48690682583
 
     const serviceData = await Service.findById(service);
     if (!serviceData) {
+      console.log("❌ Послугу не знайдено в базі");
       return res.status(400).json({ message: "Невірна послуга" });
     }
 
@@ -41,6 +46,7 @@ export const createBooking = async (req, res) => {
 
     const alreadyExists = await Booking.findOne(query);
     if (alreadyExists) {
+      console.log("⚠️ Обраний слот зайнятий:", query);
       return res
         .status(409)
         .json({ message: "Wybrany termin jest już zajęty." });
@@ -48,64 +54,67 @@ export const createBooking = async (req, res) => {
 
     let finalSpecialistId = specialistId;
     if (!finalSpecialistId) {
-      const allCandidates = await Specialist.find({
+      const candidates = await Specialist.find({
         categories: serviceData.category,
         isActive: true,
       });
 
-      const allBookings = await Booking.find({ date, time });
-      const busyIds = allBookings.map((b) => String(b.specialistId));
-
-      const foundSpecialist = allCandidates.find(
+      const bookings = await Booking.find({ date, time });
+      const busyIds = bookings.map((b) => String(b.specialistId));
+      const available = candidates.find(
         (s) => !busyIds.includes(String(s._id))
       );
 
-      if (!foundSpecialist) {
-        return res.status(400).json({
-          message: "Brak dostępnego specjalisty dla tej kategorii",
-        });
+      if (!available) {
+        console.log("❌ Немає вільного спеціаліста");
+        return res.status(400).json({ message: "Brak dostępnego specjalisty" });
       }
 
-      finalSpecialistId = foundSpecialist._id;
+      finalSpecialistId = available._id;
     }
 
     const newBooking = await Booking.create({
       name,
-      phone,
-      service: new mongoose.Types.ObjectId(service),
+      phone: cleanPhone, // <=== зберігаємо в єдиному форматі
+      service,
       date,
       time,
       comment,
-      specialistId: new mongoose.Types.ObjectId(finalSpecialistId),
+      specialistId: finalSpecialistId,
     });
 
-    const normalizedPhone = phone.replace(/\D/g, "");
-    const e164Phone = `+${normalizedPhone}`;
+    console.log("✅ Створено новий запис:", newBooking);
 
+    const telegramUser = await TelegramUser.findOne({ phone: cleanPhone });
+    const message = `✅ Привіт, ${name}!\nВаша реєстрація на '${serviceData.title.pl}' підтверджена.\n🗓 ${date}, 🕒 ${time}`;
+
+    if (telegramUser?.chatId) {
+      try {
+        await bot.sendMessage(telegramUser.chatId, message);
+        console.log("📤 Надіслано повідомлення в Telegram.");
+      } catch (err) {
+        console.warn("⚠️ Не вдалося надіслати повідомлення:", err.message);
+      }
+    } else {
+      console.log("ℹ️ TelegramUser не знайдений або без chatId");
+    }
+
+    const e164 = `+${cleanPhone}`;
     try {
-      const sms = await twilioClient.messages.create({
-        body: `Witaj, ${name}! Twoja rezerwacja na '${serviceData.title.pl}' została przyjęta na ${date} o ${time}. Dziękujemy!`,
+      await twilioClient.messages.create({
+        body: `Witaj, ${name}! Twoja rezerwacja na '${serviceData.title.pl}' została przyjęta na ${date} o ${time}.`,
         from: getEnvVar("TWILIO_PHONE_NUMBER"),
-        to: e164Phone,
+        to: e164,
       });
-
-      console.log(
-        "✅ SMS sent to:",
-        e164Phone,
-        "| SID:",
-        sms.sid,
-        "| Status:",
-        sms.status
-      );
-    } catch (smsError) {
-      console.error("❌ SMS sending error:", smsError.message);
-      console.error("🔍 Code:", smsError.code, "| Info:", smsError.moreInfo);
+      console.log("📤 SMS відправлено на:", e164);
+    } catch (err) {
+      console.error("❌ SMS помилка:", err.message);
     }
 
     return res.status(201).json(newBooking);
-  } catch (error) {
-    console.error("Create booking error:", error);
-    return res.status(500).json({ message: error.message });
+  } catch (err) {
+    console.error("❌ Booking error:", err.message);
+    return res.status(500).json({ message: err.message });
   }
 };
 
@@ -146,7 +155,7 @@ export const getBusyTimes = async (req, res) => {
     const bookings = await Booking.find({ date }).select(
       "date time specialistId"
     );
-    res.json(bookings); // [{ date, time, specialistId }]
+    res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

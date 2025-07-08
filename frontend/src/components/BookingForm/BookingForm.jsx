@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import s from './BookingForm.module.css';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
-import { getSpecialistStatus } from '../../utils/getSpecialistStatus';
 
 const BookingForm = ({
   selectedService,
@@ -28,7 +27,6 @@ const BookingForm = ({
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const phoneInputRef = useRef(null);
-
   const [busySpecialistWarning, setBusySpecialistWarning] = useState(false);
 
   useEffect(() => {
@@ -41,8 +39,7 @@ const BookingForm = ({
     const date = new Date(selectedDate);
     if (!spec?.isActive) return true;
 
-    const vacation = spec.vacation;
-    const sickLeave = spec.sickLeave;
+    const { vacation, sickLeave } = spec;
 
     const isOnVacation =
       vacation?.isOnVacation &&
@@ -131,11 +128,7 @@ const BookingForm = ({
     <form className={s.form} onSubmit={handleSubmit}>
       {formError && <div className={s.errorMessage}>{formError}</div>}
       {successMessage && <div className={s.successMessage}>{successMessage}</div>}
-      {busySpecialistWarning && (
-        <div className={s.warningMessage}>
-          {t('selectedSpecialistIsBusy') || 'Обраний спеціаліст зайнятий або недоступний — виберіть іншого'}
-        </div>
-      )}
+      {busySpecialistWarning && <div className={s.warningMessage}>{t('selectedSpecialistIsBusy')}</div>}
 
       <label htmlFor="serviceSelect">{t('selectService')}</label>
       <select id="serviceSelect" value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
@@ -189,6 +182,20 @@ const BookingForm = ({
         pattern="\+48 \d{3}-\d{3}-\d{3}"
         title={t('phonePatternTitle')}
       />
+
+      {successMessage && (
+        <div className={s.telegramBox}>
+          <p>{t('wantTelegramNotifications') || 'Хочете отримувати сповіщення в Telegram?'}</p>
+          <a
+            href={`https://t.me/nataliia_salon_bot?start=${encodeURIComponent(phone)}`}
+            rel="noopener noreferrer"
+            target="_blank"
+            className={s.telegramLink}
+          >
+            {t('subscribeInTelegram') || 'Підписатися в Telegram'}
+          </a>
+        </div>
+      )}
 
       <Button type="submit" label={t('confirm')} />
     </form>

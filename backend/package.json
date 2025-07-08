@@ -8,7 +8,8 @@
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "build": "npm run build-docs",
-    "migrate:specialists": "node src/scripts/migrateSpecialistServices.js"
+    "migrate:specialists": "node src/scripts/migrateSpecialistServices.js",
+    "normalize-phones": "node src/scripts/normalizePhones.js"
   },
   "keywords": [],
   "author": "Kateryna Kolodynska <kolodinkata@gmail.com>",
@@ -30,6 +31,7 @@
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",
+    "node-telegram-bot-api": "^0.66.0",
     "sharp": "^0.34.2",
     "twilio": "^5.7.1"
   },

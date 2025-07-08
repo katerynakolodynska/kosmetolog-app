@@ -10,7 +10,6 @@ import contactRouter from "./routers/contact.js";
 import specialistsRouter from "./routers/specialists.js";
 import heroRouter from "./routers/hero.js";
 import beforeAfterRouter from "./routers/beforeAfter.js";
-import telegramWebhook from "./routers/telergramWebhook.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -53,8 +52,6 @@ export const setupServer = () => {
   app.use("/api/hero", heroRouter);
 
   app.use("/api/before-after", beforeAfterRouter);
-
-  app.use("/telegram", telegramWebhook);
 
   app.get("/", (req, res) => {
     res.send("API is working");

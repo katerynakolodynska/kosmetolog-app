@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const telegramUserSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true },
     chatId: { type: String, required: true },
+    username: { type: String },
+    phone: { type: String },
   },
   { timestamps: true }
 );

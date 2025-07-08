@@ -91,3 +91,16 @@ button[type='submit']:hover {
     margin-top: 1rem;
   }
 }
+
+.telegramBox {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.telegramLink {
+  color: #0088cc;
+  font-weight: bold;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
