@@ -72,5 +72,8 @@
   "unavailable": "niedostępny",
   "specialistBusyPleaseChooseAnother": "Ten specjalista jest zajęty lub niedostępny — wybierz innego",
   "loading": "Ładowanie...",
-  "endMessage": "Obejrzałaś już wszystkie zabiegi 💅"
+  "endMessage": "Obejrzałaś już wszystkie zabiegi 💅",
+  "iHaveSubscribedInTelegram": "Zasubskrybowałem(-am) bota w Telegramie i kliknąłem(-am) Start",
+  "wantTelegramNotifications": "Chcesz otrzymywać powiadomienia w Telegramie?",
+  "subscribeInTelegram": "Subskrybuj w Telegramie"
 }

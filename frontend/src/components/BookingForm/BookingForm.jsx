@@ -28,6 +28,8 @@ const BookingForm = ({
   const currentLang = i18n.language;
   const phoneInputRef = useRef(null);
   const [busySpecialistWarning, setBusySpecialistWarning] = useState(false);
+  const [isTelegramConfirmed, setIsTelegramConfirmed] = useState(false);
+  const cleanedPhone = phone.replace(/\D/g, '');
 
   useEffect(() => {
     if (phoneInputRef.current) {
@@ -129,7 +131,6 @@ const BookingForm = ({
       {formError && <div className={s.errorMessage}>{formError}</div>}
       {successMessage && <div className={s.successMessage}>{successMessage}</div>}
       {busySpecialistWarning && <div className={s.warningMessage}>{t('selectedSpecialistIsBusy')}</div>}
-
       <label htmlFor="serviceSelect">{t('selectService')}</label>
       <select id="serviceSelect" value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
         <option value="">{t('selectServicePlaceholder')}</option>
@@ -139,7 +140,6 @@ const BookingForm = ({
           </option>
         ))}
       </select>
-
       <label htmlFor="specialistSelect">{t('selectSpecialistOptional')}</label>
       <select id="specialistSelect" value={selectedSpecialist} onChange={handleSpecialistChange}>
         <option value="">{t('anySpecialist')}</option>
@@ -155,7 +155,6 @@ const BookingForm = ({
           );
         })}
       </select>
-
       <label htmlFor="nameInput">{t('yourName')}</label>
       <input
         id="nameInput"
@@ -165,10 +164,8 @@ const BookingForm = ({
         onChange={(e) => setName(e.target.value)}
         required
       />
-
       <label htmlFor="comment">{t('Comment')}</label>
       <textarea id="comment" placeholder={t('Comment')} value={comment} onChange={(e) => setComment(e.target.value)} />
-
       <label htmlFor="phoneInput">{t('yourPhone')}</label>
       <input
         ref={phoneInputRef}
@@ -182,22 +179,23 @@ const BookingForm = ({
         pattern="\+48 \d{3}-\d{3}-\d{3}"
         title={t('phonePatternTitle')}
       />
+      <label>
+        <input
+          type="checkbox"
+          checked={isTelegramConfirmed}
+          onChange={(e) => setIsTelegramConfirmed(e.target.checked)}
+        />
+        {t('iHaveSubscribedInTelegram')}
+      </label>
 
-      {successMessage && (
-        <div className={s.telegramBox}>
-          <p>{t('wantTelegramNotifications') || 'Хочете отримувати сповіщення в Telegram?'}</p>
-          <a
-            href={`https://t.me/nataliia_salon_bot?start=${encodeURIComponent(phone)}`}
-            rel="noopener noreferrer"
-            target="_blank"
-            className={s.telegramLink}
-          >
-            {t('subscribeInTelegram') || 'Підписатися в Telegram'}
-          </a>
-        </div>
-      )}
+      <div className={s.telegramBox}>
+        <p>{t('wantTelegramNotifications')}</p>
+        <a href="https://t.me/nataliia_salon_bot" target="_blank" rel="noopener noreferrer">
+          {t('subscribeInTelegram')}
+        </a>
+      </div>
 
-      <Button type="submit" label={t('confirm')} />
+      <Button type="submit" label={t('confirm')} disabled={!isTelegramConfirmed} />
     </form>
   );
 };

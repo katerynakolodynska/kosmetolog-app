@@ -9,48 +9,65 @@ export const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
 import { TelegramUser } from "../db/models/telegramUser.js";
 import { Booking } from "../db/models/booking.js";
 
-// /start
-bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
-  const chatId = String(msg.chat.id);
-  const username = await TelegramUser.findOne({ chatId });
-
-  const rawPhone = match[1] || "";
-  const phone = user?.phone?.replace(/\D/g, "");
+// /start — запрошує поділитися номером
+bot.onText(/\/start/, async (msg) => {
+  const chatId = msg.chat.id;
 
   const existing = await TelegramUser.findOne({ chatId });
-  const isFirstTime = !existing?.phone && phone;
+  if (existing?.phone) {
+    return bot.sendMessage(chatId, "✅ Ви вже підписані.");
+  }
+
+  const opts = {
+    reply_markup: {
+      keyboard: [[{ text: "📱 Поділитися номером", request_contact: true }]],
+      one_time_keyboard: true,
+      resize_keyboard: true,
+    },
+  };
+
+  bot.sendMessage(
+    chatId,
+    "👋 Щоб отримувати сповіщення про записи, натисніть кнопку нижче:",
+    opts
+  );
+});
+
+// Коли користувач ділиться контактом
+bot.on("contact", async (msg) => {
+  const chatId = msg.chat.id;
+  const username = msg.from.username || "";
+  const phone = msg.contact.phone_number.replace(/\D/g, ""); // лише цифри
 
   await TelegramUser.updateOne(
     { chatId },
-    { chatId, username, ...(phone && { phone }) },
+    { chatId, phone, username },
     { upsert: true }
   );
 
-  if (isFirstTime) {
-    return bot.sendMessage(
-      chatId,
-      `👋 Вітаю, ${
-        username || "користувач"
-      }!\nВи підписані на сповіщення.\nКоманди:\n/my — переглянути записи\n/unsubscribe — відписатися`
-    );
-  }
+  bot.sendMessage(
+    chatId,
+    `✅ Ви підписані на Telegram-сповіщення.
+
+Команди:
+🗂 /my — переглянути записи
+❌ /unsubscribe — відписатися`
+  );
 });
 
-// /my
+// /my — показати записи
 bot.onText(/\/my/, async (msg) => {
-  const chatId = String(msg.chat.id);
+  const chatId = msg.chat.id;
   const user = await TelegramUser.findOne({ chatId });
 
   if (!user?.phone) {
     return bot.sendMessage(
       chatId,
-      "❗️Ваш номер не знайдено. Перейдіть по лінку з сайту."
+      "❗️Номер телефону не знайдено. Спочатку надішліть контакт через /start."
     );
   }
 
-  const cleanPhone = user.phone.replace(/\D/g, ""); // Очистити телефон
-
-  const bookings = await Booking.find({ phone: cleanPhone })
+  const bookings = await Booking.find({ phone: user.phone })
     .sort({ date: -1, time: -1 })
     .limit(10)
     .populate("service");
@@ -69,9 +86,9 @@ bot.onText(/\/my/, async (msg) => {
   return bot.sendMessage(chatId, `📋 Ваші записи:\n\n${msgText}`);
 });
 
-// /unsubscribe
+// /unsubscribe — видалити
 bot.onText(/\/unsubscribe/, async (msg) => {
-  const chatId = String(msg.chat.id);
+  const chatId = msg.chat.id;
   await TelegramUser.deleteOne({ chatId });
   return bot.sendMessage(chatId, "❌ Ви успішно відписались.");
 });

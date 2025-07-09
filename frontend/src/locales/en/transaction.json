@@ -72,5 +72,8 @@
   "unavailable": "unavailable",
   "specialistBusyPleaseChooseAnother": "This specialist is busy or unavailable — please choose another one",
   "loading": "Loading...",
-  "endMessage": "You have viewed all treatments 💅"
+  "endMessage": "You have viewed all treatments 💅",
+  "iHaveSubscribedInTelegram": "I have subscribed in Telegram and pressed Start",
+  "wantTelegramNotifications": "Want to receive notifications in Telegram?",
+  "subscribeInTelegram": "Subscribe in Telegram"
 }

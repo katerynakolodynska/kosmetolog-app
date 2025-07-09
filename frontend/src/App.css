@@ -17,6 +17,19 @@ textarea {
   margin-right: 0.5rem;
 }
 
+input,
+textarea,
+select {
+  color: #111 !important;
+  background-color: #fff !important;
+  caret-color: #000 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #666 !important;
+}
+
 html,
 body {
   height: 100%;
