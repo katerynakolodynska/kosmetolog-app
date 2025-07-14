@@ -67,7 +67,7 @@ const BookingForm = ({
       OneSignal.getUserId()
         .then((id) => {
           console.log('📲 Player ID:', id);
-          // setPlayerId(id);
+          setPlayerId(id);
         })
         .catch((err) => console.error('⛔ OneSignal error:', err));
     });

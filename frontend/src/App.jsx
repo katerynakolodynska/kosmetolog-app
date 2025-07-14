@@ -29,9 +29,7 @@ function App() {
   const isAdmin = location.pathname.startsWith('/admin');
   const isContact = location.pathname === '/contact';
 
-  if (!isAdmin) {
-    useOneSignal();
-  }
+  useOneSignal();
 
   return (
     <>
