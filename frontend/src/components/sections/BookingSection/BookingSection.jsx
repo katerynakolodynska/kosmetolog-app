@@ -67,6 +67,7 @@ const BookingSection = () => {
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [phone, handlePhoneChange, setPhone] = usePhoneInput('+48');
+  const [playerId, setPlayerId] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -78,6 +79,18 @@ const BookingSection = () => {
     };
     loadData();
   }, [dispatch]);
+
+  useEffect(() => {
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(function (OneSignal) {
+      OneSignal.User.getId()
+        .then((id) => {
+          console.log('📲 OneSignal player ID:', id);
+          setPlayerId(id);
+        })
+        .catch((err) => console.error('⛔ OneSignal error:', err));
+    });
+  }, []);
 
   useEffect(() => {
     if (preselectedService && services.length > 0) {
@@ -116,7 +129,7 @@ const BookingSection = () => {
     loadBusyTimes();
   }, [selectedDate]);
 
-  const handleSubmit = async (e, playerId) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError('');
     setSuccessMessage('');
@@ -139,7 +152,7 @@ const BookingSection = () => {
       time: selectedTime,
       comment,
       specialistId: selectedSpecialist,
-      playerId,
+      playerId: playerId || '',
     };
 
     const res = await dispatch(createBooking(body));
@@ -189,6 +202,7 @@ const BookingSection = () => {
         successMessage={successMessage}
         services={services}
         specialists={specialists}
+        playerId={playerId}
         bookings={busyTimes.map((b) => ({
           date: b.date,
           time: b.time,

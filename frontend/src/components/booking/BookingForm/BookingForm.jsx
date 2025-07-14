@@ -22,13 +22,13 @@ const BookingForm = ({
   specialists = [],
   bookings = [],
   selectedDate,
+  playerId,
   selectedTime,
 }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const phoneInputRef = useRef(null);
   const [busySpecialistWarning, setBusySpecialistWarning] = useState(false);
-  const [playerId, setPlayerId] = useState(null);
 
   useEffect(() => {
     if (phoneInputRef.current) {
@@ -58,20 +58,6 @@ const BookingForm = ({
 
     return isOnVacation || isOnSickLeave;
   };
-
-  useEffect(() => {
-    if (!window.OneSignal) return;
-
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    window.OneSignalDeferred.push(function (OneSignal) {
-      OneSignal.getUserId()
-        .then((id) => {
-          console.log('📲 Player ID:', id);
-          setPlayerId(id);
-        })
-        .catch((err) => console.error('⛔ OneSignal error:', err));
-    });
-  }, []);
 
   const handleSubmitWrapper = (e) => {
     handleSubmit(e, playerId); // ⬅️ передаємо playerId далі

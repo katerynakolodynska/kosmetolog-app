@@ -2,12 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 1.25rem 2rem; */
   background: linear-gradient(to right, #fdf0f4, #fff);
   position: sticky;
   top: 0;
   z-index: 1000;
-  gap: 1rem;
+  padding: 1rem 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -15,10 +14,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  font-family: 'Playfair Display', serif;
-  color: #8b2e5c;
+  font-family: var(--font-family-title);
+  color: var(--color-primary);
 }
 
 .logoIcon {
@@ -28,52 +27,15 @@
 
 .nav {
   display: flex;
-  gap: 0.5rem;
-}
-
-.nav.open {
-  display: flex;
-  position: absolute;
-  top: 68px;
-  left: 1rem;
-  width: calc(100% - 2rem);
-  background: white;
-  flex-direction: column;
-  padding: 0.6rem 2rem;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  z-index: 10;
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
-  opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
-}
-
-.nav.open::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  right: 2rem;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 12px solid white;
+  gap: 1rem;
 }
 
 .link {
-  margin-right: 1rem;
   text-decoration: none;
-  color: #333333;
-  position: relative;
+  color: var(--color-text);
   font-weight: 500;
+  position: relative;
   transition: color 0.3s ease;
-}
-
-.link:last-child {
-  margin-right: 0;
 }
 
 .link::after {
@@ -83,7 +45,7 @@
   bottom: -4px;
   width: 0%;
   height: 2px;
-  background: #b12f74;
+  background: var(--color-primary);
   transition: width 0.3s ease;
 }
 
@@ -92,9 +54,7 @@
 }
 
 .activeLink {
-  color: #b12f74;
-  text-decoration: none;
-  margin-right: 24px;
+  color: var(--color-primary);
 }
 
 .activeLink::after {
@@ -104,50 +64,7 @@
 .controls {
   display: flex;
   align-items: center;
-}
-
-.langSwitcher {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.langSwitcher button {
-  background: transparent;
-  border: 1px solid #b12f74;
-  border-radius: 5px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.9rem;
-  color: #b12f74;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.langSwitcher button:hover {
-  background-color: #b12f74;
-  color: #fff;
-}
-
-.burger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  outline: none;
-  box-shadow: none;
-}
-
-.burger:focus,
-.burger:active {
-  border: none;
-  outline: none;
-  box-shadow: none;
-}
-
-.burgerIcon {
-  font-size: 1.8rem;
-  color: #e91e63;
-  transition: transform 0.3s ease;
+  gap: 1rem;
 }
 
 .langContainer {
@@ -160,14 +77,15 @@
   cursor: pointer;
 }
 
-.langToggle:hover {
-  transform: scale(1.1);
+.langToggle svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  transition: transform 0.3s ease;
 }
 
-.langToggle:focus,
-.langToggle:active {
-  border-color: #e91e63;
-  outline: none;
+.rotate {
+  animation: spin 2s linear infinite;
 }
 
 .langSwitcher {
@@ -185,6 +103,34 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.langSwitcher button {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.langSwitcher button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burgerIcon {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -194,17 +140,7 @@
   }
 }
 
-.langToggle svg {
-  width: 24px;
-  height: 24px;
-  color: #e91e63;
-  transition: transform 0.3s ease;
-}
-
-.rotate {
-  animation: spin 2s linear infinite;
-}
-
+/* MOBILE NAV */
 @media (max-width: 768px) {
   .nav {
     display: none;
@@ -212,15 +148,23 @@
 
   .nav.open {
     display: flex;
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    left: 1rem;
+    background: white;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    z-index: 998;
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+    transition: var(--transition-base);
   }
 
   .burger {
     display: block;
-  }
-}
-
-@media (min-width: 768) {
-  .header {
-    padding: 1.25rem 2rem;
   }
 }
