@@ -1,5 +1,5 @@
 import React from 'react';
-import OpinionsSection from '../../components/OpinionsSection/OpinionsSection';
+import OpinionsSection from '../../components/sections/OpinionsSection/OpinionsSection';
 
 const Opinion = () => {
   return (

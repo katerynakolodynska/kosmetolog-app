@@ -1,0 +1,64 @@
+:root {
+  --font-family-base: 'Segoe UI', sans-serif;
+  --font-family-title: 'Playfair Display', serif;
+
+  --color-primary: #b12f74;
+  --color-primary-dark: #a12869;
+  --color-bg: #ffffff;
+  --color-text: #212121;
+  --color-muted: #888888;
+  --color-success: #0b6016;
+  --color-error: #b20202;
+
+  --transition-base: all 0.3s ease;
+  --container-width-mobile: 320px;
+  --container-width-tablet: 768px;
+  --container-width-desktop: 1240px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width-mobile);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: var(--container-width-tablet);
+    padding-inline: 2rem;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: var(--container-width-desktop);
+    padding-inline: 1.5rem;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -15,7 +15,7 @@ export const createBooking = createAsyncThunk('booking/create', async (body, thu
     const { data } = await axiosInstance.post('/bookings', body);
     return data;
   } catch (err) {
-    return thunkAPI.rejectWithValue(err.message);
+    return thunkAPI.rejectWithValue(err.response?.data?.message || 'Booking error');
   }
 });
 

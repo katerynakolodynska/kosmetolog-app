@@ -1,11 +1,10 @@
 import axios from 'axios';
 
+console.log('VITE_API_BASE:', import.meta.env.VITE_API_BASE); // тільки для дебагу
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE,
   withCredentials: true,
-  // headers: {
-  //   'Content-Type': 'application/json',
-  // },
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -16,4 +15,4 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export default axiosInstance; 
+export default axiosInstance;

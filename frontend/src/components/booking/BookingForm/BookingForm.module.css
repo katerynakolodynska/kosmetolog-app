@@ -1,0 +1,128 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: var(--font-family-base);
+  background-color: #fff;
+  color: #111;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(177, 47, 116, 0.2);
+}
+
+.successMessage,
+.errorMessage,
+.warningMessage {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.successMessage {
+  color: var(--color-success);
+  background-color: #e6ffe6;
+  border: 1px solid var(--color-success);
+}
+
+.errorMessage {
+  color: var(--color-error);
+  background-color: #ffeaea;
+  border: 1px solid var(--color-error);
+}
+
+.warningMessage {
+  color: #b57f00;
+  background-color: #fff7d1;
+  border: 1px solid #b57f00;
+}
+
+.telegramBox {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.telegramBox a {
+  color: #0088cc;
+  font-weight: bold;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  background-color: #fef4f8;
+  border: 1px solid var(--color-primary);
+  border-radius: 0.5rem;
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: var(--transition-base);
+}
+
+.checkboxWrapper input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkboxLabel {
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .input,
+  .select,
+  .textarea {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .checkboxWrapper {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+  }
+}

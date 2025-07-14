@@ -75,5 +75,12 @@
   "endMessage": "You have viewed all treatments 💅",
   "iHaveSubscribedInTelegram": "I have subscribed in Telegram and pressed Start",
   "wantTelegramNotifications": "Want to receive notifications in Telegram?",
-  "subscribeInTelegram": "Subscribe in Telegram"
+  "subscribeInTelegram": "Subscribe in Telegram",
+  "alreadyBookedByClient": "You already have a booking at this time.",
+  "slotAlreadyTaken": "The selected slot is already taken.",
+  "bookingError": "Booking failed",
+  "alreadyBookedThisSlot": "You already have a booking for this time.",
+  "bookingConfirmed": "Booking confirmed!",
+  "bookingFailed": "Booking creation failed.",
+  "pleaseWait": "Please wait..."
 }

@@ -1,59 +1,73 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import './App.css';
-import Header from './components/Header/Header.jsx';
-import Home from './pages/Home/Home.jsx';
-import Services from './pages/Services/Services.jsx';
-import Booking from './pages/Booking/Booking.jsx';
-import Gallery from './pages/Gallery/Gallery.jsx';
-import Contact from './pages/Contact/Contact.jsx';
-import FooterSection from './components/FooterSection/FooterSection.jsx';
-import Opinion from './pages/Opinion/Opinion.jsx';
-
+import Loader from './components/shared/Loader/Loader.jsx';
+import Header from './components/layout/Header/Header.jsx';
+import FooterSection from './components/layout/FooterSection/FooterSection.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
-import Admin from './pages/Admin/Admin.jsx';
-import AdminLog from './pages/AdminLogin/AdminLogin.jsx';
-import ReviewsAdmin from './pages/Admin/ReviewsAdmin.jsx';
-import GalleryAdmin from './pages/Admin/GalleryAdmin.jsx';
-import ServicesAdmin from './pages/Admin/ServicesAdmin.jsx';
-import Schedule from './pages/Admin/Schedule.jsx';
-import Settings from './pages/Admin/Settings.jsx';
-import Bookings from './pages/Admin/Bookings.jsx';
-import Specialists from './pages/Admin/Specialists.jsx';
+import useOneSignal from './hooks/useOneSignal.js';
+
+const Home = lazy(() => import('./pages/Home/Home.jsx'));
+const Services = lazy(() => import('./pages/Services/Services.jsx'));
+const Booking = lazy(() => import('./pages/Booking/Booking.jsx'));
+const Gallery = lazy(() => import('./pages/Gallery/Gallery.jsx'));
+const Contact = lazy(() => import('./pages/Contact/Contact.jsx'));
+const Opinion = lazy(() => import('./pages/Opinion/Opinion.jsx'));
+const AdminLog = lazy(() => import('./pages/AdminLogin/AdminLogin.jsx'));
+const Admin = lazy(() => import('./pages/Admin/Admin.jsx'));
+const ReviewsAdmin = lazy(() => import('./pages/Admin/ReviewsAdmin.jsx'));
+const GalleryAdmin = lazy(() => import('./pages/Admin/GalleryAdmin.jsx'));
+const ServicesAdmin = lazy(() => import('./pages/Admin/ServicesAdmin.jsx'));
+const Schedule = lazy(() => import('./pages/Admin/Schedule.jsx'));
+const Settings = lazy(() => import('./pages/Admin/Settings.jsx'));
+const Bookings = lazy(() => import('./pages/Admin/Bookings.jsx'));
+const Specialists = lazy(() => import('./pages/Admin/Specialists.jsx'));
+const Notifications = lazy(() => import('./pages/Admin/Notifications.jsx'));
 
 function App() {
   const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+  const isContact = location.pathname === '/contact';
+
+  if (!isAdmin) {
+    useOneSignal();
+  }
+
   return (
     <>
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/opinion" element={<Opinion />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin-login" element={<AdminLog />} />
-          <Route
-            path="/admin"
-            element={
-              <PrivateRoute>
-                <Admin />
-              </PrivateRoute>
-            }
-          >
-            <Route path="reviews" element={<ReviewsAdmin />} />
-            <Route path="gallery-admin" element={<GalleryAdmin />} />
-            <Route path="services-admin" element={<ServicesAdmin />} />
-            <Route path="schedule" element={<Schedule />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route path="specialists" element={<Specialists />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<Loader type="full" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/opinion" element={<Opinion />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin-login" element={<AdminLog />} />
+
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <Admin />
+                </PrivateRoute>
+              }
+            >
+              <Route path="reviews" element={<ReviewsAdmin />} />
+              <Route path="gallery-admin" element={<GalleryAdmin />} />
+              <Route path="services-admin" element={<ServicesAdmin />} />
+              <Route path="schedule" element={<Schedule />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="bookings" element={<Bookings />} />
+              <Route path="specialists" element={<Specialists />} />
+              <Route path="notifications" element={<Notifications />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </main>
-      {!location.pathname.startsWith('/admin') && location.pathname !== '/contact' && <FooterSection />}
+      {!isAdmin && !isContact && <FooterSection />}
     </>
   );
 }

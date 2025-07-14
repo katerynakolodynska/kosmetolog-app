@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllServices, deleteService } from '../../../redux/services/servicesOperations';
 import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
 import { selectServices } from '../../../redux/services/servicesSelectors';
-import ServiceForm from '../ServiceForm/ServiceForm';
+import ServiceForm from '../modal/ServiceForm/ServiceForm';
 import s from './AdminServices.module.css';
 
 const categories = ['all', 'cleaning', 'massage', 'injection'];
@@ -36,14 +36,14 @@ const AdminServices = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Ви впевнені, що хочете видалити послугу?')) {
       await dispatch(deleteService(id));
-      await dispatch(getAllServices()); // 🟢 оновлення після видалення
+      await dispatch(getAllServices());
     }
   };
 
   const handleFormClose = async () => {
     setIsFormOpen(false);
     setServiceToEdit(null);
-    await dispatch(getAllServices()); // 🟢 оновлення після редагування/створення
+    await dispatch(getAllServices());
   };
 
   // 🔎 Фільтрація

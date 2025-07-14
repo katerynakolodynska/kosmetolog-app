@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import s from './AdminHeroSection.module.css';
 import { fetchHero, createHero, updateHero } from '../../../redux/hero/heroOperations';
 import { selectHeroData, selectHeroLoading } from '../../../redux/hero/heroSelectors';
-import Button from '../../Button/Button';
+import Button from '../../shared/Button/Button';
 
 const initialText = { uk: '', pl: '', en: '' };
 

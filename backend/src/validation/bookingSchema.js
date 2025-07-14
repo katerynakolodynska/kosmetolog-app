@@ -5,9 +5,10 @@ export const bookingSchema = Joi.object({
   phone: Joi.string()
     .pattern(/^\+48 \d{3}-\d{3}-\d{3}$/)
     .required(),
-  service: Joi.string().length(24).hex().required(), // ✅ ObjectId як hex string
+  service: Joi.string().length(24).hex().required(),
   date: Joi.string().required(),
   time: Joi.string().required(),
   comment: Joi.string().allow(""),
   specialistId: Joi.string().length(24).hex().allow(null, ""),
+  playerId: Joi.string().allow(null, ""),
 });

@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllReviews, deleteReview } from '../../../redux/reviews/reviewsOperations';
 import { data } from 'react-router-dom';
-import ExpandableText from '../../ExpandableText/ExpandableText';
-import ImageModal from '../../ImageModal/ImageModal';
+import ExpandableText from '../../shared/ExpandableText/ExpandableText';
+import ImageModal from '../../gallery/ImageModal/ImageModal';
 
 const AdminReviews = () => {
   const dispatch = useDispatch();

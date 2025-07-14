@@ -5,7 +5,6 @@ import {
   deleteFromCloudinary,
 } from "../utils/saveFileToCloudinary.js";
 
-// Отримати Hero (очікується тільки 1 запис)
 export const getHero = async (req, res) => {
   try {
     const hero = await Hero.findOne();
@@ -15,7 +14,6 @@ export const getHero = async (req, res) => {
   }
 };
 
-// Створити Hero
 export const createHero = async (req, res) => {
   try {
     const { introText, aboutText, specialistIntro } = req.body;
@@ -54,7 +52,6 @@ export const createHero = async (req, res) => {
   }
 };
 
-// Оновити Hero
 export const updateHero = async (req, res) => {
   try {
     const existing = await Hero.findOne();
@@ -68,7 +65,6 @@ export const updateHero = async (req, res) => {
     let updatedImages = existing.images;
 
     if (files && files.length === 4) {
-      // Видалити старі
       await Promise.all(
         existing.images.map((img) => deleteFromCloudinary(img.public_id))
       );
@@ -102,7 +98,6 @@ export const updateHero = async (req, res) => {
   }
 };
 
-// Видалити окреме зображення з Cloudinary та бази (опційно)
 export const deleteHeroImage = async (req, res) => {
   try {
     const { id } = req.params;

@@ -61,6 +61,9 @@ const Sidebar = () => {
             <NavLink to="/admin/gallery-admin">Галерея</NavLink>
           </li>
           <li>
+            <NavLink to="/admin/notifications">Сповіщення</NavLink>
+          </li>
+          <li>
             <NavLink to="/admin/settings">Налаштування</NavLink>
           </li>
         </ul>

@@ -7,7 +7,6 @@ export const fetchContact = createAsyncThunk('contact/fetch', async (_, thunkAPI
     return data;
   } catch (error) {
     if (error.response?.status === 404) {
-      // Контактів ще нема — повертаємо null, але не кидаємо помилку
       return null;
     }
     return thunkAPI.rejectWithValue(error.message);

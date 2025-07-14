@@ -2,25 +2,38 @@ import TelegramBot from "node-telegram-bot-api";
 import dotenv from "dotenv";
 dotenv.config();
 
+import { TelegramUser } from "../db/models/telegramUser.js";
+import { Booking } from "../db/models/booking.js";
+import { format, parseISO } from "date-fns";
+import { pl } from "date-fns/locale";
+
 export const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {
   polling: true,
 });
 
-import { TelegramUser } from "../db/models/telegramUser.js";
-import { Booking } from "../db/models/booking.js";
+// ⭐️ Зареєструвати команди в меню Telegram
+bot.setMyCommands([
+  { command: "/book", description: "Zarezerwuj wizytę" },
+  { command: "/my", description: "Moje wizyty" },
+  { command: "/bonus", description: "Dostępny rabat lub bonus" },
+  { command: "/support", description: "Pomoc / kontakt" },
+  { command: "/unsubscribe", description: "Wypisz się z powiadomień" },
+]);
 
-// /start — запрошує поділитися номером
+// /start
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
-
   const existing = await TelegramUser.findOne({ chatId });
+
   if (existing?.phone) {
-    return bot.sendMessage(chatId, "✅ Ви вже підписані.");
+    return bot.sendMessage(chatId, "✅ Już jesteś zapisany na powiadomienia.");
   }
 
   const opts = {
     reply_markup: {
-      keyboard: [[{ text: "📱 Поділитися номером", request_contact: true }]],
+      keyboard: [
+        [{ text: "📱 Udostępnij numer telefonu", request_contact: true }],
+      ],
       one_time_keyboard: true,
       resize_keyboard: true,
     },
@@ -28,16 +41,16 @@ bot.onText(/\/start/, async (msg) => {
 
   bot.sendMessage(
     chatId,
-    "👋 Щоб отримувати сповіщення про записи, натисніть кнопку нижче:",
+    "👋 Aby otrzymywać powiadomienia o wizytach, naciśnij przycisk poniżej:",
     opts
   );
 });
 
-// Коли користувач ділиться контактом
+// Obsługa kontaktu
 bot.on("contact", async (msg) => {
   const chatId = msg.chat.id;
   const username = msg.from.username || "";
-  const phone = msg.contact.phone_number.replace(/\D/g, ""); // лише цифри
+  const phone = msg.contact.phone_number.replace(/\D/g, "");
 
   await TelegramUser.updateOne(
     { chatId },
@@ -47,15 +60,18 @@ bot.on("contact", async (msg) => {
 
   bot.sendMessage(
     chatId,
-    `✅ Ви підписані на Telegram-сповіщення.
+    `✅ Subskrypcja aktywna!
 
-Команди:
-🗂 /my — переглянути записи
-❌ /unsubscribe — відписатися`
+⭐️ Główne komendy:
+📅 /book — Zarezerwuj wizytę
+🗂 /my — Moje wizyty
+⭐️ /bonus — Dostępna promocja
+💬 /support — Pomoc / kontakt
+❌ /unsubscribe — Wypisz się`
   );
 });
 
-// /my — показати записи
+// /my — wizyty
 bot.onText(/\/my/, async (msg) => {
   const chatId = msg.chat.id;
   const user = await TelegramUser.findOne({ chatId });
@@ -63,32 +79,65 @@ bot.onText(/\/my/, async (msg) => {
   if (!user?.phone) {
     return bot.sendMessage(
       chatId,
-      "❗️Номер телефону не знайдено. Спочатку надішліть контакт через /start."
+      "❗️ Numer nieznany. Udostępnij kontakt przez /start."
     );
   }
 
-  const bookings = await Booking.find({ phone: user.phone })
-    .sort({ date: -1, time: -1 })
-    .limit(10)
+  const today = new Date().toISOString().split("T")[0];
+
+  const bookings = await Booking.find({
+    phone: user.phone,
+    date: { $gte: today },
+  })
+    .sort({ date: 1, time: 1 })
     .populate("service");
 
   if (!bookings.length) {
-    return bot.sendMessage(chatId, "⛔️ У вас немає активних записів.");
+    return bot.sendMessage(chatId, "⛔️ Brak nadchodzących wizyt.");
   }
 
   const msgText = bookings
     .map((b) => {
-      const title = b.service?.title?.pl || "Послуга";
-      return `📅 ${b.date} ${b.time}\n💅 ${title}`;
+      const date = format(parseISO(b.date), "dd.MM.yyyy", { locale: pl });
+      const time = b.time;
+      const title = b.service?.title?.pl || "Usługa";
+      return `📅 ${date} o ${time}\n💅 ${title}`;
     })
     .join("\n\n");
 
-  return bot.sendMessage(chatId, `📋 Ваші записи:\n\n${msgText}`);
+  return bot.sendMessage(chatId, `📋 Twoje wizyty:\n\n${msgText}`);
 });
 
-// /unsubscribe — видалити
+// /bonus — rabaty
+bot.onText(/\/bonus/, (msg) => {
+  const chatId = msg.chat.id;
+  bot.sendMessage(
+    chatId,
+    "🎁 Obecnie dostępny rabat: -10% na masaż klasyczny do końca tygodnia!"
+  );
+});
+
+// /support — kontakt z adminem
+bot.onText(/\/support/, (msg) => {
+  const chatId = msg.chat.id;
+  bot.sendMessage(
+    chatId,
+    "📩 Napisz do nas na Instagramie lub WhatsApp, a odpowiemy jak najszybciej:\nInstagram: https://instagram.com/your_salon\nWhatsApp: https://wa.me/48123123123"
+  );
+});
+
+// /book — przypomnienie o stronie
+bot.onText(/\/book/, (msg) => {
+  const chatId = msg.chat.id;
+  bot.sendMessage(
+    chatId,
+    "📅 Zarezerwuj wizytę online: https://kosmetolog-app.vercel.app"
+  );
+});
+
+// /unsubscribe
 bot.onText(/\/unsubscribe/, async (msg) => {
   const chatId = msg.chat.id;
   await TelegramUser.deleteOne({ chatId });
-  return bot.sendMessage(chatId, "❌ Ви успішно відписались.");
+  return bot.sendMessage(chatId, "❌ Subskrypcja anulowana.");
 });

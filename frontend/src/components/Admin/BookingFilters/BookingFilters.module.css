@@ -1,0 +1,89 @@
+.filtersWrapper {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterInput {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  flex: 1 1 200px;
+  max-width: 220px;
+}
+
+.toggleGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.toggleBtn {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition:
+    background 0.2s,
+    border 0.2s;
+}
+
+.toggleBtn.active {
+  background: #b12f74;
+  color: white;
+  border-color: #b12f74;
+}
+
+.clearBtn {
+  background: transparent;
+  border: 1px solid #aaa;
+  color: #444;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.clearBtn:hover {
+  background: #f7f7f7;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .filterInput {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .toggleGroup {
+    justify-content: center;
+  }
+
+  .clearBtn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,60 @@
+.weekHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 1.5rem 0 1rem;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.weekText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.weekNav {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-primary);
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.weekNav:hover {
+  transform: scale(1.15);
+  background-color: rgba(177, 47, 116, 0.12);
+}
+
+.weekNav:focus {
+  outline: none;
+  background-color: rgba(177, 47, 116, 0.2);
+}
+
+@media (max-width: 768px) {
+  .weekHeader {
+    font-size: 1rem;
+    gap: 0.3rem;
+    padding-inline: 1rem;
+  }
+
+  .weekNav {
+    font-size: 1.3rem;
+    padding: 0.3rem;
+  }
+
+  .weekText {
+    font-size: 0.95rem;
+  }
+}

@@ -37,10 +37,16 @@ const bookingSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "confirmed", "cancelled"],
     },
+    playerId: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
   }
 );
+
+bookingSchema.index({ phone: 1, date: 1, time: 1 }, { unique: true });
 
 export const Booking = mongoose.model("Booking", bookingSchema);

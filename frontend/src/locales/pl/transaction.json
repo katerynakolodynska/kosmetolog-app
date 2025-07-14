@@ -75,5 +75,12 @@
   "endMessage": "Obejrzałaś już wszystkie zabiegi 💅",
   "iHaveSubscribedInTelegram": "Zasubskrybowałem(-am) bota w Telegramie i kliknąłem(-am) Start",
   "wantTelegramNotifications": "Chcesz otrzymywać powiadomienia w Telegramie?",
-  "subscribeInTelegram": "Subskrybuj w Telegramie"
+  "subscribeInTelegram": "Subskrybuj w Telegramie",
+  "alreadyBookedByClient": "Już masz rezerwację na tę godzinę.",
+  "slotAlreadyTaken": "Wybrany termin jest już zajęty.",
+  "bookingError": "Błąd rezerwacji",
+  "alreadyBookedThisSlot": "Masz już rezerwację na ten czas.",
+  "bookingConfirmed": "Rezerwacja potwierdzona!",
+  "bookingFailed": "Utworzenie rezerwacji nie powiodło się.",
+  "pleaseWait": "Proszę czekać..."
 }

@@ -6,7 +6,7 @@ import {
   toggleSpecialistStatus,
 } from '../../../redux/specialists/specialistsOperations.js';
 import { selectSpecialists, selectSpecialistsLoading } from '../../../redux/specialists/specialistsSelectors.js';
-import SpecialistForm from '../SpecialistForm/SpecialistForm.jsx';
+import SpecialistForm from '../modal/SpecialistForm/SpecialistForm.jsx';
 import { getSpecialistStatus } from '../../../utils/getSpecialistStatus.js';
 import s from './AdminSpecialists.module.css';
 

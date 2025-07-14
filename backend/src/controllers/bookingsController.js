@@ -1,12 +1,14 @@
 import { Booking } from "../db/models/booking.js";
 import { Specialist } from "../db/models/specialist.js";
-import { twilioClient } from "../utils/twilioClient.js";
-import { getEnvVar } from "../utils/getEnvVar.js";
+// import { twilioClient } from "../utils/twilioClient.js";
+// import { getEnvVar } from "../utils/getEnvVar.js";
 import mongoose from "mongoose";
 import { Service } from "../db/models/service.js";
 import { bookingSchema } from "../validation/bookingSchema.js";
 import { TelegramUser } from "../db/models/telegramUser.js";
 import { bot } from "../utils/telegramBot.js";
+import { sendPushNotification } from "../utils/sendPush.js";
+// import axios from "axios";
 
 export const getAllBooking = async (req, res) => {
   try {
@@ -27,31 +29,48 @@ export const createBooking = async (req, res) => {
     const { error, value } = bookingSchema.validate(req.body);
     if (error) {
       console.log("❌ Валідація не пройдена:", error.details[0].message);
-      return res.status(400).json({ message: error.details[0].message });
+      return res.status(400).json({ message: "validationError" });
     }
 
-    const { name, phone, service, date, time, comment, specialistId } = value;
-    const cleanPhone = phone.replace(/\D/g, ""); // очищений номер типу 48690682583
+    const {
+      name,
+      phone,
+      service,
+      date,
+      time,
+      comment,
+      specialistId,
+      playerId,
+    } = value;
+    const cleanPhone = phone.replace(/\D/g, "");
 
+    // ❗ Перевірка на дубль
+    const duplicateBooking = await Booking.findOne({
+      phone: cleanPhone,
+      date,
+      time,
+    });
+    if (duplicateBooking) {
+      return res.status(409).json({ message: "alreadyBookedByClient" });
+    }
+
+    // ❗ Перевірка послуги
     const serviceData = await Service.findById(service);
     if (!serviceData) {
-      console.log("❌ Послугу не знайдено в базі");
-      return res.status(400).json({ message: "Невірна послуга" });
+      return res.status(400).json({ message: "invalidService" });
     }
 
+    // ❗ Перевірка зайнятості спеціаліста (якщо обраний)
     const query = { date, time };
-    if (specialistId) {
+    if (specialistId)
       query.specialistId = new mongoose.Types.ObjectId(specialistId);
-    }
 
     const alreadyExists = await Booking.findOne(query);
     if (alreadyExists) {
-      console.log("⚠️ Обраний слот зайнятий:", query);
-      return res
-        .status(409)
-        .json({ message: "Wybrany termin jest już zajęty." });
+      return res.status(409).json({ message: "slotAlreadyTaken" });
     }
 
+    // ❗ Автовибір спеціаліста
     let finalSpecialistId = specialistId;
     if (!finalSpecialistId) {
       const candidates = await Specialist.find({
@@ -66,8 +85,7 @@ export const createBooking = async (req, res) => {
       );
 
       if (!available) {
-        console.log("❌ Немає вільного спеціаліста");
-        return res.status(400).json({ message: "Brak dostępnego specjalisty" });
+        return res.status(400).json({ message: "noAvailableSpecialist" });
       }
 
       finalSpecialistId = available._id;
@@ -75,46 +93,46 @@ export const createBooking = async (req, res) => {
 
     const newBooking = await Booking.create({
       name,
-      phone: cleanPhone, // <=== зберігаємо в єдиному форматі
+      phone: cleanPhone,
       service,
       date,
       time,
       comment,
       specialistId: finalSpecialistId,
+      ...(playerId ? { playerId } : {}), // якщо хочеш зберігати
     });
 
     console.log("✅ Створено новий запис:", newBooking);
 
+    // === PUSH через OneSignal ===
+    if (playerId) {
+      try {
+        const title = "Запис підтверджено";
+        const body = `Дякуємо за запис на '${serviceData.title.uk}' ${date}, о ${time}`;
+        await sendPushNotification(playerId, title, body);
+        console.log("📤 OneSignal PUSH відправлено");
+      } catch (e) {
+        console.warn("❌ PUSH помилка:", e.message);
+      }
+    }
+
+    // === Telegram
     const telegramUser = await TelegramUser.findOne({ phone: cleanPhone });
     const message = `✅ Привіт, ${name}!\nВаша реєстрація на '${serviceData.title.pl}' підтверджена.\n🗓 ${date}, 🕒 ${time}`;
 
     if (telegramUser?.chatId) {
       try {
         await bot.sendMessage(telegramUser.chatId, message);
-        console.log("📤 Надіслано повідомлення в Telegram.");
+        console.log("📤 Надіслано в Telegram");
       } catch (err) {
-        console.warn("⚠️ Не вдалося надіслати повідомлення:", err.message);
+        console.warn("⚠️ Telegram помилка:", err.message);
       }
-    } else {
-      console.log("ℹ️ TelegramUser не знайдений або без chatId");
-    }
-
-    const e164 = `+${cleanPhone}`;
-    try {
-      await twilioClient.messages.create({
-        body: `Witaj, ${name}! Twoja rezerwacja na '${serviceData.title.pl}' została przyjęta na ${date} o ${time}.`,
-        from: getEnvVar("TWILIO_PHONE_NUMBER"),
-        to: e164,
-      });
-      console.log("📤 SMS відправлено на:", e164);
-    } catch (err) {
-      console.error("❌ SMS помилка:", err.message);
     }
 
     return res.status(201).json(newBooking);
   } catch (err) {
     console.error("❌ Booking error:", err.message);
-    return res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: "bookingError" });
   }
 };
 
