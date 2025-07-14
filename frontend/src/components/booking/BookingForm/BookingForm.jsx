@@ -60,12 +60,17 @@ const BookingForm = ({
   };
 
   useEffect(() => {
-    if (window?.OneSignal) {
-      window.OneSignal.getUserId().then((id) => {
-        console.log('🎯 OneSignal Player ID:', id);
-        setPlayerId(id);
-      });
-    }
+    if (!window.OneSignal) return;
+
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    window.OneSignalDeferred.push(function (OneSignal) {
+      OneSignal.getUserId()
+        .then((id) => {
+          console.log('📲 Player ID:', id);
+          // setPlayerId(id);
+        })
+        .catch((err) => console.error('⛔ OneSignal error:', err));
+    });
   }, []);
 
   const handleSubmitWrapper = (e) => {
