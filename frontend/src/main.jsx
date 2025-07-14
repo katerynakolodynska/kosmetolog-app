@@ -6,13 +6,10 @@ import './index.css';
 import './i18n.js';
 import './styles/global.css';
 import { initOneSignal } from './onesignal.js';
-
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import ScrollToTop from './components/shared/ScrollToTop.jsx';
 import { store } from './redux/store.js';
-
-initOneSignal();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
