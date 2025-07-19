@@ -56,7 +56,7 @@ const AdminServices = () => {
   });
 
   return (
-    <div className={s.container}>
+    <section className={`${s.container} container`}>
       <h1 className={s.title}>Управління послугами</h1>
 
       <div className={s.filters}>
@@ -129,7 +129,7 @@ const AdminServices = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 };
 

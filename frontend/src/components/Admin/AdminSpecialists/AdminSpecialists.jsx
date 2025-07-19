@@ -42,7 +42,7 @@ const AdminSpecialists = () => {
   };
 
   return (
-    <div className={s.container}>
+    <section className={`${s.container} container`}>
       <h1 className={s.title}>Управління спеціалістами</h1>
       <button onClick={handleAddNew} className={s.addBtn}>
         + Додати спеціаліста
@@ -113,7 +113,7 @@ const AdminSpecialists = () => {
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 };
 

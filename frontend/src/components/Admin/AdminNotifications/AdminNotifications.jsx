@@ -43,7 +43,7 @@ const AdminNotifications = () => {
   };
 
   return (
-    <section className={s.section}>
+    <section className={`${s.section} container`}>
       <h2 className={s.title}>Сповіщення</h2>
 
       <form onSubmit={handleCreate} className={s.form}>

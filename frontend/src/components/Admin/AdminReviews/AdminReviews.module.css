@@ -94,10 +94,6 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .reviewsContainer {
-    padding: 1.5rem;
-  }
-
   .title {
     font-size: 1.75rem;
   }
@@ -127,26 +123,13 @@
 
 @media (max-width: 768px) {
   .reviewsContainer {
-    padding-top: 4rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
     box-shadow: none;
     border-radius: 0;
-    margin: 0;
-    position: relative;
   }
 
   .title {
-    position: fixed;
-    top: 6rem;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    z-index: 10;
-    padding: 1rem;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin: 0;
+    margin-bottom: 1rem;
     font-size: 1.5rem;
   }
 
@@ -174,7 +157,7 @@
   }
 
   .reviewsTable td {
-    padding: 0.5rem 0;
+    padding: 0.3rem 0;
     border: none;
     display: flex;
     justify-content: space-between;

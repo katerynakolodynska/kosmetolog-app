@@ -1,14 +1,10 @@
 import { Booking } from "../db/models/booking.js";
 import { Specialist } from "../db/models/specialist.js";
-// import { twilioClient } from "../utils/twilioClient.js";
-// import { getEnvVar } from "../utils/getEnvVar.js";
 import mongoose from "mongoose";
 import { Service } from "../db/models/service.js";
 import { bookingSchema } from "../validation/bookingSchema.js";
 import { TelegramUser } from "../db/models/telegramUser.js";
 import { bot } from "../utils/telegramBot.js";
-import { sendPushNotification } from "../utils/sendPush.js";
-// import axios from "axios";
 
 export const getAllBooking = async (req, res) => {
   try {
@@ -99,22 +95,9 @@ export const createBooking = async (req, res) => {
       time,
       comment,
       specialistId: finalSpecialistId,
-      ...(playerId ? { playerId } : {}), // якщо хочеш зберігати
     });
 
     console.log("✅ Створено новий запис:", newBooking);
-
-    // === PUSH через OneSignal ===
-    if (playerId) {
-      try {
-        const title = "Запис підтверджено";
-        const body = `Дякуємо за запис на '${serviceData.title.uk}' ${date}, о ${time}`;
-        await sendPushNotification(playerId, title, body);
-        console.log("📤 OneSignal PUSH відправлено");
-      } catch (e) {
-        console.warn("❌ PUSH помилка:", e.message);
-      }
-    }
 
     // === Telegram
     const telegramUser = await TelegramUser.findOne({ phone: cleanPhone });

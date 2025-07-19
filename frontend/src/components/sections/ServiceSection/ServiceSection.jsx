@@ -36,7 +36,7 @@ const ServiceSection = () => {
   if (isLoading || !services.length) return null;
 
   return (
-    <section className={s.servicesSection}>
+    <section className={`${s.servicesSection} container`}>
       <h2 className={s.title}>{t('servicesTitle')}</h2>
 
       <div className={s.controls}>

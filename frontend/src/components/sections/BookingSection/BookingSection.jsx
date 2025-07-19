@@ -10,6 +10,7 @@ import WeekNavigation from '../../booking/WeekNavigation/WeekNavigation';
 import TimeSelector from '../../booking/TimeSelctor/TimeSelctor';
 import WeekDays from '../../booking/WeekDays/WeekDays';
 import { usePhoneInput } from '../../../hooks/usePhoneInput';
+import Button from '../../shared/Button/Button';
 
 import { createBooking } from '../../../redux/bookings/bookingsOperations';
 import { getAllServices } from '../../../redux/services/servicesOperations';
@@ -67,7 +68,6 @@ const BookingSection = () => {
   const [formError, setFormError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [phone, handlePhoneChange, setPhone] = usePhoneInput('+48');
-  const [playerId, setPlayerId] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -79,18 +79,6 @@ const BookingSection = () => {
     };
     loadData();
   }, [dispatch]);
-
-  useEffect(() => {
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    window.OneSignalDeferred.push(function (OneSignal) {
-      OneSignal.User.getId()
-        .then((id) => {
-          console.log('📲 OneSignal player ID:', id);
-          setPlayerId(id);
-        })
-        .catch((err) => console.error('⛔ OneSignal error:', err));
-    });
-  }, []);
 
   useEffect(() => {
     if (preselectedService && services.length > 0) {
@@ -152,7 +140,6 @@ const BookingSection = () => {
       time: selectedTime,
       comment,
       specialistId: selectedSpecialist,
-      playerId: playerId || '',
     };
 
     const res = await dispatch(createBooking(body));
@@ -180,61 +167,67 @@ const BookingSection = () => {
   if (!isLoaded || !services.length || !specialists.length || !contact) return null;
 
   return (
-    <section className={s.booking}>
+    <section className={`${s.booking} container`}>
       <h2>{t('booking')}</h2>
 
-      <BookingForm
-        selectedService={selectedService}
-        setSelectedService={setSelectedService}
-        selectedSpecialist={selectedSpecialist}
-        setSelectedSpecialist={setSelectedSpecialist}
-        selectedDate={selectedDate}
-        selectedTime={selectedTime}
-        name={name}
-        setName={setName}
-        phone={phone}
-        setPhone={setPhone}
-        comment={comment}
-        setComment={setComment}
-        handlePhoneChange={handlePhoneChange}
-        handleSubmit={handleSubmit}
-        formError={formError}
-        successMessage={successMessage}
-        services={services}
-        specialists={specialists}
-        playerId={playerId}
-        bookings={busyTimes.map((b) => ({
-          date: b.date,
-          time: b.time,
-          specialist: String(b.specialistId),
-        }))}
-      />
-
-      <WeekNavigation currentWeekStart={currentWeekStart} onPrevWeek={prevWeek} onNextWeek={nextWeek} />
-      <WeekDays
-        weekDays={weekDays}
-        availableTimes={availableTimes}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        setSelectedTime={setSelectedTime}
-        setFormError={setFormError}
-        contact={contact}
-        selectedSpecialist={selectedSpecialist}
-        specialists={specialists}
-      />
-      {selectedDate && (
-        <TimeSelector
+      <form className={s.formWrapper} onSubmit={handleSubmit}>
+        <BookingForm
+          selectedService={selectedService}
+          setSelectedService={setSelectedService}
+          selectedSpecialist={selectedSpecialist}
+          setSelectedSpecialist={setSelectedSpecialist}
           selectedDate={selectedDate}
-          availableTimes={availableTimes}
           selectedTime={selectedTime}
+          name={name}
+          setName={setName}
+          phone={phone}
+          setPhone={setPhone}
+          comment={comment}
+          setComment={setComment}
+          handlePhoneChange={handlePhoneChange}
+          formError={formError}
+          successMessage={successMessage}
+          services={services}
+          specialists={specialists}
+          bookings={busyTimes.map((b) => ({
+            date: b.date,
+            time: b.time,
+            specialist: String(b.specialistId),
+          }))}
+        />
+
+        <WeekNavigation currentWeekStart={currentWeekStart} onPrevWeek={prevWeek} onNextWeek={nextWeek} />
+
+        <WeekDays
+          weekDays={weekDays}
+          availableTimes={availableTimes}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
           setSelectedTime={setSelectedTime}
           setFormError={setFormError}
-          busyTimes={busyTimes}
+          contact={contact}
           selectedSpecialist={selectedSpecialist}
           specialists={specialists}
-          contact={contact}
         />
-      )}
+
+        {selectedDate && (
+          <TimeSelector
+            selectedDate={selectedDate}
+            availableTimes={availableTimes}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            setFormError={setFormError}
+            busyTimes={busyTimes}
+            selectedSpecialist={selectedSpecialist}
+            specialists={specialists}
+            contact={contact}
+          />
+        )}
+
+        <div className={s.buttonWrapper}>
+          <Button type="submit" label={t('confirm')} />
+        </div>
+      </form>
     </section>
   );
 };

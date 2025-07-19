@@ -11,7 +11,7 @@ import specialistsRouter from "./routers/specialists.js";
 import heroRouter from "./routers/hero.js";
 import beforeAfterRouter from "./routers/beforeAfter.js";
 import notificationRouter from "./routers/notifications.js";
-import remindersRouter from "./routers/reminders.js";
+// import remindersRouter from "./routers/reminders.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
@@ -57,7 +57,7 @@ export const setupServer = () => {
 
   app.use("/api/notifications", notificationRouter);
 
-  app.use("/api/reminders", remindersRouter);
+  // app.use("/api/reminders", remindersRouter);
 
   app.get("/", (req, res) => {
     res.send("API is working");

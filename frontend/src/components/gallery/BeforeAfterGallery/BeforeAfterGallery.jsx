@@ -55,7 +55,7 @@ const BeforeAfterGallery = () => {
   };
 
   return (
-    <section className={s.gallerySection}>
+    <section className={`${s.gallerySection} container`}>
       <h2 className={s.title}>
         {t('before')}/{t('after')}
       </h2>

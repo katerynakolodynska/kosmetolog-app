@@ -125,8 +125,8 @@
 
   .actions {
     display: flex;
-    justify-content: flex-end;
-    gap: 0.6rem;
+    justify-content: center;
+    gap: 5rem;
     margin-top: 0.8rem;
   }
 

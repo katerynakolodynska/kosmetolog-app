@@ -52,7 +52,7 @@ const AboutOwner = () => {
   if (isLoading || !hero || specialists.length === 0) return null;
 
   return (
-    <section className={s.ownerSection}>
+    <section className={`${s.ownerSection} container`}>
       <h2>{t('aboutTitle')}</h2>
 
       {hero?.specialistIntro?.[lang] && <p className={s.ownerText}>{hero.specialistIntro[lang]}</p>}

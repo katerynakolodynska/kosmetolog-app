@@ -32,7 +32,7 @@ const OpinionsSection = ({ limit = null }) => {
   if (isLoading || !reviews.length) return null;
 
   return (
-    <section className={s.opinieSection}>
+    <section className={`${s.opinieSection} container`}>
       {error && (
         <p className={s.error}>
           {t('errorLoading')} {error}

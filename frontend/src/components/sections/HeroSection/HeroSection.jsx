@@ -32,7 +32,7 @@ const HeroSection = () => {
   if (!isLoaded || !hero || !contact) return null;
 
   return (
-    <section className={s.hero}>
+    <section className={`${s.hero} container`}>
       <div className={s.content}>
         <h2>{t('welcome')}</h2>
         <p>{hero.introText?.[lang]}</p>

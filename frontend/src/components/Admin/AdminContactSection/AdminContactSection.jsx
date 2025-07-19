@@ -4,6 +4,7 @@ import { fetchContact, updateContact, createContact } from '../../../redux/conta
 import { selectContactInfo, selectContactLoading } from '../../../redux/contact/contactSelectors';
 import { usePhoneInput } from '../../../hooks/usePhoneInput.js';
 import s from './AdminContactSection.module.css';
+import Button from '../../shared/Button/Button.jsx';
 
 const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const defaultHours = { open: '09:00', close: '19:00', comment: '' };
@@ -130,16 +131,18 @@ const AdminContactSection = () => {
   if (!formData || loading) return <p>Завантаження...</p>;
 
   return (
-    <div className={s.container}>
-      <h1>Контактна інформація</h1>
+    <section className={`${s.container} container`}>
+      <h1 className={s.title}>Контактна інформація</h1>
       <div className={s.grid}>
         <input
+          className={s.input}
           type="text"
           value={formData.address}
           onChange={(e) => handleChange('address', e.target.value)}
           placeholder="Адреса"
         />
         <input
+          className={s.input}
           type="tel"
           ref={phoneInputRef}
           value={phone}
@@ -148,21 +151,24 @@ const AdminContactSection = () => {
           required
         />
         <input
+          className={s.input}
           type="email"
           value={formData.email}
           onChange={(e) => handleChange('email', e.target.value)}
           placeholder="Email"
         />
         <input
+          className={s.input}
           type="text"
           value={formData.mapsLink}
           disabled
           placeholder="Google Maps посилання (генерується автоматично)"
         />
 
-        <h3>Соцмережі</h3>
+        <h3 className={s.paragraff}>Соцмережі</h3>
         {Object.entries(formData.socialLinks).map(([key, value]) => (
           <input
+            className={s.input}
             key={key}
             type="text"
             value={value}
@@ -171,36 +177,48 @@ const AdminContactSection = () => {
           />
         ))}
 
-        <h3>Швидке заповнення графіку</h3>
+        <h3 className={s.paragraff}>Швидке заповнення графіку</h3>
         <div className={s.quickInputGroup}>
           <input
+            className={s.input}
             type="text"
             value={quickHours.open}
             onChange={(e) => setQuickHours((p) => ({ ...p, open: e.target.value }))}
             placeholder="від"
           />
           <input
+            className={s.input}
             type="text"
             value={quickHours.close}
             onChange={(e) => setQuickHours((p) => ({ ...p, close: e.target.value }))}
             placeholder="до"
           />
-          <select
-            multiple
-            value={quickHours.days}
-            onChange={(e) =>
-              setQuickHours((p) => ({
-                ...p,
-                days: Array.from(e.target.selectedOptions).map((o) => o.value),
-              }))
-            }
-          >
+          <div className={s.weekdayCheckboxes}>
             {weekdays.map((day) => (
-              <option key={day} value={day}>
+              <label key={day} className={s.checkboxLabel}>
+                <input
+                  className={s.checkbox}
+                  type="checkbox"
+                  checked={quickHours.days.includes(day)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setQuickHours((prev) => ({
+                        ...prev,
+                        days: [...prev.days, day],
+                      }));
+                    } else {
+                      setQuickHours((prev) => ({
+                        ...prev,
+                        days: prev.days.filter((d) => d !== day),
+                      }));
+                    }
+                  }}
+                />
                 {day}
-              </option>
+              </label>
             ))}
-          </select>
+          </div>
+
           <button onClick={applyQuickHours} className={s.setDefaultBtn}>
             Застосувати
           </button>
@@ -219,18 +237,21 @@ const AdminContactSection = () => {
                 <strong>{entry.date}</strong>
                 <div className={s.inputGroup}>
                   <input
+                    className={s.input}
                     type="text"
                     value={entry.open}
                     onChange={(e) => handleWorkHourChange(index, 'open', e.target.value)}
                     placeholder="від"
                   />
                   <input
+                    className={s.input}
                     type="text"
                     value={entry.close}
                     onChange={(e) => handleWorkHourChange(index, 'close', e.target.value)}
                     placeholder="до"
                   />
                   <input
+                    className={s.input}
                     type="text"
                     value={entry.comment}
                     onChange={(e) => handleWorkHourChange(index, 'comment', e.target.value)}
@@ -246,10 +267,8 @@ const AdminContactSection = () => {
         )}
       </div>
 
-      <button onClick={handleSubmit} className={s.submitBtn}>
-        {contact ? 'Оновити' : 'Створити'}
-      </button>
-    </div>
+      <Button type="button" label={contact ? 'Оновити' : 'Створити'} onClick={handleSubmit} className={s.submitBtn} />
+    </section>
   );
 };
 

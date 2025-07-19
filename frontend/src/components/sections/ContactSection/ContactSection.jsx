@@ -36,7 +36,7 @@ const ContactSection = () => {
   if (!isLoaded || !contact) return null;
 
   return (
-    <section className={s.contactSection}>
+    <section className={`${s.contactSection} container`}>
       <h2 className={s.title}>{t('contact')}</h2>
 
       <div className={s.grid}>
@@ -54,21 +54,22 @@ const ContactSection = () => {
             <FaEnvelope /> Email: <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </p>
 
-          {Object.entries(contact.socialLinks).map(([key, url]) =>
-            url ? (
-              <p key={key}>
-                {key === 'telegram' && <FaTelegramPlane />}
-                {key === 'whatsapp' && <FaWhatsapp />}
-                {key === 'viber' && <FaViber />}
-                {key === 'instagram' && <FaInstagram />}
-                {key === 'facebook' && <FaFacebookF />}
-                <a href={url} target="_blank" rel="noreferrer">
-                  {' '}
-                  {key}{' '}
-                </a>
-              </p>
-            ) : null
-          )}
+          <div className={s.socialGrid}>
+            {Object.entries(contact.socialLinks).map(([key, url]) =>
+              url ? (
+                <div key={key} className={s.socialItem}>
+                  {key === 'telegram' && <FaTelegramPlane />}
+                  {key === 'whatsapp' && <FaWhatsapp />}
+                  {key === 'viber' && <FaViber />}
+                  {key === 'instagram' && <FaInstagram />}
+                  {key === 'facebook' && <FaFacebookF />}
+                  <a href={url} target="_blank" rel="noreferrer">
+                    {key}
+                  </a>
+                </div>
+              ) : null
+            )}
+          </div>
 
           <p>
             <FaClock /> {t('hours')}:

@@ -77,7 +77,7 @@ const AdminBookings = () => {
   });
 
   return (
-    <section className={s.section}>
+    <section className={`${s.section} container`}>
       <h2 className={s.title}>Записи клієнтів</h2>
 
       <button className={s.createBtn} onClick={() => setShowBookingForm((prev) => !prev)}>

@@ -36,7 +36,7 @@ const AdminReviews = () => {
   };
 
   return (
-    <div className={s.reviewsContainer}>
+    <section className={`${s.reviewsContainer} container`}>
       <h1 className={s.title}>Відгуки</h1>
       {error && <p className={s.error}>{error}</p>}
       <table className={s.reviewsTable}>
@@ -107,7 +107,7 @@ const AdminReviews = () => {
       {modalImage && <ImageModal src={modalImage} alt="Збільшене фото" onClose={() => setModalImage(null)} />}
 
       {reviews.length === 0 && <p className={s.noReviews}>Немає відгуків</p>}
-    </div>
+    </section>
   );
 };
 

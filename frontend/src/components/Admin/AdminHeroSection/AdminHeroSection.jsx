@@ -88,7 +88,7 @@ const AdminHeroSection = () => {
   };
 
   return (
-    <section className={s.container}>
+    <section className={`${s.container} container`}>
       <h2 className={s.title}>Hero Section</h2>
 
       <div className={s.sectionGroup}>

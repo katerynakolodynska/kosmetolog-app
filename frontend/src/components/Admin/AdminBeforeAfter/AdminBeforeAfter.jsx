@@ -40,9 +40,9 @@ const AdminBeforeAfter = () => {
   };
 
   return (
-    <section className={s.adminSection}>
+    <section className={`${s.adminSection} container`}>
       <div className={s.headerRow}>
-        <h2>
+        <h2 className={s.title}>
           {t('before')}/{t('after')} Gallery
         </h2>
         <button

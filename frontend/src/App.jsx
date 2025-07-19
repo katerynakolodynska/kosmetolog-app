@@ -5,7 +5,6 @@ import Loader from './components/shared/Loader/Loader.jsx';
 import Header from './components/layout/Header/Header.jsx';
 import FooterSection from './components/layout/FooterSection/FooterSection.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
-import useOneSignal from './hooks/useOneSignal.js';
 
 const Home = lazy(() => import('./pages/Home/Home.jsx'));
 const Services = lazy(() => import('./pages/Services/Services.jsx'));
@@ -28,8 +27,6 @@ function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
   const isContact = location.pathname === '/contact';
-
-  useOneSignal();
 
   return (
     <>

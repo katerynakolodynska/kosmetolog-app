@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import s from './BookingForm.module.css';
 import { useTranslation } from 'react-i18next';
-import Button from '../../shared/Button/Button';
 
 const BookingForm = ({
   selectedService,
@@ -15,14 +14,12 @@ const BookingForm = ({
   comment,
   setComment,
   handlePhoneChange,
-  handleSubmit,
   formError,
   successMessage,
   services = [],
   specialists = [],
   bookings = [],
   selectedDate,
-  playerId,
   selectedTime,
 }) => {
   const { t, i18n } = useTranslation();
@@ -57,10 +54,6 @@ const BookingForm = ({
       date <= new Date(sickLeave.to);
 
     return isOnVacation || isOnSickLeave;
-  };
-
-  const handleSubmitWrapper = (e) => {
-    handleSubmit(e, playerId); // ⬅️ передаємо playerId далі
   };
 
   useEffect(() => {
@@ -130,10 +123,11 @@ const BookingForm = ({
   };
 
   return (
-    <form className={s.form} onSubmit={handleSubmitWrapper}>
+    <div className={s.form}>
       {formError && <div className={s.errorMessage}>{formError}</div>}
       {successMessage && <div className={s.successMessage}>{successMessage}</div>}
       {busySpecialistWarning && <div className={s.warningMessage}>{t('selectedSpecialistIsBusy')}</div>}
+
       <label htmlFor="serviceSelect">{t('selectService')}</label>
       <select id="serviceSelect" value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
         <option value="">{t('selectServicePlaceholder')}</option>
@@ -143,6 +137,7 @@ const BookingForm = ({
           </option>
         ))}
       </select>
+
       <label htmlFor="specialistSelect">{t('selectSpecialistOptional')}</label>
       <select id="specialistSelect" value={selectedSpecialist} onChange={handleSpecialistChange}>
         <option value="">{t('anySpecialist')}</option>
@@ -158,6 +153,7 @@ const BookingForm = ({
           );
         })}
       </select>
+
       <label htmlFor="nameInput">{t('yourName')}</label>
       <input
         id="nameInput"
@@ -167,8 +163,10 @@ const BookingForm = ({
         onChange={(e) => setName(e.target.value)}
         required
       />
+
       <label htmlFor="comment">{t('Comment')}</label>
       <textarea id="comment" placeholder={t('Comment')} value={comment} onChange={(e) => setComment(e.target.value)} />
+
       <label htmlFor="phoneInput">{t('yourPhone')}</label>
       <input
         ref={phoneInputRef}
@@ -189,9 +187,7 @@ const BookingForm = ({
           {t('subscribeInTelegram')}
         </a>
       </div>
-
-      <Button type="submit" label={t('confirm')} />
-    </form>
+    </div>
   );
 };
 

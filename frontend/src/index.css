@@ -31,7 +31,7 @@ h6 {
   font-family: 'Playfair Display', serif;
   font-weight: 800;
   color: #b12f74;
-  margin-bottom: 0.5em;
+  /* margin-bottom: 0.5em; */
 }
 
 h1 {
@@ -68,9 +68,9 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+/* button:hover {
   background-color: #a12869;
-}
+} */
 
 button:focus {
   outline: 3px solid rgba(177, 47, 116, 0.4);

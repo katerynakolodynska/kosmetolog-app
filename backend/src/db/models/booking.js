@@ -37,10 +37,6 @@ const bookingSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "confirmed", "cancelled"],
     },
-    playerId: {
-      type: String,
-      default: null,
-    },
   },
   {
     timestamps: true,

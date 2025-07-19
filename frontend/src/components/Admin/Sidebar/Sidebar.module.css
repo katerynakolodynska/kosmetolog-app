@@ -3,7 +3,7 @@
   top: 2rem;
   left: 0;
   width: 240px;
-  height: 100vh;
+  height: 98vh;
   background-color: #f3f4f6;
   padding: 2rem 1rem;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
@@ -73,7 +73,7 @@
 .burgerBtn {
   display: none;
   position: fixed;
-  top: 4.5rem;
+  top: 4.1rem;
   /* left: 1rem; */
   left: -0.5rem;
   background: none;
