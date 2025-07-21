@@ -5,12 +5,12 @@ import s from './AdminSection.module.css';
 
 const AdminSection = () => {
   return (
-    <div className={s.adminLayout}>
+    <section className={s.adminLayout}>
       <Sidebar />
       <div className={s.adminContent}>
         <Outlet />
       </div>
-    </div>
+    </section>
   );
 };
 

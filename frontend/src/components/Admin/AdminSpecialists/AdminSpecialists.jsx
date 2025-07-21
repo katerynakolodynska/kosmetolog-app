@@ -49,18 +49,23 @@ const AdminSpecialists = () => {
       </button>
 
       {isFormOpen && (
-        <div className={s.formOverlay} onClick={() => setIsFormOpen(false)}>
-          <div className={s.formWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={s.closeBtn} onClick={() => setIsFormOpen(false)}>
-              ×
-            </button>
-            <SpecialistForm
-              specialistToEdit={specialistToEdit}
-              onClose={() => setIsFormOpen(false)}
-              onSaveSuccess={() => dispatch(getAllSpecialists())}
-            />
-          </div>
-        </div>
+        <SpecialistForm
+          specialistToEdit={specialistToEdit}
+          onClose={() => setIsFormOpen(false)}
+          onSaveSuccess={() => dispatch(getAllSpecialists())}
+        />
+        // <div className={s.formOverlay} onClick={() => setIsFormOpen(false)}>
+        //   <div className={s.formWrapper} onClick={(e) => e.stopPropagation()}>
+        //     <button className={s.closeBtn} onClick={() => setIsFormOpen(false)}>
+        //       ×
+        //     </button>
+        //     <SpecialistForm
+        //       specialistToEdit={specialistToEdit}
+        //       onClose={() => setIsFormOpen(false)}
+        //       onSaveSuccess={() => dispatch(getAllSpecialists())}
+        //     />
+        //   </div>
+        // </div>
       )}
 
       {isLoading ? (

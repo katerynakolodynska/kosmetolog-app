@@ -144,6 +144,7 @@ const ServiceForm = ({ onClose, serviceToEdit = null }) => {
             {filteredSpecialists.map((spec) => (
               <label key={spec._id}>
                 <input
+                  className={s.checkbox}
                   type="checkbox"
                   value={spec._id}
                   checked={selectedSpecialists.includes(spec._id)}

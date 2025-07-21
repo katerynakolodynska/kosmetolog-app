@@ -3,7 +3,7 @@ import s from './UniversalModal.module.css';
 
 const UniversalModal = ({ title, children, onClose }) => {
   return (
-    <div className={s.overlay} onClick={onClose}>
+    <div className={`${s.overlay} container`} onClick={onClose}>
       <div className={s.modal} onClick={(e) => e.stopPropagation()}>
         <div className={s.header}>
           <h2>{title}</h2>

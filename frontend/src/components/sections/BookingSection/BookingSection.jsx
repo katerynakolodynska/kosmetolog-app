@@ -55,6 +55,7 @@ const BookingSection = () => {
   const contact = useSelector(selectContactInfo);
 
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const [selectedService, setSelectedService] = useState('');
   const [selectedSpecialist, setSelectedSpecialist] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -76,6 +77,9 @@ const BookingSection = () => {
       await dispatch(fetchContact());
       setAvailableTimes(generateTimes());
       setIsLoaded(true);
+      setTimeout(() => {
+        setHasAnimated(true);
+      }, 100);
     };
     loadData();
   }, [dispatch]);
@@ -167,8 +171,11 @@ const BookingSection = () => {
   if (!isLoaded || !services.length || !specialists.length || !contact) return null;
 
   return (
-    <section className={`${s.booking} container`}>
-      <h2>{t('booking')}</h2>
+    <section
+      className={`${s.booking} container ${hasAnimated ? s.animated : ''}`}
+      style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
+    >
+      <h2 className={s.heading}>{t('booking')}</h2>
 
       <form className={s.formWrapper} onSubmit={handleSubmit}>
         <BookingForm

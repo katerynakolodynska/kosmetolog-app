@@ -1,10 +1,6 @@
 .formContainer {
   max-width: 600px;
-  margin: auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* margin: auto; */
 }
 
 .formContainer h2 {
@@ -24,8 +20,6 @@
 
 .formGroup label {
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  /* gap: 0.5rem; */
 }
 
 .formGroup input[type='text'],
@@ -41,8 +35,16 @@
 
 .formActions {
   display: flex;
+  justify-content: center;
   gap: 1rem;
-  justify-content: flex-end;
+}
+
+.labe {
+  font-weight: initial;
+  color: #0056b3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .formActions button {
@@ -53,10 +55,8 @@
   color: white;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 1rem;
-  font-size: 0.75rem;
+  font-size: 1rem;
   transition: background-color 0.2s ease-in-out;
-  margin-top: 0.5rem;
 }
 
 .deletePhotoBtn {
@@ -83,8 +83,16 @@
 .switchLabel {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-weight: bold;
+}
+
+.switchInput {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
 }
 
 .previewImage {
@@ -97,12 +105,7 @@
 }
 
 @media (max-width: 768px) {
-  .formContainer {
-    padding: 1rem;
-  }
-
   .checkboxGroup {
-    flex-direction: column;
     gap: 0.5rem;
   }
 
@@ -113,16 +116,12 @@
 }
 
 @media (max-width: 480px) {
-  /* .formContainer {
-    padding: 1rem;
-  } */
-
   .formActions button {
     width: 100%;
   }
   .previewImage {
-    width: 100%;
-    max-width: 100%;
+    /* width: 100%; */
+    /* max-width: 100%; */
   }
 }
 

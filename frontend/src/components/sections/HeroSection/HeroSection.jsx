@@ -36,8 +36,7 @@ const HeroSection = () => {
       <div className={s.content}>
         <h2>{t('welcome')}</h2>
         <p>{hero.introText?.[lang]}</p>
-
-        <p className={s.infoBlock}>
+        {/* <p className={s.infoBlock}>
           <span className={s.label}>
             <FaMapMarkerAlt />
             {t('address')}:
@@ -45,14 +44,13 @@ const HeroSection = () => {
           <a href={contact.mapsLink} target="_blank" rel="noopener noreferrer">
             {contact.address}
           </a>
-        </p>
+        </p> */}
+        <Button />
 
         <h2>{t('boss')}</h2>
         <p>{hero.aboutText?.[lang]}</p>
 
-        <p className={s.ownerText}>{hero.specialistIntro?.[lang]}</p>
-
-        <Button />
+        {/* <p className={s.ownerText}>{hero.specialistIntro?.[lang]}</p> */}
       </div>
 
       <div className={s.imageBlock}>

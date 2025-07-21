@@ -141,7 +141,7 @@ const BeforeAfterModal = ({ onClose, editingItem = null, onSuccess }) => {
         />
 
         <button type="submit" className={s.submitBtn}>
-          {editingItem ? 'Оновити' : 'Завантажити'}
+          {editingItem ? 'Оновити' : 'Додати'}
         </button>
       </form>
     </UniversalModal>

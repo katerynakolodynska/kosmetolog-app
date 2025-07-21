@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './components/shared/Loader/Loader.jsx';
@@ -28,18 +28,25 @@ function App() {
   const isAdmin = location.pathname.startsWith('/admin');
   const isContact = location.pathname === '/contact';
 
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsFirstLoad(false), 300); // Loader min 300ms for smooth UX
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Header />
       <main>
-        <Suspense fallback={<Loader type="full" />}>
+        <Suspense fallback={<Loader show />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/opinion" element={<Opinion />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services withTransition={!isFirstLoad} />} />
+            <Route path="/gallery" element={<Gallery withTransition={!isFirstLoad} />} />
+            <Route path="/opinion" element={<Opinion withTransition={!isFirstLoad} />} />
+            <Route path="/booking" element={<Booking withTransition={!isFirstLoad} />} />
+            <Route path="/contact" element={<Contact withTransition={!isFirstLoad} />} />
             <Route path="/admin-login" element={<AdminLog />} />
 
             <Route

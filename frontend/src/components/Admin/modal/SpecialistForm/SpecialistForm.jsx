@@ -186,7 +186,7 @@ const SpecialistForm = ({ onClose, specialistToEdit = null, onSaveSuccess }) => 
           <label>Категорії послуг</label>
           <div className={s.checkboxGroup}>
             {categoriesList.map((cat) => (
-              <label key={cat}>
+              <label className={s.labe} key={cat}>
                 <input
                   type="checkbox"
                   value={cat}
@@ -206,15 +206,15 @@ const SpecialistForm = ({ onClose, specialistToEdit = null, onSaveSuccess }) => 
 
         <div className={s.formGroup}>
           <label>Опис (PL)</label>
-          <input name="description.pl" value={formData.description.pl} onChange={handleChange} />
+          <textarea rows={2} name="description.pl" value={formData.description.pl} onChange={handleChange} />
         </div>
         <div className={s.formGroup}>
           <label>Опис (UA)</label>
-          <input name="description.uk" value={formData.description.uk} onChange={handleChange} />
+          <textarea rows={2} name="description.uk" value={formData.description.uk} onChange={handleChange} />
         </div>
         <div className={s.formGroup}>
           <label>Опис (EN)</label>
-          <input name="description.en" value={formData.description.en} onChange={handleChange} />
+          <textarea rows={2} name="description.en" value={formData.description.en} onChange={handleChange} />
         </div>
 
         <div className={s.formGroup}>

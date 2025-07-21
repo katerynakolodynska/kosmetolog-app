@@ -32,7 +32,6 @@ const ServiceSection = () => {
     return matchesCategory && matchesSearch;
   });
 
-  // Якщо ще завантажується — нічого не показуємо
   if (isLoading || !services.length) return null;
 
   return (
@@ -65,8 +64,8 @@ const ServiceSection = () => {
       </div>
 
       <div className={s.grid}>
-        {filteredServices.map((service) => (
-          <div className={s.card} key={service._id}>
+        {filteredServices.map((service, idx) => (
+          <div className={s.card} key={service._id} style={{ animationDelay: `${idx * 0.1}s` }}>
             <h3>{service.title?.[currentLang]}</h3>
             <p>{service.description?.[currentLang]}</p>
             <div className={s.meta}>

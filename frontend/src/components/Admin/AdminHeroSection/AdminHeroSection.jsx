@@ -95,7 +95,8 @@ const AdminHeroSection = () => {
         <h3>Вітальний текст </h3>
         <div className={s.inputGroup}>
           {['uk', 'pl', 'en'].map((lang) => (
-            <input
+            <textarea
+              className={s.textareaResponsive}
               key={lang}
               type="text"
               placeholder={`Вітальний текст (${lang})`}
@@ -110,7 +111,8 @@ const AdminHeroSection = () => {
         <h3>Про салон </h3>
         <div className={s.inputGroup}>
           {['uk', 'pl', 'en'].map((lang) => (
-            <input
+            <textarea
+              className={s.textareaResponsive}
               key={lang}
               type="text"
               placeholder={`Про салон (${lang})`}
@@ -125,7 +127,8 @@ const AdminHeroSection = () => {
         <h3>Опис власника </h3>
         <div className={s.inputGroup}>
           {['uk', 'pl', 'en'].map((lang) => (
-            <input
+            <textarea
+              className={s.textareaResponsive}
               key={lang}
               type="text"
               placeholder={`Опис власника (${lang})`}

@@ -86,14 +86,15 @@ const AdminServices = () => {
       </div>
 
       {isFormOpen && (
-        <div className={s.formOverlay} onClick={handleFormClose}>
-          <div className={s.formWrapper} onClick={(e) => e.stopPropagation()}>
-            <button className={s.closeBtn} onClick={handleFormClose}>
-              ×
-            </button>
-            <ServiceForm onClose={handleFormClose} onSaveSuccess={handleFormClose} serviceToEdit={serviceToEdit} />
-          </div>
-        </div>
+        <ServiceForm onClose={handleFormClose} onSaveSuccess={handleFormClose} serviceToEdit={serviceToEdit} />
+        // <div className={s.formOverlay} onClick={handleFormClose}>
+        //   <div className={s.formWrapper} onClick={(e) => e.stopPropagation()}>
+        //     <button className={s.closeBtn} onClick={handleFormClose}>
+        //       ×
+        //     </button>
+        //     <ServiceForm onClose={handleFormClose} onSaveSuccess={handleFormClose} serviceToEdit={serviceToEdit} />
+        //   </div>
+        // </div>
       )}
 
       <ul className={s.list}>

@@ -69,7 +69,7 @@
 }
 
 .setDefaultBtn {
-  background-color: #b12f74;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 0.4rem 1.2rem;
@@ -82,7 +82,7 @@
 }
 
 .setDefaultBtn:hover {
-  background-color: #931c5d;
+  background-color: #0056b3;
 }
 
 .workHourRow {

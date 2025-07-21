@@ -46,6 +46,7 @@
 
 .previewImage {
   width: 100%;
+  /* max-width: 250px; */
   display: block;
   border-radius: 4px;
 }
@@ -65,19 +66,33 @@
 
 .actions {
   margin-top: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
 }
 
-/* =================== MEDIA =================== */
+.textareaResponsive {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  resize: vertical;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  min-height: 15rem;
+  line-height: 1.5;
+}
 
 @media (min-width: 768px) {
   .previewGroup {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .sectionGroup {
     margin-bottom: 1.5rem;
+  }
+
+  .textareaResponsive {
+    min-height: 8rem;
   }
 
   .inputGroup {
@@ -91,11 +106,15 @@
 
 @media (min-width: 1024px) {
   .previewGroup {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .inputGroup input {
     font-size: 1.2rem;
     padding: 1rem;
+  }
+
+  .textareaResponsive {
+    min-height: 6rem;
   }
 }

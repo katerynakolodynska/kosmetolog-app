@@ -9,7 +9,12 @@ import { selectBeforeAfter } from '../../../redux/beforeAfter/beforeAfterSelecto
 import { getAllServices } from '../../../redux/services/servicesOperations';
 import { selectServices } from '../../../redux/services/servicesSelectors';
 
-const ITEMS_PER_PAGE = 6;
+const getItemsPerPage = () => {
+  const width = window.innerWidth;
+  if (width < 600) return 6;
+  if (width < 1024) return 9;
+  return 12;
+};
 
 const BeforeAfterGallery = () => {
   const { t, i18n } = useTranslation();
@@ -19,39 +24,43 @@ const BeforeAfterGallery = () => {
 
   const [visibleItems, setVisibleItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [itemsPerPage, setItemsPerPage] = useState(getItemsPerPage());
+
+  useEffect(() => {
+    const handleResize = () => setItemsPerPage(getItemsPerPage());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const loadData = async () => {
-      await dispatch(fetchBeforeAfter());
-      await dispatch(getAllServices());
-      setInitialLoading(false);
+      await Promise.all([dispatch(fetchBeforeAfter()), dispatch(getAllServices())]);
+      setLoading(false);
     };
     loadData();
   }, [dispatch]);
 
   useEffect(() => {
-    if (allItems.length > 0) {
-      setVisibleItems(allItems.slice(0, ITEMS_PER_PAGE));
-      setHasMore(allItems.length > ITEMS_PER_PAGE);
+    if (!loading && allItems.length > 0) {
+      const initial = allItems.slice(0, itemsPerPage);
+      setVisibleItems(initial);
+      setHasMore(initial.length < allItems.length);
     }
-  }, [allItems]);
+  }, [allItems, loading, itemsPerPage]);
 
   const fetchMoreData = () => {
     const currentLength = visibleItems.length;
-    const nextItems = allItems.slice(currentLength, currentLength + ITEMS_PER_PAGE);
-    setTimeout(() => {
-      setVisibleItems((prev) => [...prev, ...nextItems]);
-      if (visibleItems.length + nextItems.length >= allItems.length) {
-        setHasMore(false);
-      }
-    }, 300);
+    const nextItems = allItems.slice(currentLength, currentLength + itemsPerPage);
+    const updated = [...visibleItems, ...nextItems];
+    setVisibleItems(updated);
+    setHasMore(updated.length < allItems.length);
   };
 
   const getServiceTitle = (serviceId) => {
     const lang = i18n.language;
-    const found = services.find((s) => s._id === serviceId);
-    return found?.title?.[lang] || '—';
+    const service = services.find((s) => s._id === serviceId);
+    return service?.title?.[lang] || '—';
   };
 
   return (
@@ -60,7 +69,7 @@ const BeforeAfterGallery = () => {
         {t('before')}/{t('after')}
       </h2>
 
-      {initialLoading ? (
+      {loading ? (
         <p className={s.loadingText}>{t('loading')}...</p>
       ) : (
         <InfiniteScroll
@@ -69,10 +78,11 @@ const BeforeAfterGallery = () => {
           hasMore={hasMore}
           loader={<p className={s.loadingText}>{t('loading')}...</p>}
           endMessage={<p className={s.end}>{t('endMessage')}</p>}
+          scrollThreshold={0.9}
         >
           <div className={s.grid}>
-            {visibleItems.map((item) => (
-              <div key={item._id} className={s.card}>
+            {visibleItems.map((item, idx) => (
+              <div key={item._id} className={s.card} style={{ animationDelay: `${idx * 0.05}s` }}>
                 <h3>{getServiceTitle(item.serviceKey)}</h3>
                 <div className={s.imageBlock}>
                   <div>
