@@ -69,7 +69,9 @@ function App() {
           </Routes>
         </Suspense>
       </main>
-      {!isAdmin && !isContact && <FooterSection />}
+      <Suspense fallback={<Loader show />}>
+       {!isAdmin && !isContact && <FooterSection />}
+      </Suspense>
     </>
   );
 }
