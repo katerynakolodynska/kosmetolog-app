@@ -16,7 +16,7 @@ import { fetchContact } from '../../../redux/contact/contactOperation';
 import { selectContactInfo, selectContactLoading } from '../../../redux/contact/contactSelectors';
 import s from './FooterSection.module.css';
 
-const FooterSection = ({ hidden = false }) => {
+const FooterSection = ({ pageReady = true }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const contact = useSelector(selectContactInfo);
@@ -31,7 +31,7 @@ const FooterSection = ({ hidden = false }) => {
   const { address, phone, email, mapsLink, socialLinks = {} } = contact;
 
   return (
-    <footer className={`${s.footer} ${hidden ? s.hidden : ''}`}>
+    <footer className={`${s.footer} ${!pageReady ? s.hidden : ''}`}>
       <div className={s.footerGrid}>
         <div className={s.left}>
           <nav className={s.navLinks}>

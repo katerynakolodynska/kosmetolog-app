@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInfiniteScroll } from '../../../hooks/useInfiniteScroll';
 import { useTranslation } from 'react-i18next';
 import s from './BeforeAfterGallery.module.css';
 import GalleryImage from '../GalleryImage/GalleryImage';
@@ -11,6 +11,7 @@ import { selectServices } from '../../../redux/services/servicesSelectors';
 
 const getItemsPerPage = () => {
   const width = window.innerWidth;
+  if (width < 480) return 3; // Mobile
   if (width < 600) return 6;
   if (width < 1024) return 9;
   return 12;
@@ -52,10 +53,11 @@ const BeforeAfterGallery = () => {
   const fetchMoreData = () => {
     const currentLength = visibleItems.length;
     const nextItems = allItems.slice(currentLength, currentLength + itemsPerPage);
-    const updated = [...visibleItems, ...nextItems];
-    setVisibleItems(updated);
-    setHasMore(updated.length < allItems.length);
+    setVisibleItems([...visibleItems, ...nextItems]);
+    setHasMore(currentLength + nextItems.length < allItems.length);
   };
+
+  const bottomRef = useInfiniteScroll(fetchMoreData, hasMore, loading);
 
   const getServiceTitle = (serviceId) => {
     const lang = i18n.language;
@@ -72,14 +74,7 @@ const BeforeAfterGallery = () => {
       {loading ? (
         <p className={s.loadingText}>{t('loading')}...</p>
       ) : (
-        <InfiniteScroll
-          dataLength={visibleItems.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<p className={s.loadingText}>{t('loading')}...</p>}
-          endMessage={<p className={s.end}>{t('endMessage')}</p>}
-          scrollThreshold={0.9}
-        >
+        <>
           <div className={s.grid}>
             {visibleItems.map((item, idx) => (
               <div key={item._id} className={s.card} style={{ animationDelay: `${idx * 0.05}s` }}>
@@ -97,7 +92,12 @@ const BeforeAfterGallery = () => {
               </div>
             ))}
           </div>
-        </InfiniteScroll>
+          {hasMore && (
+            <div ref={bottomRef} className={s.loadMoreWrapper}>
+              <p className={s.loadingText}>{t('loading')}...</p>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

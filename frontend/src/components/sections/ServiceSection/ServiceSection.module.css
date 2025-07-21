@@ -1,15 +1,15 @@
 .servicesSection {
-  background: linear-gradient(to bottom right, #fff0f5, #ffffff);
+  background: linear-gradient(to bottom right, #fffafc, var(--color-bg));
   text-align: center;
-  padding: 0 1rem 1rem;
+  padding: 0 1rem 2rem;
 }
 
 .title {
   font-size: 1.4rem;
-  color: #b12f74;
+  color: var(--color-primary);
   margin-bottom: 0.6rem;
   font-weight: 600;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-family-title);
 }
 
 .controls {
@@ -21,27 +21,24 @@
   align-items: center;
 }
 
-.searchInput {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  font-size: 1rem;
-}
-
 .searchContainer {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
 }
 
 .searchInput {
   width: 100%;
-  padding: 0.6rem 1rem 0.6rem 2.5rem;
+  padding: 0.45rem 0.8rem 0.45rem 2.2rem;
   border: 1px solid #ccc;
   border-radius: 30px;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  background-color: #fff;
+  color: var(--color-text);
+}
+
+.searchInput::placeholder {
+  color: var(--color-muted);
 }
 
 .searchIcon {
@@ -51,15 +48,17 @@
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
+  color: var(--color-muted);
 }
 
 .meta {
   display: flex;
   justify-content: space-between;
   font-weight: 600;
-  color: #b12f74;
+  color: var(--color-primary);
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .filters {
@@ -70,20 +69,20 @@
 }
 
 .filterBtn {
-  padding: 0.5rem 1.2rem;
-  font-size: 0.95rem;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  color: #b12f74;
-  border: 1px solid #b12f74;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: 50px;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition-base);
 }
 
 .filterBtn:hover,
 .active {
-  background: #b12f74;
+  background: var(--color-primary);
   color: #fff;
 }
 
@@ -96,7 +95,7 @@
 .card {
   background: #fff;
   border-radius: 1rem;
-  padding: 1rem 1rem;
+  padding: 1rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   text-align: left;
   display: flex;
@@ -110,6 +109,30 @@
   will-change: transform, opacity;
 }
 
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.3rem;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  flex-grow: 1;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -121,39 +144,10 @@
   }
 }
 
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-.card h3 {
-  font-size: 1.4rem;
-  color: #b12f74;
-  margin-bottom: 0.3rem;
-}
-
-.card p {
-  font-size: 1rem;
-  color: #444;
-  flex-grow: 1;
-  margin-bottom: 0.7rem;
-}
-
-.price {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #b12f74;
-  margin-bottom: 0.5rem;
-}
-
 @media (min-width: 600px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-  }
-
-  .servicesSection {
-    padding: 2rem 1.5rem;
   }
 
   .title {
@@ -164,37 +158,27 @@
 
   .searchContainer {
     max-width: 400px;
-    margin: 0 auto 2rem;
   }
 
   .controls {
     max-width: 800px;
-    margin: 0 auto 2.5rem;
-    gap: 1rem;
+    margin-bottom: 1ю5rem;
   }
 
   .card {
-    padding: 2rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
 
   .card h3 {
     font-size: 1.4rem;
-    margin-bottom: 0.5rem;
   }
 
   .card p {
     font-size: 1rem;
-    margin-bottom: 1.2rem;
   }
 
   .price {
     margin-bottom: 1rem;
-  }
-
-  .meta {
-    font-weight: 600;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
   }
 }
 

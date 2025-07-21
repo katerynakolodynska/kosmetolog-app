@@ -1,33 +1,51 @@
+#scrollableDiv {
+  overflow: visible !important;
+}
+
 .gallerySection {
-  padding: 0 1rem 1rem;
+  padding: 0.2rem 1rem 3rem;
   background: linear-gradient(to bottom right, #fff0f5, #ffffff);
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.gallerySection.loaded {
+  opacity: 1;
 }
 
 .title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #b12f74;
-  margin-bottom: 0.6rem;
-  font-weight: 600;
+  margin-bottom: 1rem;
+  font-weight: 800;
   font-family: 'Playfair Display', serif;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 1rem;
 }
 
 .card {
   background: #fff;
   border-radius: 1rem;
-  padding: 1.5rem 1.2rem;
+  padding: 1.8rem 1.5rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: transform 0.3s ease;
   opacity: 0;
-  animation: fadeInUp 0.6s ease-out forwards;
-  will-change: opacity, transform;
+  animation: fadeInUp 0.6s ease forwards;
 }
 
 .card:hover {
@@ -38,12 +56,6 @@
   font-size: 1.2rem;
   color: #b12f74;
   margin-bottom: 0.5rem;
-}
-
-.card p {
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 1rem;
 }
 
 .imageBlock {
@@ -75,31 +87,6 @@
   margin-bottom: 0.3rem;
 }
 
-.loadMoreWrapper {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-}
-
-.loadMore {
-  padding: 0.7rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #e91e63, #b12f74);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease;
-}
-
-.loadMore:hover {
-  background: linear-gradient(90deg, #c2185b, #880e4f);
-  transform: translateY(-2px);
-}
-
 .loadingText,
 .end {
   font-size: 1rem;
@@ -112,35 +99,26 @@
 @media (min-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin: 0 auto;
-    padding-bottom: 1rem;
-  }
-
-  .gallerySection {
-    padding: 2rem 1.5rem 1rem;
-    background: linear-gradient(to bottom right, #fff0f5, #ffffff);
-    text-align: center;
   }
 
   .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 800;
-  }
-
-  .card h3 {
-    font-size: 1.4rem;
-  }
-
-  .card {
-    padding: 2rem 1.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.6rem;
   }
 }
 
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

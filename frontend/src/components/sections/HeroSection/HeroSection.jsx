@@ -10,13 +10,14 @@ import { fetchHero } from '../../../redux/hero/heroOperations';
 import { selectHeroData } from '../../../redux/hero/heroSelectors';
 import { fetchContact } from '../../../redux/contact/contactOperation';
 import { selectContactInfo } from '../../../redux/contact/contactSelectors';
+import useIsMobile from '../../../hooks/useMobile';
 
 const HeroSection = () => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const lang = i18n.language;
-
+  const isMobile = useIsMobile();
   const hero = useSelector(selectHeroData);
   const contact = useSelector(selectContactInfo);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -36,25 +37,18 @@ const HeroSection = () => {
       <div className={s.content}>
         <h2>{t('welcome')}</h2>
         <p>{hero.introText?.[lang]}</p>
-        {/* <p className={s.infoBlock}>
-          <span className={s.label}>
-            <FaMapMarkerAlt />
-            {t('address')}:
-          </span>
-          <a href={contact.mapsLink} target="_blank" rel="noopener noreferrer">
-            {contact.address}
-          </a>
-        </p> */}
+
+        {!isMobile && (
+          <>
+            <h2>{t('boss')}</h2>
+            <p>{hero.aboutText?.[lang]}</p>
+          </>
+        )}
         <Button />
-
-        <h2>{t('boss')}</h2>
-        <p>{hero.aboutText?.[lang]}</p>
-
-        {/* <p className={s.ownerText}>{hero.specialistIntro?.[lang]}</p> */}
       </div>
 
       <div className={s.imageBlock}>
-        {hero.images.map((img, idx) => (
+        {hero.images.slice(0, isMobile ? 2 : hero.images.length).map((img, idx) => (
           <img key={idx} src={img.url} alt={`salon-${idx}`} className={s.image} />
         ))}
       </div>

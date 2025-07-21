@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './components/shared/Loader/Loader.jsx';
 import Header from './components/layout/Header/Header.jsx';
-import FooterSection from './components/layout/FooterSection/FooterSection.jsx';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 
 const Home = lazy(() => import('./pages/Home/Home.jsx'));
@@ -22,31 +21,26 @@ const Settings = lazy(() => import('./pages/Admin/Settings.jsx'));
 const Bookings = lazy(() => import('./pages/Admin/Bookings.jsx'));
 const Specialists = lazy(() => import('./pages/Admin/Specialists.jsx'));
 const Notifications = lazy(() => import('./pages/Admin/Notifications.jsx'));
+const FooterSection = lazy(() => import('./components/layout/FooterSection/FooterSection.jsx'));
 
 function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
   const isContact = location.pathname === '/contact';
 
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsFirstLoad(false), 300); // Loader min 300ms for smooth UX
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
       <Header />
+
       <main>
         <Suspense fallback={<Loader show />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services withTransition={!isFirstLoad} />} />
-            <Route path="/gallery" element={<Gallery withTransition={!isFirstLoad} />} />
-            <Route path="/opinion" element={<Opinion withTransition={!isFirstLoad} />} />
-            <Route path="/booking" element={<Booking withTransition={!isFirstLoad} />} />
-            <Route path="/contact" element={<Contact withTransition={!isFirstLoad} />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/opinion" element={<Opinion />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/admin-login" element={<AdminLog />} />
 
             <Route
@@ -69,9 +63,12 @@ function App() {
           </Routes>
         </Suspense>
       </main>
-      <Suspense fallback={<Loader show />}>
-       {!isAdmin && !isContact && <FooterSection />}
-      </Suspense>
+
+      {!isAdmin && !isContact && (
+        <Suspense fallback={null}>
+          <FooterSection />
+        </Suspense>
+      )}
     </>
   );
 }
