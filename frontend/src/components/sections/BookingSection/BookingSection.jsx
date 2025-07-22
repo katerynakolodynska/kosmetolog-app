@@ -9,23 +9,26 @@ import BookingForm from '../../booking/BookingForm/BookingForm';
 import WeekNavigation from '../../booking/WeekNavigation/WeekNavigation';
 import TimeSelector from '../../booking/TimeSelctor/TimeSelctor';
 import WeekDays from '../../booking/WeekDays/WeekDays';
-import { usePhoneInput } from '../../../hooks/usePhoneInput';
 import Button from '../../shared/Button/Button';
 
 import { createBooking } from '../../../redux/bookings/bookingsOperations';
-import { getAllServices } from '../../../redux/services/servicesOperations';
-import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
+// import { getAllServices } from '../../../redux/services/servicesOperations';
+// import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
 import { selectServices } from '../../../redux/services/servicesSelectors';
 import { selectSpecialists } from '../../../redux/specialists/specialistsSelectors';
-import { fetchContact } from '../../../redux/contact/contactOperation';
+// import { fetchContact } from '../../../redux/contact/contactOperation';
 import { selectContactInfo } from '../../../redux/contact/contactSelectors';
+import { usePhoneInput } from '../../../hooks/usePhoneInput';
 import { fetchBusyTimes } from '../../../api/busyTimesApi';
+import { getOccupiedSlots } from '../../../utils/getOccupiedSlots';
 
 const generateTimes = () => {
   const times = [];
-  for (let h = 9; h <= 18; h++) {
+  for (let h = 9; h <= 17; h++) {
     times.push(`${String(h).padStart(2, '0')}:00`);
+    times.push(`${String(h).padStart(2, '0')}:30`);
   }
+  times.push('18:00'); // останній слот
   return times;
 };
 
@@ -54,8 +57,8 @@ const BookingSection = () => {
   const specialists = useSelector(selectSpecialists);
   const contact = useSelector(selectContactInfo);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // const [hasAnimated, setHasAnimated] = useState(false);
   const [selectedService, setSelectedService] = useState('');
   const [selectedSpecialist, setSelectedSpecialist] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -70,19 +73,25 @@ const BookingSection = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [phone, handlePhoneChange, setPhone] = usePhoneInput('+48');
 
+  const selectedServiceObj = services.find((s) => s._id === selectedService);
+  const occupiedSlots = getOccupiedSlots(selectedServiceObj?.duration || 60);
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     await dispatch(getAllServices());
+  //     await dispatch(getAllSpecialists());
+  //     await dispatch(fetchContact());
+  //     setAvailableTimes(generateTimes());
+  //     setIsLoaded(true);
+  //     setTimeout(() => {
+  //       setHasAnimated(true);
+  //     }, 100);
+  //   };
+  //   loadData();
+  // }, [dispatch]);
+
   useEffect(() => {
-    const loadData = async () => {
-      await dispatch(getAllServices());
-      await dispatch(getAllSpecialists());
-      await dispatch(fetchContact());
-      setAvailableTimes(generateTimes());
-      setIsLoaded(true);
-      setTimeout(() => {
-        setHasAnimated(true);
-      }, 100);
-    };
-    loadData();
-  }, [dispatch]);
+    setAvailableTimes(generateTimes());
+  }, []);
 
   useEffect(() => {
     if (preselectedService && services.length > 0) {
@@ -144,6 +153,7 @@ const BookingSection = () => {
       time: selectedTime,
       comment,
       specialistId: selectedSpecialist,
+      occupiedSlots,
     };
 
     const res = await dispatch(createBooking(body));
@@ -168,13 +178,10 @@ const BookingSection = () => {
     setBusyTimes([]);
   };
 
-  if (!isLoaded || !services.length || !specialists.length || !contact) return null;
+  // if (!isLoaded || !services.length || !specialists.length || !contact) return null;
 
   return (
-    <section
-      className={`${s.booking} container ${hasAnimated ? s.animated : ''}`}
-      style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
-    >
+    <section className={`${s.booking} container ${s.animated}`}>
       <h2 className={s.heading}>{t('booking')}</h2>
 
       <form className={s.formWrapper} onSubmit={handleSubmit}>
@@ -192,7 +199,7 @@ const BookingSection = () => {
           comment={comment}
           setComment={setComment}
           handlePhoneChange={handlePhoneChange}
-          formError={formError}
+          setFormError={setFormError}
           successMessage={successMessage}
           services={services}
           specialists={specialists}

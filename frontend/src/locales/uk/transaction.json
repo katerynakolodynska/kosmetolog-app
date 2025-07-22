@@ -82,5 +82,6 @@
   "alreadyBookedThisSlot": "Ви вже маєте запис на цей час.",
   "bookingConfirmed": "Запис підтверджено!",
   "bookingFailed": "Не вдалося створити запис.",
-  "pleaseWait": "Зачекайте..."
+  "pleaseWait": "Зачекайте...",
+  "haveQuestions": "Маєш питання? Напиши нам у соцмережі або на email."
 }

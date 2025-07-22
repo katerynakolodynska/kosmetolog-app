@@ -82,5 +82,6 @@
   "alreadyBookedThisSlot": "You already have a booking for this time.",
   "bookingConfirmed": "Booking confirmed!",
   "bookingFailed": "Booking creation failed.",
-  "pleaseWait": "Please wait..."
+  "pleaseWait": "Please wait...",
+  "haveQuestions": "Have questions? Contact us via social media or email."
 }

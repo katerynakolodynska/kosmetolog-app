@@ -1,5 +1,5 @@
 import { Notification } from "../db/models/notification.js";
-import { NotificationSubscriber } from "../db/models/notificationSubscriber.js";
+import { TelegramUser } from "../db/models/telegramUser.js";
 import { bot } from "../utils/telegramBot.js";
 
 // 👉 Створити нове повідомлення
@@ -41,7 +41,7 @@ export const sendNotification = async (req, res) => {
     if (!notification)
       return res.status(404).json({ message: "Notification not found" });
 
-    const subscribers = await NotificationSubscriber.find({
+    const subscribers = await TelegramUser.find({
       chatId: { $exists: true, $ne: null },
     });
 

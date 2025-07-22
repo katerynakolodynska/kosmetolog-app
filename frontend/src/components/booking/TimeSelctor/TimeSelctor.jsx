@@ -3,7 +3,6 @@ import s from './TimeSelctor.module.css';
 import { useTranslation } from 'react-i18next';
 import { isSameDay, format } from 'date-fns';
 import { isSalonOpen } from '../../../utils/isSalonOpen';
-// import { isDuplicateBooking } from '../../../utils/isDuplicateBooking';
 
 const TimeSelector = ({
   selectedDate,
@@ -26,8 +25,8 @@ const TimeSelector = ({
 
   const isSpecialistUnavailable = () => {
     if (!specialist) return false;
-    const day = selectedDateObj;
 
+    const day = selectedDateObj;
     const vacation = specialist.vacation;
     const sickLeave = specialist.sickLeave;
 
@@ -48,6 +47,20 @@ const TimeSelector = ({
     return !specialist.isActive || isOnVacation || isOnSickLeave;
   };
 
+  // нова функція перевірки: чи слот зайнятий, враховуючи occupiedSlots
+  const isTimeTaken = (time) => {
+    const currentSlot = new Date(`${selectedDate}T${time}`);
+
+    return busyTimes.some((b) => {
+      if (!b.time || !b.occupiedSlots || String(b.specialist) !== String(selectedSpecialist)) return false;
+
+      const start = new Date(`${b.date}T${b.time}`);
+      const end = new Date(start.getTime() + b.occupiedSlots * 60 * 60 * 1000);
+
+      return currentSlot >= start && currentSlot < end;
+    });
+  };
+
   return (
     <div className={s.timeSelect}>
       <h4>{t('selectTime')}</h4>
@@ -60,18 +73,11 @@ const TimeSelector = ({
           const isTodaySelected = isSameDay(selectedDateObj, now);
           const isPast = isTodaySelected && bookingTime <= now;
 
-          const isBusy =
-            Array.isArray(busyTimes) &&
-            busyTimes.some(
-              (b) =>
-                typeof b === 'object' &&
-                b.time === format(bookingTime, 'HH:mm') &&
-                String(b.specialist) === String(selectedSpecialist)
-            );
-
+          const isBusy = isTimeTaken(time);
           const isSalonClosed = !isSalonOpen(selectedDateObj, contact, time);
+          const isUnavailable = isSpecialistUnavailable();
 
-          const isDisabled = isPast || isBusy || isSpecialistUnavailable() || isSalonClosed;
+          const isDisabled = isPast || isBusy || isUnavailable || isSalonClosed;
 
           return (
             <button

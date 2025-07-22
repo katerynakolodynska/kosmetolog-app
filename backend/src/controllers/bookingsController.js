@@ -37,6 +37,7 @@ export const createBooking = async (req, res) => {
       comment,
       specialistId,
       playerId,
+      occupiedSlots,
     } = value;
     const cleanPhone = phone.replace(/\D/g, "");
 
@@ -86,7 +87,7 @@ export const createBooking = async (req, res) => {
 
       finalSpecialistId = available._id;
     }
-
+    console.log("✅ Валідація пройдена. value:", value);
     const newBooking = await Booking.create({
       name,
       phone: cleanPhone,
@@ -95,6 +96,7 @@ export const createBooking = async (req, res) => {
       time,
       comment,
       specialistId: finalSpecialistId,
+      occupiedSlots,
     });
 
     console.log("✅ Створено новий запис:", newBooking);
@@ -154,8 +156,9 @@ export const getBusyTimes = async (req, res) => {
 
   try {
     const bookings = await Booking.find({ date }).select(
-      "date time specialistId"
+      "date time specialistId occupiedSlots"
     );
+
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: error.message });

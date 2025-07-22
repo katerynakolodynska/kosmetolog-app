@@ -37,6 +37,7 @@ const bookingSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "confirmed", "cancelled"],
     },
+    occupiedSlots: { type: Number, required: true },
   },
   {
     timestamps: true,

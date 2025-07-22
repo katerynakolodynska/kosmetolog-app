@@ -19,9 +19,6 @@
   overflow: hidden;
   gap: 1rem;
   display: grid;
-  /* border-radius: 2rem; */
-  /* background: linear-gradient(to bottom, #fff0f5, #ffffff); */
-  /* box-shadow: 0 0 40px rgba(177, 47, 116, 0.1); */
 }
 
 .hero::before,
@@ -76,10 +73,10 @@
   grid-template-columns: 1fr;
   gap: 0.75rem;
   width: 100%;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   animation: fadeInUp 1.4s ease-out both;
   z-index: 1;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 .image {

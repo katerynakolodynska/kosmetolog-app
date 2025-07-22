@@ -2,34 +2,34 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
+// import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
 import { selectSpecialists } from '../../../redux/specialists/specialistsSelectors';
 
-import { fetchHero } from '../../../redux/hero/heroOperations';
+// import { fetchHero } from '../../../redux/hero/heroOperations';
 import { selectHeroData } from '../../../redux/hero/heroSelectors';
 
 import s from './AboutOwner.module.css';
 
 const AboutOwner = () => {
   const { t, i18n } = useTranslation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const lang = i18n.language;
 
   const specialists = useSelector(selectSpecialists);
   const hero = useSelector(selectHeroData);
 
   const [expandedCard, setExpandedCard] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const cardRefs = useRef([]);
 
-  useEffect(() => {
-    const loadData = async () => {
-      await dispatch(getAllSpecialists());
-      await dispatch(fetchHero());
-      setIsLoading(false);
-    };
-    loadData();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     await dispatch(getAllSpecialists());
+  //     await dispatch(fetchHero());
+  //     setIsLoading(false);
+  //   };
+  //   loadData();
+  // }, [dispatch]);
 
   const toggleCard = (index) => {
     setExpandedCard(expandedCard === index ? null : index);
@@ -49,7 +49,7 @@ const AboutOwner = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [expandedCard]);
 
-  if (isLoading || !hero || specialists.length === 0) return null;
+  // if (isLoading || !hero || specialists.length === 0) return null;
 
   return (
     <section className={`${s.ownerSection} container`}>
@@ -64,7 +64,7 @@ const AboutOwner = () => {
               {expandedCard === index ? (
                 <p className={s.text}>{spec.description?.[lang] || '—'}</p>
               ) : (
-                <img src={spec.photo} alt={spec.name} />
+                <img src={spec.photo} alt={spec.name} loading="lazy" />
               )}
             </div>
 

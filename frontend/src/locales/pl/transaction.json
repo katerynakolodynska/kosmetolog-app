@@ -82,5 +82,6 @@
   "alreadyBookedThisSlot": "Masz już rezerwację na ten czas.",
   "bookingConfirmed": "Rezerwacja potwierdzona!",
   "bookingFailed": "Utworzenie rezerwacji nie powiodło się.",
-  "pleaseWait": "Proszę czekać..."
+  "pleaseWait": "Proszę czekać...",
+  "haveQuestions": "Masz pytania? Napisz do nas przez social media lub maila."
 }

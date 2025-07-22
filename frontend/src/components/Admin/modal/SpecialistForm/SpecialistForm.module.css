@@ -119,10 +119,6 @@
   .formActions button {
     width: 100%;
   }
-  .previewImage {
-    /* width: 100%; */
-    /* max-width: 100%; */
-  }
 }
 
 .formError {

@@ -10,4 +10,5 @@ export const bookingSchema = Joi.object({
   time: Joi.string().required(),
   comment: Joi.string().allow(""),
   specialistId: Joi.string().length(24).hex().allow(null, ""),
+  occupiedSlots: Joi.number().required(),
 });

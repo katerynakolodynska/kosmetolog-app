@@ -57,29 +57,35 @@ const ContactSection = () => {
           <div className={s.socialGrid}>
             {Object.entries(contact.socialLinks).map(([key, url]) =>
               url ? (
-                <div key={key} className={s.socialItem}>
+                <a
+                  key={key}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${s.socialItem} ${s[key]}`}
+                  aria-label={key}
+                >
                   {key === 'telegram' && <FaTelegramPlane />}
                   {key === 'whatsapp' && <FaWhatsapp />}
                   {key === 'viber' && <FaViber />}
                   {key === 'instagram' && <FaInstagram />}
                   {key === 'facebook' && <FaFacebookF />}
-                  <a href={url} target="_blank" rel="noreferrer">
-                    {key}
-                  </a>
-                </div>
+                </a>
               ) : null
             )}
           </div>
 
-          <p>
-            <FaClock /> {t('hours')}:
-          </p>
-          <ul className={s.hoursList}>
-            {formatWorkingHours(contact.workHour).map((line, i) => (
-              <li key={i}>{line}</li>
-            ))}
-          </ul>
-
+          <div className={s.work}>
+            <p>
+              <FaClock /> {t('hours')}:
+            </p>
+            <ul className={s.hoursList}>
+              {formatWorkingHours(contact.workHour).map((line, i) => (
+                <li key={i}>{line}</li>
+              ))}
+            </ul>
+          </div>
+          <p className={s.questionText}>{t('haveQuestions')}</p>
           <div className={s.ctaWrapper}>
             <Button label={t('book')} />
           </div>

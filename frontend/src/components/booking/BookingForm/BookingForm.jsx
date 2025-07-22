@@ -21,6 +21,7 @@ const BookingForm = ({
   bookings = [],
   selectedDate,
   selectedTime,
+  setFormError,
 }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;

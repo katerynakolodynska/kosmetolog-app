@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import Loader from './components/shared/Loader/Loader.jsx';
-import Header from './components/layout/Header/Header.jsx';
+const Header = lazy(() => import('./components/layout/Header/Header'));
+const Loader = lazy(() => import('./components/shared/Loader/Loader'));
 import PrivateRoute from './routes/PrivateRoute.jsx';
 
 const Home = lazy(() => import('./pages/Home/Home.jsx'));
@@ -27,10 +28,14 @@ function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
   const isContact = location.pathname === '/contact';
+  const isLoading = useSelector((state) => state.loader.isLoading);
 
   return (
     <>
-      <Header />
+      {isLoading && <Loader />}
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
 
       <main>
         <Suspense fallback={<Loader show />}>
