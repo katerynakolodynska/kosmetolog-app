@@ -96,8 +96,8 @@ const FooterSection = ({ pageReady = true }) => {
           </div>
         </div>
       </div>
-
       <div className={s.bottom}>
+        <Link to="/polityka-prywatnosci">Polityka</Link>
         <p>
           &copy; {new Date().getFullYear()} Kosmetolog Nataliia. {t('allRightsReserved')}.
         </p>

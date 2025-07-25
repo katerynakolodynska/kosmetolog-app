@@ -1,8 +1,7 @@
-// utils/isSalonOpen.js
 export const isSalonOpen = (date, contact, time = null) => {
   if (!date || !contact || !Array.isArray(contact.workHour)) return false;
 
-  const dayName = date.toLocaleDateString('en-US', { weekday: 'long' }); // "Monday", etc.
+  const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
   const entry = contact.workHour.find((w) => w.date === dayName);
   if (!entry || !entry.open || !entry.close) return false;
 
@@ -23,5 +22,5 @@ export const isSalonOpen = (date, contact, time = null) => {
     return bookingTime >= openTime && bookingTime < closeTime;
   }
 
-  return true; // якщо перевірка лише по дню
+  return true;
 };

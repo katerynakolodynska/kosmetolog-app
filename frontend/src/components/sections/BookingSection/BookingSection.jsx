@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { format, addDays, startOfWeek, isBefore } from 'date-fns';
+import { addDays, startOfWeek, isBefore } from 'date-fns';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,37 +12,40 @@ import WeekDays from '../../booking/WeekDays/WeekDays';
 import Button from '../../shared/Button/Button';
 
 import { createBooking } from '../../../redux/bookings/bookingsOperations';
-// import { getAllServices } from '../../../redux/services/servicesOperations';
-// import { getAllSpecialists } from '../../../redux/specialists/specialistsOperations';
 import { selectServices } from '../../../redux/services/servicesSelectors';
 import { selectSpecialists } from '../../../redux/specialists/specialistsSelectors';
-// import { fetchContact } from '../../../redux/contact/contactOperation';
 import { selectContactInfo } from '../../../redux/contact/contactSelectors';
 import { usePhoneInput } from '../../../hooks/usePhoneInput';
 import { fetchBusyTimes } from '../../../api/busyTimesApi';
 import { getOccupiedSlots } from '../../../utils/getOccupiedSlots';
 
-const generateTimes = () => {
+const generateTimes = (endHour = 19, duration = 50) => {
   const times = [];
-  for (let h = 9; h <= 17; h++) {
-    times.push(`${String(h).padStart(2, '0')}:00`);
-    times.push(`${String(h).padStart(2, '0')}:30`);
+  const maxStart = endHour * 60 - duration;
+
+  for (let h = 9; h <= 18; h++) {
+    ['00', '30'].forEach((m) => {
+      const totalMinutes = h * 60 + Number(m);
+      if (totalMinutes + duration <= endHour * 60) {
+        times.push(`${String(h).padStart(2, '0')}:${m}`);
+      }
+    });
   }
-  times.push('18:00'); // останній слот
   return times;
 };
 
 const getInitialWeekStart = () => {
   const now = new Date();
-  const todayDay = now.getDay();
-  const futureTimes = generateTimes().filter((time) => {
+  const today = now.getDay();
+  const futureSlots = generateTimes().filter((time) => {
     const [h, m] = time.split(':').map(Number);
-    const t = new Date();
-    t.setHours(h, m, 0, 0);
-    return t > now;
+    const date = new Date();
+    date.setHours(h, m, 0, 0);
+    return date > now;
   });
-  const isSaturdayEvening = todayDay === 6 && futureTimes.length === 0;
-  return isSaturdayEvening ? startOfWeek(addDays(now, 7), { weekStartsOn: 1 }) : startOfWeek(now, { weekStartsOn: 1 });
+
+  const isSaturdayEvening = today === 6 && futureSlots.length === 0;
+  return startOfWeek(addDays(now, isSaturdayEvening ? 7 : 0), { weekStartsOn: 1 });
 };
 
 const BookingSection = () => {
@@ -50,20 +53,17 @@ const BookingSection = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const queryParams = new URLSearchParams(location.search);
-  const preselectedService = queryParams.get('service');
+  const query = new URLSearchParams(location.search);
+  const preselectedService = query.get('service');
 
   const services = useSelector(selectServices);
   const specialists = useSelector(selectSpecialists);
   const contact = useSelector(selectContactInfo);
 
-  // const [isLoaded, setIsLoaded] = useState(false);
-  // const [hasAnimated, setHasAnimated] = useState(false);
   const [selectedService, setSelectedService] = useState('');
   const [selectedSpecialist, setSelectedSpecialist] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
-  const [availableTimes, setAvailableTimes] = useState([]);
   const [busyTimes, setBusyTimes] = useState([]);
   const [currentWeekStart, setCurrentWeekStart] = useState(getInitialWeekStart);
 
@@ -75,59 +75,39 @@ const BookingSection = () => {
 
   const selectedServiceObj = services.find((s) => s._id === selectedService);
   const occupiedSlots = getOccupiedSlots(selectedServiceObj?.duration || 60);
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     await dispatch(getAllServices());
-  //     await dispatch(getAllSpecialists());
-  //     await dispatch(fetchContact());
-  //     setAvailableTimes(generateTimes());
-  //     setIsLoaded(true);
-  //     setTimeout(() => {
-  //       setHasAnimated(true);
-  //     }, 100);
-  //   };
-  //   loadData();
-  // }, [dispatch]);
+  const availableTimes = generateTimes(19, selectedServiceObj?.duration || 60);
 
   useEffect(() => {
-    setAvailableTimes(generateTimes());
-  }, []);
-
-  useEffect(() => {
-    if (preselectedService && services.length > 0) {
-      const exists = services.find((s) => s._id === preselectedService);
-      if (exists) {
-        setSelectedService(preselectedService);
-      }
+    if (preselectedService && services.length) {
+      const found = services.find((s) => s._id === preselectedService);
+      if (found) setSelectedService(preselectedService);
     }
   }, [preselectedService, services]);
 
-  const getWeekDays = useCallback((startDate) => {
-    return Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
-  }, []);
-  const weekDays = getWeekDays(currentWeekStart);
+  const weekDays = useCallback(
+    () => Array.from({ length: 7 }, (_, i) => addDays(currentWeekStart, i)),
+    [currentWeekStart]
+  )();
 
-  const nextWeek = () => setCurrentWeekStart((prev) => addDays(prev, 7));
+  const nextWeek = () => setCurrentWeekStart(addDays(currentWeekStart, 7));
   const prevWeek = () => {
-    const today = new Date();
     const prev = addDays(currentWeekStart, -7);
-    if (!isBefore(prev, startOfWeek(today, { weekStartsOn: 1 }))) {
+    if (!isBefore(prev, startOfWeek(new Date(), { weekStartsOn: 1 }))) {
       setCurrentWeekStart(prev);
     }
   };
 
   useEffect(() => {
-    const loadBusyTimes = async () => {
-      if (selectedDate) {
-        try {
-          const times = await fetchBusyTimes(selectedDate);
-          setBusyTimes(times);
-        } catch (err) {
-          console.error('Помилка завантаження зайнятих годин:', err);
-        }
+    if (!selectedDate) return;
+    const fetchData = async () => {
+      try {
+        const times = await fetchBusyTimes(selectedDate);
+        setBusyTimes(times);
+      } catch (err) {
+        console.error('Failed to fetch busy times:', err);
       }
     };
-    loadBusyTimes();
+    fetchData();
   }, [selectedDate]);
 
   const handleSubmit = async (e) => {
@@ -145,23 +125,22 @@ const BookingSection = () => {
       return;
     }
 
-    const body = {
-      name,
-      phone,
-      service: selectedService,
-      date: selectedDate,
-      time: selectedTime,
-      comment,
-      specialistId: selectedSpecialist,
-      occupiedSlots,
-    };
+    const result = await dispatch(
+      createBooking({
+        name,
+        phone,
+        service: selectedService,
+        date: selectedDate,
+        time: selectedTime,
+        comment,
+        specialistId: selectedSpecialist,
+        occupiedSlots,
+      })
+    );
 
-    const res = await dispatch(createBooking(body));
-
-    if (res.meta.requestStatus === 'rejected') {
-      const errorKey = res.payload;
-      const translatedError = t(errorKey) || t('bookingError');
-      setFormError(translatedError);
+    if (result.meta.requestStatus === 'rejected') {
+      const translated = t(result.payload) || t('bookingError');
+      setFormError(translated);
       return;
     }
 
@@ -178,12 +157,9 @@ const BookingSection = () => {
     setBusyTimes([]);
   };
 
-  // if (!isLoaded || !services.length || !specialists.length || !contact) return null;
-
   return (
     <section className={`${s.booking} container ${s.animated}`}>
       <h2 className={s.heading}>{t('booking')}</h2>
-
       <form className={s.formWrapper} onSubmit={handleSubmit}>
         <BookingForm
           selectedService={selectedService}

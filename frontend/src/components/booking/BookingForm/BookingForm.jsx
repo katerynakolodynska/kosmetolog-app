@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import s from './BookingForm.module.css';
 import { useTranslation } from 'react-i18next';
+import { isSpecialistUnavailableOnDate } from '../../../utils/specialistUtils';
 
 const BookingForm = ({
   selectedService,
@@ -34,45 +35,28 @@ const BookingForm = ({
     }
   }, [phone]);
 
-  const isSpecialistUnavailable = (spec) => {
-    const date = new Date(selectedDate);
-    if (!spec?.isActive) return true;
-
-    const { vacation, sickLeave } = spec;
-
-    const isOnVacation =
-      vacation?.isOnVacation &&
-      vacation.from &&
-      vacation.to &&
-      date >= new Date(vacation.from) &&
-      date <= new Date(vacation.to);
-
-    const isOnSickLeave =
-      sickLeave?.isOnSickLeave &&
-      sickLeave.from &&
-      sickLeave.to &&
-      date >= new Date(sickLeave.from) &&
-      date <= new Date(sickLeave.to);
-
-    return isOnVacation || isOnSickLeave;
-  };
-
   useEffect(() => {
-    if (!selectedService || !selectedDate || !selectedTime || selectedSpecialist) return;
+    if (!selectedService || !selectedDate || !selectedTime) return;
 
     const selectedServiceObj = services.find((s) => String(s._id) === String(selectedService));
     const selectedCategory = selectedServiceObj?.category;
 
-    const busyIds = bookings
-      .filter((b) => b.date === selectedDate && b.time === selectedTime)
-      .map((b) => String(b.specialist));
+    const busyIds = new Set(
+      bookings.filter((b) => b.date === selectedDate && b.time === selectedTime).map((b) => String(b.specialist))
+    );
+
+    const currentSpec = specialists.find((s) => String(s._id) === String(selectedSpecialist));
+    const isCurrentUnavailable =
+      !currentSpec || busyIds.has(String(currentSpec._id)) || isSpecialistUnavailableOnDate(currentSpec, selectedDate);
+
+    if (!isCurrentUnavailable) return;
 
     const availableSpecialists = specialists.filter(
       (s) =>
         Array.isArray(s.categories) &&
         s.categories.includes(selectedCategory) &&
-        !busyIds.includes(String(s._id)) &&
-        !isSpecialistUnavailable(s)
+        !busyIds.has(String(s._id)) &&
+        !isSpecialistUnavailableOnDate(s, selectedDate)
     );
 
     const freeSpecialist = availableSpecialists[0];
@@ -101,16 +85,16 @@ const BookingForm = ({
     ? specialists.filter((s) => Array.isArray(s.categories) && s.categories.includes(selectedCategory))
     : specialists;
 
-  const bookedIds = bookings
-    .filter((b) => b.date === selectedDate && b.time === selectedTime)
-    .map((b) => String(b.specialist));
+  const bookedIds = new Set(
+    bookings.filter((b) => b.date === selectedDate && b.time === selectedTime).map((b) => String(b.specialist))
+  );
 
   const handleSpecialistChange = (e) => {
     const chosenId = e.target.value;
     const spec = specialists.find((s) => String(s._id) === chosenId);
 
-    const isBusy = bookedIds.includes(chosenId);
-    const isUnavailable = isSpecialistUnavailable(spec);
+    const isBusy = bookedIds.has(chosenId);
+    const isUnavailable = isSpecialistUnavailableOnDate(spec, selectedDate);
 
     if (isBusy || isUnavailable) {
       setFormError(t('specialistBusyPleaseChooseAnother'));
@@ -143,8 +127,8 @@ const BookingForm = ({
       <select id="specialistSelect" value={selectedSpecialist} onChange={handleSpecialistChange}>
         <option value="">{t('anySpecialist')}</option>
         {filteredSpecialists.map((spec) => {
-          const isBusy = bookedIds.includes(String(spec._id));
-          const isUnavailable = isSpecialistUnavailable(spec);
+          const isBusy = bookedIds.has(String(spec._id));
+          const isUnavailable = isSpecialistUnavailableOnDate(spec, selectedDate);
           return (
             <option key={spec._id} value={spec._id} disabled={isBusy || isUnavailable}>
               {spec.name}
@@ -158,6 +142,7 @@ const BookingForm = ({
       <label htmlFor="nameInput">{t('yourName')}</label>
       <input
         id="nameInput"
+        name="name"
         type="text"
         placeholder={t('yourNamePlaceholder')}
         value={name}
@@ -166,7 +151,13 @@ const BookingForm = ({
       />
 
       <label htmlFor="comment">{t('Comment')}</label>
-      <textarea id="comment" placeholder={t('Comment')} value={comment} onChange={(e) => setComment(e.target.value)} />
+      <textarea
+        id="comment"
+        name="comment"
+        placeholder={t('Comment')}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
 
       <label htmlFor="phoneInput">{t('yourPhone')}</label>
       <input

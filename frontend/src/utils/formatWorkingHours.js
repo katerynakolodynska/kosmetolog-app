@@ -8,7 +8,7 @@ export const formatWorkingHours = (workHour) => {
   const sorted = [...workHour].sort((a, b) => daysOrder.indexOf(a.date) - daysOrder.indexOf(b.date));
 
   for (const d of sorted) {
-    const key = d.open && d.close ? `${d.open}–${d.close}` : i18n.t('closed');
+    const key = d.open && d.close ? `${d.open}-${d.close}` : i18n.t('closed');
     const comment = d.comment && !d.comment.toLowerCase().includes('зачинено') ? `, ${d.comment}` : '';
 
     if (!grouped[key]) grouped[key] = [];
@@ -47,7 +47,7 @@ export const formatWorkingHours = (workHour) => {
       const label =
         range.length === 1
           ? getDayLabel(daysOrder[range[0]])
-          : `${getDayLabel(daysOrder[range[0]])}–${getDayLabel(daysOrder[range.at(-1)])}`;
+          : `${getDayLabel(daysOrder[range[0]])}-${getDayLabel(daysOrder[range.at(-1)])}`;
 
       result.push(`${label}: ${time}${comments[r]}`);
     }

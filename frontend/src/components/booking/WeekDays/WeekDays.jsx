@@ -3,7 +3,7 @@ import s from './WeekDays.module.css';
 import { useTranslation } from 'react-i18next';
 import { isSameDay, isBefore, format, startOfDay } from 'date-fns';
 import { isSalonOpen } from '../../../utils/isSalonOpen';
-import { getSpecialistStatus } from '../../../utils/getSpecialistStatus';
+import { isSpecialistUnavailableOnDate } from '../../../utils/specialistUtils';
 
 const weekdaysKeys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -23,68 +23,49 @@ const WeekDays = ({
 
   const specialist = specialists.find((s) => String(s._id) === String(selectedSpecialist));
 
-  const isSpecialistUnavailable = (date) => {
-    if (!specialist) return false;
+  const isDayDisabled = (date) => {
+    const isPast = isBefore(startOfDay(date), startOfDay(now));
+    const isClosed = !isSalonOpen(date, contact);
+    const isUnavailable = specialist ? isSpecialistUnavailableOnDate(specialist, date) : false;
 
-    const day = new Date(date);
-    const vacation = specialist.vacation;
-    const sickLeave = specialist.sickLeave;
+    if (isPast || isClosed || isUnavailable) return true;
 
-    const onVacation =
-      vacation?.isOnVacation &&
-      vacation.from &&
-      vacation.to &&
-      day >= new Date(vacation.from) &&
-      day <= new Date(vacation.to);
+    if (isSameDay(date, now)) {
+      return !availableTimes.some((time) => {
+        const [hour, minute] = time.split(':').map(Number);
+        const testTime = new Date(date);
+        testTime.setHours(hour, minute, 0, 0);
+        return testTime > now;
+      });
+    }
 
-    const onSickLeave =
-      sickLeave?.isOnSickLeave &&
-      sickLeave.from &&
-      sickLeave.to &&
-      day >= new Date(sickLeave.from) &&
-      day <= new Date(sickLeave.to);
-
-    return !specialist.isActive || onVacation || onSickLeave;
+    return false;
   };
 
   return (
     <div className={s.week}>
       {weekDays.map((date, idx) => {
-        const dayIndex = date.getDay();
         const dateStr = format(date, 'yyyy-MM-dd');
+        const dayIndex = date.getDay();
         const label = t(`weekdays.${weekdaysKeys[dayIndex]}`);
-        const formattedDate = format(date, 'dd.MM');
+        const formatted = format(date, 'dd.MM');
 
-        const isPast = isBefore(startOfDay(date), startOfDay(now));
-        const salonClosed = !isSalonOpen(date, contact);
-        const specUnavailable = isSpecialistUnavailable(date);
-
-        let isDisabled = isPast || salonClosed || specUnavailable;
-
-        if (!isDisabled && isSameDay(date, now)) {
-          const hasFutureTime = availableTimes.some((time) => {
-            const [hour, minute] = time.split(':').map(Number);
-            const testTime = new Date(date);
-            testTime.setHours(hour, minute, 0, 0);
-            return testTime > now;
-          });
-          isDisabled = !hasFutureTime;
-        }
+        const isDisabled = isDayDisabled(date);
 
         return (
           <button
             key={idx}
+            type="button"
+            disabled={isDisabled}
             className={`${s.dateBtn} ${selectedDate === dateStr ? s.selectedDate : ''}`}
             onClick={() => {
               setSelectedDate(dateStr);
-              setFormError('');
               setSelectedTime('');
+              setFormError('');
             }}
-            disabled={isDisabled}
-            type="button"
           >
             <div className={s.weekday}>{label}</div>
-            <div>{formattedDate}</div>
+            <div>{formatted}</div>
           </button>
         );
       })}

@@ -73,7 +73,7 @@ const ServiceSection = () => {
                 {t('price')} {service.price} zł
               </span>
               <span>
-                {t('duration')} {service.duration} хв
+                {t('duration')} {service.duration} min
               </span>
             </div>
             <Button serviceId={service._id} />

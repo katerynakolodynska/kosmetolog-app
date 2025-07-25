@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 const Header = lazy(() => import('./components/layout/Header/Header'));
 const Loader = lazy(() => import('./components/shared/Loader/Loader'));
 import PrivateRoute from './routes/PrivateRoute.jsx';
+import CookieBannerPro from './components/Police/CookieBannerPro.jsx';
+import GoogleAnalytics from './components/shared/GoogleAnalytics.jsx';
 
 const Home = lazy(() => import('./pages/Home/Home.jsx'));
 const Services = lazy(() => import('./pages/Services/Services.jsx'));
@@ -23,6 +25,7 @@ const Bookings = lazy(() => import('./pages/Admin/Bookings.jsx'));
 const Specialists = lazy(() => import('./pages/Admin/Specialists.jsx'));
 const Notifications = lazy(() => import('./pages/Admin/Notifications.jsx'));
 const FooterSection = lazy(() => import('./components/layout/FooterSection/FooterSection.jsx'));
+const PolitykaPrywatnosci = lazy(() => import('./pages/PolitykaPrywatnosci.jsx'));
 
 function App() {
   const location = useLocation();
@@ -36,9 +39,12 @@ function App() {
       <Suspense fallback={null}>
         <Header />
       </Suspense>
-
       <main>
         <Suspense fallback={<Loader show />}>
+          <CookieBannerPro />
+          {localStorage.getItem('cookieConsentCosmetolog') &&
+            JSON.parse(localStorage.getItem('cookieConsentCosmetolog')).analytics && <GoogleAnalytics />}
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
@@ -47,6 +53,7 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin-login" element={<AdminLog />} />
+            <Route path="/polityka-prywatnosci" element={<PolitykaPrywatnosci />} />
 
             <Route
               path="/admin"

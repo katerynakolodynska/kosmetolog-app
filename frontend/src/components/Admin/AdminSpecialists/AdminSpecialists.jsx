@@ -7,7 +7,7 @@ import {
 } from '../../../redux/specialists/specialistsOperations.js';
 import { selectSpecialists, selectSpecialistsLoading } from '../../../redux/specialists/specialistsSelectors.js';
 import SpecialistForm from '../modal/SpecialistForm/SpecialistForm.jsx';
-import { getSpecialistStatus } from '../../../utils/getSpecialistStatus.js';
+import { getSpecialistStatus } from '../../../utils/specialistUtils.js';
 import s from './AdminSpecialists.module.css';
 
 const AdminSpecialists = () => {
@@ -54,18 +54,6 @@ const AdminSpecialists = () => {
           onClose={() => setIsFormOpen(false)}
           onSaveSuccess={() => dispatch(getAllSpecialists())}
         />
-        // <div className={s.formOverlay} onClick={() => setIsFormOpen(false)}>
-        //   <div className={s.formWrapper} onClick={(e) => e.stopPropagation()}>
-        //     <button className={s.closeBtn} onClick={() => setIsFormOpen(false)}>
-        //       ×
-        //     </button>
-        //     <SpecialistForm
-        //       specialistToEdit={specialistToEdit}
-        //       onClose={() => setIsFormOpen(false)}
-        //       onSaveSuccess={() => dispatch(getAllSpecialists())}
-        //     />
-        //   </div>
-        // </div>
       )}
 
       {isLoading ? (

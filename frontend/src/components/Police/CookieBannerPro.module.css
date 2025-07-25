@@ -1,0 +1,143 @@
+/* ------------------------
+   🩷 Стилі преміум-банера cookie
+------------------------ */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 192, 203, 0.1); /* very light pink */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  width: 100%;
+  max-width: 800px;
+  background: #fff0f5; /* рожево-білий */
+  border-radius: 20px;
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #3e3e3e;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c2185b;
+  text-align: center;
+}
+
+.text {
+  font-size: 17px;
+  line-height: 1.7;
+  text-align: center;
+  color: #555;
+}
+
+.hideBtn {
+  background: none;
+  border: none;
+  color: #c2185b;
+  text-decoration: underline;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.hideBtn:hover {
+  color: #9b1048;
+}
+
+.checkboxGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.checkboxGroup label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+input[type='checkbox'] {
+  transform: scale(1.4);
+  margin-top: 4px;
+  accent-color: #c2185b;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.buttonGroup button {
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.accept {
+  background-color: #c2185b;
+  color: #fff;
+}
+.accept:hover {
+  background-color: #a0154f;
+}
+
+.reject {
+  background-color: #fff;
+  color: #c2185b;
+  border: 2px solid #c2185b;
+}
+.reject:hover {
+  background-color: #fff0f5;
+}
+
+.settings {
+  background-color: #ffe082;
+  color: #5e3200;
+}
+.settings:hover {
+  background-color: #ffca28;
+}
+
+.link {
+  text-align: center;
+  font-size: 14px;
+  /* color: #c2185b; */
+  text-decoration: underline;
+  /* margin-top: 10px; */
+}

@@ -1,8 +1,9 @@
 import React from 'react';
 import s from './TimeSelctor.module.css';
 import { useTranslation } from 'react-i18next';
-import { isSameDay, format } from 'date-fns';
+import { isSameDay } from 'date-fns';
 import { isSalonOpen } from '../../../utils/isSalonOpen';
+import { isSpecialistUnavailableOnDate } from '../../../utils/specialistUtils';
 
 const TimeSelector = ({
   selectedDate,
@@ -23,31 +24,6 @@ const TimeSelector = ({
 
   const specialist = specialists.find((s) => String(s._id) === String(selectedSpecialist));
 
-  const isSpecialistUnavailable = () => {
-    if (!specialist) return false;
-
-    const day = selectedDateObj;
-    const vacation = specialist.vacation;
-    const sickLeave = specialist.sickLeave;
-
-    const isOnVacation =
-      vacation?.isOnVacation &&
-      vacation.from &&
-      vacation.to &&
-      day >= new Date(vacation.from) &&
-      day <= new Date(vacation.to);
-
-    const isOnSickLeave =
-      sickLeave?.isOnSickLeave &&
-      sickLeave.from &&
-      sickLeave.to &&
-      day >= new Date(sickLeave.from) &&
-      day <= new Date(sickLeave.to);
-
-    return !specialist.isActive || isOnVacation || isOnSickLeave;
-  };
-
-  // нова функція перевірки: чи слот зайнятий, враховуючи occupiedSlots
   const isTimeTaken = (time) => {
     const currentSlot = new Date(`${selectedDate}T${time}`);
 
@@ -75,7 +51,7 @@ const TimeSelector = ({
 
           const isBusy = isTimeTaken(time);
           const isSalonClosed = !isSalonOpen(selectedDateObj, contact, time);
-          const isUnavailable = isSpecialistUnavailable();
+          const isUnavailable = isSpecialistUnavailableOnDate(specialist, selectedDateObj);
 
           const isDisabled = isPast || isBusy || isUnavailable || isSalonClosed;
 
