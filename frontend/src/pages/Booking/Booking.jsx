@@ -8,6 +8,7 @@ import { selectServices } from '../../redux/services/servicesSelectors';
 import { selectSpecialists } from '../../redux/specialists/specialistsSelectors';
 import Loader from '../../components/shared/Loader/Loader';
 import BookingSection from '../../components/sections/BookingSection/BookingSection';
+import { logPageViewGA } from '../../utils/analytics';
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const Booking = () => {
     dispatch(getAllSpecialists());
     dispatch(fetchContact());
   }, [dispatch]);
+
+  useEffect(() => {
+    logPageViewGA();
+  }, []);
 
   const isLoading = !services.length || !specialists.length || !contact;
 

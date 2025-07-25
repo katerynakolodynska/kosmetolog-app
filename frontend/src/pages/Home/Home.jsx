@@ -12,6 +12,7 @@ import HeroSection from '../../components/sections/HeroSection/HeroSection';
 import AboutOwner from '../../components/layout/AboutOwner/AboutOwner';
 import OpinionsSection from '../../components/sections/OpinionsSection/OpinionsSection';
 import Loader from '../../components/shared/Loader/Loader';
+import { logPageViewGA } from '../../utils/analytics';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const Home = () => {
     dispatch(getAllSpecialists());
   }, [dispatch]);
 
+  useEffect(() => {
+    logPageViewGA();
+  }, []);
   const isLoading = !hero || !contact || specialists.length === 0;
 
   if (isLoading) {
